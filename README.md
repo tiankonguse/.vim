@@ -1,4 +1,4 @@
-# 超强vim配置文件
+# vim配置文件
 
 
 ### 简易安装方法：
@@ -19,8 +19,6 @@
  `mv ~/.vim ~/.vim_back`
  `cd ~/ && git clone https://github.com/tiankonguse/.vim.git` 
  `ln ~/.vimrc ./.vimrc`
-- clone bundle 程序\*：`git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle`
-- 打开vim并执行bundle程序\*`:BundleInstall`
 - 重新打开vim即可看到效果
 
 ### 了解更多vim使用的小技巧：
