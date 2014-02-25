@@ -43,6 +43,33 @@ Bundle 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (i.e. when working on your own plugin)
 ""Bundle 'file:///home/gmarik/path/to/plugin'
 " ...
+Bundle 'Yggdroot/indentLine'
+"let g:indentLine_char = '┊'
+Bundle 'git://git.wincent.com/command-t.git'
+Bundle 'Auto-Pairs'
+Bundle 'python-imports.vim'
+Bundle 'CaptureClipboard'
+Bundle 'ctrlp-modified.vim'
+Bundle 'last_edit_marker.vim'
+Bundle 'synmark.vim'
+Bundle 'Python-mode-klen'
+Bundle 'SQLComplete.vim'
+Bundle 'Javascript-OmniCompletion-with-YUI-and-j'
+Bundle 'JavaScript-Indent'
+Bundle 'Better-Javascript-Indentation'
+Bundle 'jslint.vim'
+Bundle "pangloss/vim-javascript"
+Bundle 'Vim-Script-Updater'
+Bundle 'ctrlp.vim'
+Bundle 'tacahiroy/ctrlp-funky'
+Bundle 'jsbeautify'
+Bundle 'The-NERD-Commenter'
+"django
+Bundle 'django_templates.vim'
+Bundle 'Django-Projects'
+
+Bundle 'FredKSchott/CoVim'
+Bundle 'djangojump'
 
 filetype plugin indent on     " required
 "
@@ -69,7 +96,10 @@ set ambiwidth=double
 
 "语言设置
 set langmenu=zh_CN.UTF-8
-set helplang=cn
+
+if version >= 603
+    set helplang=cn
+endif
 
 "空格，缩进，自动完成
 " 自动完成
@@ -81,10 +111,10 @@ set formatoptions=tcrqn
 "按C语言格式缩进
 set cindent
 
-"设置Tab长度为4格
+"设置Tab长度为4格,简称 ts
 set tabstop=4
 
-"设置自动缩进长度为4格
+"设置自动缩进长度为4格,简称 sw
 set shiftwidth=4
 
 "继承前一行的缩进方式，特别适用于多行注释
@@ -94,6 +124,8 @@ set autoindent
 set smartindent 
 
 
+" 在行和段开始处使用制表符
+set smarttab
 
 
 "显示括号匹配
@@ -106,10 +138,9 @@ set matchtime=1
 set softtabstop=4 
 
 " 不要用空格代替制表符
-set noexpandtab
+"set noexpandtab
+set expandtab
 
-" 在行和段开始处使用制表符
-set smarttab
 
 set backspace=indent,eol,start
 
@@ -118,6 +149,8 @@ set backspace=indent,eol,start
 
 " 设置光标行
 set cursorline
+"set cuc
+
 
 "颜色与高亮
 " 语法高亮
@@ -152,8 +185,13 @@ autocmd InsertEnter * se cul    " 用浅色高亮当前行
 "鼠标
 "启用鼠标
 set mouse=a
-set selection=exclusive
+"set mouse=y
+"set selection=exclusive
+set selection=inclusive
 set selectmode=mouse,key
+
+set wildmenu
+set mousemodel=popup
 
 "启用Modeline
 set modeline
@@ -197,6 +235,9 @@ set backupcopy=yes
 " 取消显示行号是set nonumber
 set number 
 
+" 历史记录数
+set history=1000"
+
 "显示当前的行号列号：
 set ruler
 
@@ -204,16 +245,19 @@ set ruler
 set showcmd
 
 " 不要图形按钮
-"set go=             
+set go=             
 
 " 设置背景主题
 "color asmanian2    
+"color desert 
+"color torte 
+color ron
 
 " 设置字体
 "set guifont=Courier_New:h10:cANSI   
 
 " 命令行（在状态行下）的高度，设置为1  
-set cmdheight=1 
+set cmdheight=2 
 
 " 显示状态栏 (默认值为 1, 无法显示状态栏)
 set laststatus=2 
@@ -255,10 +299,10 @@ set magic
 set hidden 
 
 " 隐藏工具栏
-"set guioptions-=T 
+set guioptions-=T 
 
 " 隐藏菜单栏
-"set guioptions-=m 
+set guioptions-=m 
 
 
 " 设置语法折叠
@@ -266,7 +310,6 @@ set hidden
 
 " 手动折叠
 "set foldmethod=manual
-
 set foldmethod=indent 
 
 " 设置折叠区域的宽度
@@ -376,6 +419,10 @@ nnoremap <C-l> <C-w>l
 " 让 Tohtml 产生有 CSS 语法的 html
 " syntax/2html.vim，可以用:runtime! syntax/2html.vim
 let html_use_css=1
+let g:html_indent_inctags = "html,body,head,tbody"
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
+
 
 " Python 文件的一般设置，比如不要 tab 等
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab
@@ -391,9 +438,31 @@ let b:javascript_fold=1
 let javascript_enable_domhtmlcss=1
 
 " 设置字典 ~/.vim/dict/文件的路径
-autocmd filetype javascript set dictionary=$VIMFILES/dict/javascript.dict
-autocmd filetype css set dictionary=$VIMFILES/dict/css.dict
-autocmd filetype php set dictionary=$VIMFILES/dict/php.dict
+autocmd FileType php setlocal dict+=$VIMFILES/dict/php_funclist.dict
+autocmd FileType css setlocal dict+=$VIMFILES/dict/css.dict
+autocmd FileType c setlocal dict+=$VIMFILES/dict/c.dict
+autocmd FileType cpp setlocal dict+=$VIMFILES/dict/cpp.dict
+autocmd FileType scale setlocal dict+=$VIMFILES/dict/scale.dict
+autocmd FileType javascript setlocal dict+=$VIMFILES/dict/javascript.dict
+autocmd FileType html setlocal dict+=$VIMFILES/dict/javascript.dict
+autocmd FileType html setlocal dict+=$VIMFILES/dict/css.dict
+autocmd FileType php setlocal dict+=$VIMFILES/dict/php_funclist.dict
+autocmd FileType css setlocal dict+=$VIMFILES/dict/css.dict
+autocmd FileType c setlocal dict+=$VIMFILES/dict/c.dict
+autocmd FileType cpp setlocal dict+=$VIMFILES/dict/cpp.dict
+autocmd FileType scale setlocal dict+=$VIMFILES/dict/scale.dict
+autocmd FileType javascript setlocal dict+=$VIMFILES/dict/javascript.dict
+autocmd FileType html setlocal dict+=$VIMFILES/dict/javascript.dict
+autocmd FileType html setlocal dict+=$VIMFILES/dict/css.dict
+
+"rkdown to HTML 
+nmap md :!$VIMFILES/markdown.pl % > %.html <CR><CR>
+nmap fi :!firefox %.html & <CR><CR>
+nmap \ \cc
+vmap \ \cc
+
+"将tab替换为空格"
+nmap tt :%s/\t/    /g<CR>
 
 "-----------------------------------------------------------------
 " plugin - taglist.vim 查看函数列表，需要ctags程序
@@ -519,7 +588,7 @@ smap <silent> <C-e> <Plug>(neocomplcache_snippets_expand)
 "新文件标题
 "------------------------------------------------------------------
 "新建.c,.h,.sh,.java文件，自动插入文件头
-"autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"
+autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"
 "定义函数SetTitle，自动插入文件头 
 
 func SetTitle() 
@@ -527,17 +596,28 @@ func SetTitle()
 	if &filetype == 'sh'  
 		call setline(1,"\#########################################################################") 
 		call append(line("."), "\# File Name: ".expand("%")) 
-		call append(line(".")+1, "\# Author: ma6174") 
-		call append(line(".")+2, "\# mail: ma6174@163.com") 
+		call append(line(".")+1, "\# Author: tiankonguse") 
+		call append(line(".")+2, "\# mail: i@tiankonguse.com") 
 		call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
 		call append(line(".")+4, "\#########################################################################") 
 		call append(line(".")+5, "\#!/bin/bash") 
 		call append(line(".")+6, "") 
+    elseif &filetype == 'python'
+		call setline(1,"\#########################################################################") 
+		call append(line("."), "\# File Name: ".expand("%")) 
+		call append(line(".")+1, "\# Author: tiankonguse") 
+		call append(line(".")+2, "\# mail: i@tiankonguse.com") 
+		call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
+		call append(line(".")+4, "\#########################################################################") 
+		call append(line(".")+5, "\#!/usr/bin/env python") 
+		call append(line(".")+5, "\# coding=utf-8") 
+		call append(line(".")+6, "") 
+
 	else
 		call setline(1, "/*************************************************************************") 
 		call append(line("."), "    > File Name: ".expand("%")) 
-		call append(line(".")+1, "    > Author: ma6174") 
-		call append(line(".")+2, "    > Mail: ma6174@163.com ") 
+		call append(line(".")+1, "    > Author: tiankonguse") 
+		call append(line(".")+2, "    > Mail: i@tiankonguse.com ") 
 		call append(line(".")+3, "    > Created Time: ".strftime("%c")) 
 		call append(line(".")+4, " ************************************************************************/") 
 		call append(line(".")+5, "")
@@ -578,6 +658,20 @@ map <C-C> y<Esc><Esc><Esc>
 "粘贴
 map <C-v> p
 
+"map! <C-Z> <Esc>zzi
+"map! <C-O> <C-Y>,
+"map <C-A> ggVG$"+y
+"map <F12> gg=G
+"map <C-w> <C-w>w
+"imap <C-k> <C-y>,
+"imap <C-j> <ESC>
+" 选中状态下 Ctrl+c 复制
+" map <C-v> "*pa
+" imap <C-v> <Esc>"*pa
+" imap <C-a> <Esc>^
+" imap <C-e> <Esc>$
+" vmap <C-c> "+y""""""
+
 "去空行  
 "nnoremap <F2> :g/^\s*$/d<CR> 
 
@@ -606,7 +700,14 @@ func! CompileRunGcc()
 	elseif &filetype == 'java' 
 	   	exec "!javac %" 
 	   	exec "!java %<"
-   	elseif &filetype == 'sh'
+	elseif &filetype == 'python' 
+   	    exec "!time python2.7 %"
+	elseif &filetype == 'html' 
+        exec "!firefox % &"
+	elseif &filetype == 'mkd' 
+        exec "!~/.vim/markdown.pl % > %.html &"
+        exec "!firefox %.html &"
+    elseif &filetype == 'sh'
 		:!./%
    	endif
 endfunc
@@ -620,6 +721,38 @@ func! Rungdb()
 		exec "!gdb ./%<"
 	endif
 endfunc
+
+"代码格式优化化"
+map <F6> :call FormartSrc()<CR><CR>
+
+func FormartSrc()
+    exec "w"
+    if &filetype == 'c'
+        exec "!astyle --style=ansi -a --suffix=none %"
+    elseif &filetype == 'cpp' || &filetype == 'hpp'
+        exec "r !astyle --style=ansi --one-line=keep-statements -a --suffix=none %> /dev/null 2>&1"
+    elseif &filetype == 'perl'
+        exec "!astyle --style=gnu --suffix=none %"
+    elseif &filetype == 'py'||&filetype == 'python'
+        exec "r !autopep8 -i --aggressive %"
+    elseif &filetype == 'java'
+        exec "!astyle --style=java --suffix=none %"
+    elseif &filetype == 'jsp'
+        exec "!astyle --style=gnu --suffix=none %"
+    elseif &filetype == 'xml'
+        exec "!astyle --style=gnu --suffix=none %"
+    else
+        exec "normal gg=G"
+        return
+    endif
+    exec "e! %"
+endfunc
+
+"当打开vim且没有文件时自动打开NERDTree
+autocmd vimenter * if !argc() | NERDTree | endif
+
+" 只剩 NERDTree时自动关闭
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&  b:NERDTreeType == "primary") | q | endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "实用设置
@@ -635,7 +768,7 @@ autocmd FileType c,cpp map <buffer> <leader><space> :w<cr>:make<cr>
 set completeopt=preview,menu
 
 "打开文件类型检测, 加了这句才可以用智能补全
-""set completeopt=longest,menu
+"set completeopt=longest,menu
 
 "共享剪贴板  
 set clipboard+=unnamed
@@ -676,8 +809,12 @@ set report=0
 " 在被分割的窗口间显示空白，便于阅读
 set fillchars=vert:\ ,stl:\ ,stlnc:\
 
-" 高亮显示普通txt文件（需要txt.vim脚本）
+"markdown配置
 au BufRead,BufNewFile *  setfiletype txt
+au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=mkd
+au BufRead,BufNewFile *.{go}   set filetype=go
+au BufRead,BufNewFile *.{js}   set filetype=javascript
+
 
 "自动补全
 :inoremap ( ()<ESC>i
@@ -733,6 +870,8 @@ if LoadPathogen() == 0
 	execute pathogen#infect()
 	syntax on
 	filetype plugin indent on
+    let g:syntastic_python_checkers=['pylint']
+    let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -750,6 +889,29 @@ function! Lcode(line_begin, line_end, dir, name)
 	execute ":pu!"
 	execute ":".a:line_number." d"
 endfunction
+
+
+
+
+""""""""""""""""""""""""""""""""""""""""
+"golang
+"Processing... % (ctrl+c to stop)
+"""""""""""""""""""""""""""""""""""
+let g:fencview_autodetect=0
+set rtp+=$GOROOT/misc/vim
+
+
+
+
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.png,*.jpg,*.gif     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.pyc,*.png,*.jpg,*.gif  " Windows
+
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = '\v\.(exe|so|dll)$'
+let g:ctrlp_extensions = ['funky']
+
+let NERDTreeIgnore=['\.pyc']
 
 
 
