@@ -1,0 +1,10 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_1='/usr/lib/locale/C.UTF-8'
+let g:netrw_dirhist_2='/usr/lib/locale/C.UTF-8/LC_MESSAGES'
+let g:netrw_dirhist_3='/usr/lib/locale'
+let g:netrw_dirhist_4='/var/log/cups'
+let g:netrw_dirhist_5='/home/tiankonguse/.vim/ftplugin'
+let g:netrw_dirhist_6='/home/tiankonguse/.vim/indent'
+let g:netrw_dirhist_7='/home/tiankonguse'
+let g:netrw_dirhist_8='/home/tiankonguse/.vim/bundle/vundle/autoload/vundle'

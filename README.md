@@ -5,7 +5,7 @@
 
 打开终端，执行下面的命令就自动安装好了：
 
-`wget https://raw.github.com/ma6174/vim/master/setup.sh -O ma6174_vim_setup.sh && bash ma6174_vim_setup.sh`
+`wget https://raw.github.com/tiankonguse/.vim/master/setup.sh -O tiankonguse_vim_setup.sh && bash ma6174_vim_setup.sh`
 
 ### 或者自己手动安装：(以ubuntu为例)
 
