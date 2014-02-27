@@ -69,7 +69,8 @@ Bundle 'django_templates.vim'
 Bundle 'Django-Projects'
 
 Bundle 'FredKSchott/CoVim'
-Bundle 'djangojump'
+"Bundle 'djangojump'
+Bundle 'Valloric/YouCompleteMe'
 
 filetype plugin indent on     " required
 "
@@ -912,6 +913,7 @@ let g:ctrlp_custom_ignore = '\v\.(exe|so|dll)$'
 let g:ctrlp_extensions = ['funky']
 
 let NERDTreeIgnore=['\.pyc']
+
 
 
 
