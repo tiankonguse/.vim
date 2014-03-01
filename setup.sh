@@ -15,7 +15,8 @@ fi
 sudo easy_install -ZU autopep8 twisted
 sudo ln -s /usr/bin/ctags /usr/local/bin/ctags
 mv -f ~/.vim ~/.vim_back
-cd ~/ && git clone https://github.com/tiankonguse/vim.git
+mv -f ~/.vimrc ~/.vimrc_back
+cd ~/ && git clone https://github.com/tiankonguse/.vim.git
 ln ~/.vimrc ~/.vim/.vimrc
 echo "tiankonguse正在努力为您安装bundle程序" > tiankonguse
 echo "安装完毕将自动退出" >> tiankonguse
