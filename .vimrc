@@ -1,3 +1,4 @@
+""
 " ~/.vimrc是用户自己的vim配置文件，这个配置文件中设置的配置只影响该用户自己
 "即简单地补全到文档中已有的词，快捷键为 Ctrl-N 或 Ctrl-P。
 "插入模式 Ctrl-T增加缩进，Ctrl-D减小缩进。
@@ -29,46 +30,46 @@ Bundle 'gmarik/vundle'
 " The following are examples of different formats supported.
 " Keep bundle commands between here and filetype plugin indent on.
 " scripts on GitHub repos
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'tpope/vim-rails.git'
+"Bundle 'tpope/vim-fugitive'
+"Bundle 'Lokaltog/vim-easymotion'
+"Bundle 'tpope/vim-rails.git'
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 " scripts from http://vim-scripts.org/vim/scripts.html
-Bundle 'L9'
-Bundle 'FuzzyFinder'
+"Bundle 'L9'
+"Bundle 'FuzzyFinder'
 " scripts not on GitHub
-Bundle 'git://git.wincent.com/command-t.git'
+"Bundle 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (i.e. when working on your own plugin)
 ""Bundle 'file:///home/gmarik/path/to/plugin'
 " ...
-Bundle 'Yggdroot/indentLine'
+"Bundle 'Yggdroot/indentLine'
 "let g:indentLine_char = '┊'
-Bundle 'git://git.wincent.com/command-t.git'
-Bundle 'Auto-Pairs'
-Bundle 'python-imports.vim'
-Bundle 'CaptureClipboard'
-Bundle 'ctrlp-modified.vim'
-Bundle 'last_edit_marker.vim'
-Bundle 'synmark.vim'
-Bundle 'Python-mode-klen'
-Bundle 'SQLComplete.vim'
-Bundle 'Javascript-OmniCompletion-with-YUI-and-j'
-Bundle 'JavaScript-Indent'
-Bundle 'Better-Javascript-Indentation'
-Bundle 'jslint.vim'
-Bundle "pangloss/vim-javascript"
-Bundle 'Vim-Script-Updater'
-Bundle 'ctrlp.vim'
-Bundle 'tacahiroy/ctrlp-funky'
-Bundle 'jsbeautify'
-Bundle 'The-NERD-Commenter'
+"Bundle 'git://git.wincent.com/command-t.git'
+"Bundle 'Auto-Pairs'
+"Bundle 'python-imports.vim'
+"Bundle 'CaptureClipboard'
+"Bundle 'ctrlp-modified.vim'
+"Bundle 'last_edit_marker.vim'
+"Bundle 'synmark.vim'
+"Bundle 'Python-mode-klen'
+"Bundle 'SQLComplete.vim'
+"Bundle 'Javascript-OmniCompletion-with-YUI-and-j'
+"Bundle 'JavaScript-Indent'
+"Bundle 'Better-Javascript-Indentation'
+"Bundle 'jslint.vim'
+"Bundle "pangloss/vim-javascript"
+"Bundle 'Vim-Script-Updater'
+"Bundle 'ctrlp.vim'
+"Bundle 'tacahiroy/ctrlp-funky'
+"Bundle 'jsbeautify'
+"Bundle 'The-NERD-Commenter'
 "django
-Bundle 'django_templates.vim'
-Bundle 'Django-Projects'
+"Bundle 'django_templates.vim'
+"Bundle 'Django-Projects'
 
-Bundle 'FredKSchott/CoVim'
+"Bundle 'FredKSchott/CoVim'
 "Bundle 'djangojump'
 Bundle 'Valloric/YouCompleteMe'
 
@@ -915,7 +916,7 @@ let g:ctrlp_extensions = ['funky']
 let NERDTreeIgnore=['\.pyc']
 
 
-
+set pastetoggle=<F9>
 
 
 
