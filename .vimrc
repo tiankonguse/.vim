@@ -1,4 +1,3 @@
-""
 " ~/.vimrc是用户自己的vim配置文件，这个配置文件中设置的配置只影响该用户自己
 "即简单地补全到文档中已有的词，快捷键为 Ctrl-N 或 Ctrl-P。
 "插入模式 Ctrl-T增加缩进，Ctrl-D减小缩进。
@@ -6,7 +5,7 @@
 "可视模式 < 、 > 用于左右缩进， n< 、 n> 可做多节缩进，如 2> 。
 "= 可对选中的部分进行自动缩进
 "]p可以实现p的粘贴功能，并自动缩进。
-
+"true
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " name:Vundle
 " author:gmarik
@@ -17,74 +16,81 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-" alternatively, pass a path where Vundle should install bundles
-"let path = '~/some/path/here'
-"call vundle#rc(path)
 
-" let Vundle manage Vundle, required
-Bundle 'gmarik/vundle'
+function! UseBundle()
 
-" The following are examples of different formats supported.
-" Keep bundle commands between here and filetype plugin indent on.
-" scripts on GitHub repos
-"Bundle 'tpope/vim-fugitive'
-"Bundle 'Lokaltog/vim-easymotion'
-"Bundle 'tpope/vim-rails.git'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
-"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-" scripts from http://vim-scripts.org/vim/scripts.html
-"Bundle 'L9'
-"Bundle 'FuzzyFinder'
-" scripts not on GitHub
-"Bundle 'git://git.wincent.com/command-t.git'
-" git repos on your local machine (i.e. when working on your own plugin)
-""Bundle 'file:///home/gmarik/path/to/plugin'
-" ...
-"Bundle 'Yggdroot/indentLine'
-"let g:indentLine_char = '┊'
-"Bundle 'git://git.wincent.com/command-t.git'
-"Bundle 'Auto-Pairs'
-"Bundle 'python-imports.vim'
-"Bundle 'CaptureClipboard'
-"Bundle 'ctrlp-modified.vim'
-"Bundle 'last_edit_marker.vim'
-"Bundle 'synmark.vim'
-"Bundle 'Python-mode-klen'
-"Bundle 'SQLComplete.vim'
-"Bundle 'Javascript-OmniCompletion-with-YUI-and-j'
-"Bundle 'JavaScript-Indent'
-"Bundle 'Better-Javascript-Indentation'
-"Bundle 'jslint.vim'
-"Bundle "pangloss/vim-javascript"
-"Bundle 'Vim-Script-Updater'
-"Bundle 'ctrlp.vim'
-"Bundle 'tacahiroy/ctrlp-funky'
-"Bundle 'jsbeautify'
-"Bundle 'The-NERD-Commenter'
-"django
-"Bundle 'django_templates.vim'
-"Bundle 'Django-Projects'
+    " set the runtime path to include Vundle and initialize
+    set rtp+=~/.vim/bundle/vundle/
+    call vundle#rc()
+    " alternatively, pass a path where Vundle should install bundles
+    "let path = '~/some/path/here'
+    "call vundle#rc(path)
 
-"Bundle 'FredKSchott/CoVim'
-"Bundle 'djangojump'
-Bundle 'Valloric/YouCompleteMe'
+    " let Vundle manage Vundle, required
+    Bundle 'gmarik/vundle'
 
-filetype plugin indent on     " required
-"
-" Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install (update) bundles
-" :BundleSearch(!) foo - search (or refresh cache first) for foo
-" :BundleClean(!)      - confirm (or auto-approve) removal of unused bundles
-"
-" see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle commands are not allowed.
-"
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " The following are examples of different formats supported.
+    " Keep bundle commands between here and filetype plugin indent on.
+    " scripts on GitHub repos
+    "Bundle 'tpope/vim-fugitive'
+    "Bundle 'Lokaltog/vim-easymotion'
+    "Bundle 'tpope/vim-rails.git'
+    " The sparkup vim script is in a subdirectory of this repo called vim.
+    " Pass the path to set the runtimepath properly.
+    "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+    " scripts from http://vim-scripts.org/vim/scripts.html
+    "Bundle 'L9'
+    "Bundle 'FuzzyFinder'
+    " scripts not on GitHub
+    "Bundle 'git://git.wincent.com/command-t.git'
+    " git repos on your local machine (i.e. when working on your own plugin)
+    ""Bundle 'file:///home/gmarik/path/to/plugin'
+    " ...
+    Bundle 'Yggdroot/indentLine'
+    let g:indentLine_char = '┊'
+    "Bundle 'git://git.wincent.com/command-t.git'
+    "Bundle 'Auto-Pairs'
+    "Bundle 'python-imports.vim'
+    "Bundle 'CaptureClipboard'
+    "Bundle 'ctrlp-modified.vim'
+    "Bundle 'last_edit_marker.vim'
+    "Bundle 'synmark.vim'
+    "Bundle 'Python-mode-klen'
+    "Bundle 'SQLComplete.vim'
+    "Bundle 'Javascript-OmniCompletion-with-YUI-and-j'
+    "Bundle 'JavaScript-Indent'
+    "Bundle 'Better-Javascript-Indentation'
+    "Bundle 'jslint.vim'
+    "Bundle 'pangloss/vim-javascript'
+    "Bundle 'Vim-Script-Updater'
+    "Bundle 'ctrlp.vim'
+    "Bundle 'tacahiroy/ctrlp-funky'
+    "Bundle 'jsbeautify'
+    "Bundle 'The-NERD-Commenter'
+    "django
+    "Bundle 'django_templates.vim'
+    "Bundle 'Django-Projects'
+
+    "Bundle 'FredKSchott/CoVim'
+    "Bundle 'djangojump'
+    "Bundle 'Valloric/YouCompleteMe'
+    "Bundle 'honza/vim-snippets'
+
+    filetype plugin indent on     " required
+    "
+    " Brief help
+    " :BundleList          - list configured bundles
+    " :BundleInstall(!)    - install (update) bundles
+    " :BundleSearch(!) foo - search (or refresh cache first) for foo
+    " :BundleClean(!)      - confirm (or auto-approve) removal of unused bundles
+    "
+    " see :h vundle for more details or wiki for FAQ
+    " NOTE: comments after Bundle commands are not allowed.
+    "
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+endfunc
+
+call UseBundle()
 
 
 "默认编码
@@ -140,8 +146,8 @@ set matchtime=1
 set softtabstop=4 
 
 " 不要用空格代替制表符
-"set noexpandtab
-set expandtab
+set noexpandtab
+"set expandtab
 
 
 set backspace=indent,eol,start
@@ -331,18 +337,18 @@ nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
 
 " return OS type, eg: windows, or linux, mac, et.st..
 function! MySys()
-	if has("win16") || has("win32") || has("win64") || has("win95")
-		return "windows"
-	elseif has("unix")
-		return "linux"
-	endif
+    if has("win16") || has("win32") || has("win64") || has("win95")
+        return "windows"
+    elseif has("unix")
+        return "linux"
+    endif
 endfunction
 
 " 用户目录变量$VIMFILES
 if MySys() == "windows"
-	let $VIMFILES = $VIM.'/vimfiles'
+    let $VIMFILES = $VIM.'/vimfiles'
 elseif MySys() == "linux"
-	let $VIMFILES = $HOME.'/.vim'
+    let $VIMFILES = $HOME.'/.vim'
 endif
 
 
@@ -352,29 +358,29 @@ let helptags=$VIMFILES.'/doc'
 
 " 设置字体 以及中文支持
 if has("win32")
-	set guifont=Inconsolata:h12:cANSI
+    set guifont=Inconsolata:h12:cANSI
 endif
 
 " 配置多语言环境
 if has("multi_byte")
-" UTF-8 编码
-	set encoding=utf-8
-	set termencoding=utf-8
-	set formatoptions+=mM
-	set fencs=utf-8,gbk
+    " UTF-8 编码
+    set encoding=utf-8
+    set termencoding=utf-8
+    set formatoptions+=mM
+    set fencs=utf-8,gbk
 
-	if v:lang =~? '^\(zh\)\|\(ja\)\|\(ko\)'
-		set ambiwidth=double
-	endif
-	
-	if has("win32")
-		source $VIMRUNTIME/delmenu.vim
-		source $VIMRUNTIME/menu.vim
-		language messages zh_CN.utf-8
-	endif
+    if v:lang =~? '^\(zh\)\|\(ja\)\|\(ko\)'
+        set ambiwidth=double
+    endif
+
+    if has("win32")
+        source $VIMRUNTIME/delmenu.vim
+        source $VIMRUNTIME/menu.vim
+        language messages zh_CN.utf-8
+    endif
 
 else
-	echoerr "Sorry, this version of (g)vim was not compiled with +multi_byte"
+    echoerr "Sorry, this version of (g)vim was not compiled with +multi_byte"
 endif
 
 
@@ -448,14 +454,7 @@ autocmd FileType scale setlocal dict+=$VIMFILES/dict/scale.dict
 autocmd FileType javascript setlocal dict+=$VIMFILES/dict/javascript.dict
 autocmd FileType html setlocal dict+=$VIMFILES/dict/javascript.dict
 autocmd FileType html setlocal dict+=$VIMFILES/dict/css.dict
-autocmd FileType php setlocal dict+=$VIMFILES/dict/php_funclist.dict
 autocmd FileType css setlocal dict+=$VIMFILES/dict/css.dict
-autocmd FileType c setlocal dict+=$VIMFILES/dict/c.dict
-autocmd FileType cpp setlocal dict+=$VIMFILES/dict/cpp.dict
-autocmd FileType scale setlocal dict+=$VIMFILES/dict/scale.dict
-autocmd FileType javascript setlocal dict+=$VIMFILES/dict/javascript.dict
-autocmd FileType html setlocal dict+=$VIMFILES/dict/javascript.dict
-autocmd FileType html setlocal dict+=$VIMFILES/dict/css.dict
 
 "rkdown to HTML 
 nmap md :!$VIMFILES/markdown.pl % > %.html <CR><CR>
@@ -471,9 +470,9 @@ nmap tt :%s/\t/    /g<CR>
 " F4 打开隐藏taglist窗口
 "-----------------------------------------------------------------
 if MySys() == "windows" " 设定windows系统中ctags程序的位置
-	let Tlist_Ctags_Cmd = '"'.$VIMRUNTIME.'/ctags.exe"'
+    let Tlist_Ctags_Cmd = '"'.$VIMRUNTIME.'/ctags.exe"'
 elseif MySys() == "linux" " 设定windows系统中ctags程序的位置
-	let Tlist_Ctags_Cmd = '/usr/bin/ctags'
+    let Tlist_Ctags_Cmd = '/usr/bin/ctags'
 endif
 nnoremap <silent><F4> :TlistToggle<CR>
 let Tlist_Show_One_File = 1 " 不同时显示多个文件的tag，只显示当前文件的
@@ -552,16 +551,16 @@ map <leader>dc a /* */<LEFT><LEFT><LEFT>
 "-----------------------------------------------------------------
 " plugin - NeoComplCache.vim 自动补全插件
 "-----------------------------------------------------------------
-let g:AutoComplPop_NotEnableAtStartup = 1
-let g:NeoComplCache_EnableAtStartup = 1
-let g:NeoComplCache_SmartCase = 1
-let g:NeoComplCache_TagsAutoUpdate = 1
-let g:NeoComplCache_EnableInfo = 1
-let g:NeoComplCache_EnableCamelCaseCompletion = 1
-let g:NeoComplCache_MinSyntaxLength = 3
-let g:NeoComplCache_EnableSkipCompletion = 1
-let g:NeoComplCache_SkipInputTime = '0.5'
-let g:NeoComplCache_SnippetsDir = $VIMFILES.'/snippets'
+"let g:AutoComplPop_NotEnableAtStartup = 1
+"let g:NeoComplCache_EnableAtStartup = 1
+"let g:NeoComplCache_SmartCase = 1
+"let g:NeoComplCache_TagsAutoUpdate = 1
+"let g:NeoComplCache_EnableInfo = 1
+"let g:NeoComplCache_EnableCamelCaseCompletion = 1
+"let g:NeoComplCache_MinSyntaxLength = 3
+"let g:NeoComplCache_EnableSkipCompletion = 1
+"let g:NeoComplCache_SkipInputTime = '0.5'
+"let g:NeoComplCache_SnippetsDir = $VIMFILES.'/snippets'
 " <TAB> completion.
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 " snippets expand key
@@ -594,50 +593,117 @@ autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"
 "定义函数SetTitle，自动插入文件头 
 
 func SetTitle() 
-	"如果文件类型为.sh文件 
-	if &filetype == 'sh'  
-		call setline(1,"\#########################################################################") 
-		call append(line("."), "\# File Name: ".expand("%")) 
-		call append(line(".")+1, "\# Author: tiankonguse") 
-		call append(line(".")+2, "\# mail: i@tiankonguse.com") 
-		call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
-		call append(line(".")+4, "\#########################################################################") 
-		call append(line(".")+5, "\#!/bin/bash") 
-		call append(line(".")+6, "") 
+    "如果文件类型为.sh文件 
+    let l:lineNumber=line(".")
+    if &filetype == 'sh'
+        call setline(l:lineNumber,"\#########################################################################")
+        call append(l:lineNumber, "\# File Name: ".expand("%"))
+        let l:lineNumber+=1
+        call append(l:lineNumber, "\# Author: tiankonguse") 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "\# mail: i@tiankonguse.com") 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "\# Created Time: ".strftime("%c")) 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "\#########################################################################") 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "\#!/bin/bash") 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "") 
+        let l:lineNumber+=1
     elseif &filetype == 'python'
-		call setline(1,"\#########################################################################") 
-		call append(line("."), "\# File Name: ".expand("%")) 
-		call append(line(".")+1, "\# Author: tiankonguse") 
-		call append(line(".")+2, "\# mail: i@tiankonguse.com") 
-		call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
-		call append(line(".")+4, "\#########################################################################") 
-		call append(line(".")+5, "\#!/usr/bin/env python") 
-		call append(line(".")+5, "\# coding=utf-8") 
-		call append(line(".")+6, "") 
+        call setline(l:lineNumber,"\#########################################################################") 
+        let l:lineNumber+=1
+        call append(line("."), "\# File Name: ".expand("%")) 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "\# Author: tiankonguse") 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "\# mail: i@tiankonguse.com") 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "\# Created Time: ".strftime("%c")) 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "\#########################################################################") 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "\#!/usr/bin/env python") 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "\# coding=utf-8") 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "") 
+        let l:lineNumber+=1
 
-	else
-		call setline(1, "/*************************************************************************") 
-		call append(line("."), "    > File Name: ".expand("%")) 
-		call append(line(".")+1, "    > Author: tiankonguse") 
-		call append(line(".")+2, "    > Mail: i@tiankonguse.com ") 
-		call append(line(".")+3, "    > Created Time: ".strftime("%c")) 
-		call append(line(".")+4, " ************************************************************************/") 
-		call append(line(".")+5, "")
-	endif
-	
-	if &filetype == 'cpp'
-		call append(line(".")+6, "#include<iostream>")
-		call append(line(".")+7, "using namespace std;")
-		call append(line(".")+8, "")
-	endif
-	
-	if &filetype == 'c'
-		call append(line(".")+6, "#include<stdio.h>")
-		call append(line(".")+7, "")
-	endif
-	
-	"新建文件后，自动定位到文件末尾
-	autocmd BufNewFile * normal G
+    else
+        call setline(l:lineNumber, "\/*************************************************************************") 
+        ""let l:lineNumber+=1
+        call append(l:lineNumber, "  > File Name: ".expand("%")) 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "  > Author: tiankonguse") 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "  > Mail: i@tiankonguse.com ") 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "  > Created Time: ".strftime("%c")) 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "***********************************************************************/") 
+        let l:lineNumber+=1
+        call append(l:lineNumber, "")
+        let l:lineNumber+=1
+    endif
+
+    if &filetype == 'cpp'
+        call append(l:lineNumber, "#include<iostream>")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "#include<cstdio>")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "#include<cstring>")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "#include<cstdlib>")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "#include<string>")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "#include<queue>")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "#include<map>")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "#include<cmath>")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "#include<stack>")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "#include<algorithm>")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "#include<functional>")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "#include<stdarg.h>")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "using namespace std;")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "#ifdef __int64")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "typedef __int64 LL;")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "#else")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "typedef long long LL;")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "#endif")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "int main() {")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "    return 0;")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "}")
+        let l:lineNumber+=1
+    endif
+
+    if &filetype == 'c'
+        call append(l:lineNumber, "#include<stdio.h>")
+        let l:lineNumber+=1
+        call append(l:lineNumber, "")
+        let l:lineNumber+=1
+    endif
+
+    "新建文件后，自动定位到文件末尾
+    autocmd BufNewFile * normal G
 endfunc 
 
 
@@ -684,44 +750,44 @@ map <C-v> p
 "map <M-F2> :tabnew<CR>  
 
 "列出当前目录文件  
-map <F3> :tabnew .<CR>  
+"map <F3> :tabnew .<CR>  
 
 "打开树状文件目录  
 "map <C-F3> \be
 
 "C，C++ 按F5编译运行
-map <F5> :call CompileRunGcc()<CR>
+"map <F5> :call CompileRunGcc()<CR>
 func! CompileRunGcc()
-	exec "w"
-	if &filetype == 'c'
-	   	exec "!g++ % -o %<"
-		exec "! ./%<"
-	elseif &filetype == 'cpp'
-	   	exec "!g++ % -o %<"
-		exec "! ./%<"
-	elseif &filetype == 'java' 
-	   	exec "!javac %" 
-	   	exec "!java %<"
-	elseif &filetype == 'python' 
-   	    exec "!time python2.7 %"
-	elseif &filetype == 'html' 
+    exec "w"
+    if &filetype == 'c'
+        exec "!g++ % -o %<"
+        exec "! ./%<"
+    elseif &filetype == 'cpp'
+        exec "!g++ % -o %<"
+        exec "! ./%<"
+    elseif &filetype == 'java' 
+        exec "!javac %" 
+        exec "!java %<"
+    elseif &filetype == 'python' 
+        exec "!time python2.7 %"
+    elseif &filetype == 'html' 
         exec "!firefox % &"
-	elseif &filetype == 'mkd' 
+    elseif &filetype == 'mkd' 
         exec "!~/.vim/markdown.pl % > %.html &"
         exec "!firefox %.html &"
     elseif &filetype == 'sh'
-		:!./%
-   	endif
+        :!./%
+    endif
 endfunc
 
 "C,C++的调试
-map <F8> :call Rungdb()<CR>
+"map <F8> :call Rungdb()<CR>
 func! Rungdb()
-	exec "w"
-	if &filetype == 'cpp'
-		exec "!g++ % -g -o %<"
-		exec "!gdb ./%<"
-	endif
+    exec "w"
+    if &filetype == 'cpp'
+        exec "!g++ % -g -o %<"
+        exec "!gdb ./%<"
+    endif
 endfunc
 
 "代码格式优化化"
@@ -825,14 +891,14 @@ au BufRead,BufNewFile *.{js}   set filetype=javascript
 :inoremap } <c-r>=ClosePair('}')<CR>
 :inoremap [ []<ESC>i
 :inoremap ] <c-r>=ClosePair(']')<CR>
-:inoremap " ""<ESC>i
-:inoremap ' ''<ESC>i
+":inoremap " ""<ESC>i
+":inoremap ' ''<ESC>i
 function! ClosePair(char)
-	if getline('.')[col('.') - 1] == a:char
-		return "\<Right>"
-	else
-		return a:char
-	endif
+    if getline('.')[col('.') - 1] == a:char
+        return "\<Right>"
+    else
+        return a:char
+    endif
 endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -865,13 +931,13 @@ set tags=tags;/
 
 
 function! LoadPathogen()
-	return 1 
+    return 1 
 endfunction
 
 if LoadPathogen() == 0 
-	execute pathogen#infect()
-	syntax on
-	filetype plugin indent on
+    execute pathogen#infect()
+    syntax on
+    filetype plugin indent on
     let g:syntastic_python_checkers=['pylint']
     let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']
 endif
@@ -880,16 +946,16 @@ endif
 " tiankonguse's extend for make a tempalte that makes by latex.
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! Lcode(line_begin, line_end, dir, name)
-""	execute ":!mkdir -p ~/app/latex_study/acm/make/source/".a:dir
-	execute ":".a:line_begin." s/^/\\\\lstinputlisting[language={C++}]{\\~\\/app\\/latex_study\\/acm\\/make\\/source\\/".a:dir."\\/".a:name.".cpp}\r/"
-	let a:line_new_begin=a:line_begin+1
-	let a:line_new_end=a:line_end+1
-	let a:line_number=a:line_new_end - a:line_new_begin
-	let a:line_number=a:line_number+1
-	execute ":".a:line_new_begin.",".a:line_new_end." d"
-	execute ":vsp \\~\\/app\\/latex_study\\/acm\\/make\\/source\\/".a:dir."\\/".a:name.".cpp"
-	execute ":pu!"
-	execute ":".a:line_number." d"
+    ""	execute ":!mkdir -p ~/app/latex_study/acm/make/source/".a:dir
+    execute ":".a:line_begin." s/^/\\\\lstinputlisting[language={C++}]{\\~\\/app\\/latex_study\\/acm\\/make\\/source\\/".a:dir."\\/".a:name.".cpp}\r/"
+    let a:line_new_begin=a:line_begin+1
+    let a:line_new_end=a:line_end+1
+    let a:line_number=a:line_new_end - a:line_new_begin
+    let a:line_number=a:line_number+1
+    execute ":".a:line_new_begin.",".a:line_new_end." d"
+    execute ":vsp \\~\\/app\\/latex_study\\/acm\\/make\\/source\\/".a:dir."\\/".a:name.".cpp"
+    execute ":pu!"
+    execute ":".a:line_number." d"
 endfunction
 
 
@@ -919,4 +985,8 @@ let NERDTreeIgnore=['\.pyc']
 set pastetoggle=<F9>
 
 
+set pastetoggle=<F9>
 
+" insert time 
+" format yyyy-mm-dd hh:MM
+:nnoremap <F5> "=strftime("%F %R")<CR>gP
