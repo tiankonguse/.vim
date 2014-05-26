@@ -18,7 +18,6 @@ filetype off                  " required
 
 
 function! UseBundle()
-
     " set the runtime path to include Vundle and initialize
     set rtp+=~/.vim/bundle/vundle/
     call vundle#rc()
@@ -32,48 +31,48 @@ function! UseBundle()
     " The following are examples of different formats supported.
     " Keep bundle commands between here and filetype plugin indent on.
     " scripts on GitHub repos
-    "Bundle 'tpope/vim-fugitive'
-    "Bundle 'Lokaltog/vim-easymotion'
-    "Bundle 'tpope/vim-rails.git'
+    Bundle 'tpope/vim-fugitive'
+    Bundle 'Lokaltog/vim-easymotion'
+    Bundle 'tpope/vim-rails.git'
     " The sparkup vim script is in a subdirectory of this repo called vim.
     " Pass the path to set the runtimepath properly.
     "Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
     " scripts from http://vim-scripts.org/vim/scripts.html
-    "Bundle 'L9'
-    "Bundle 'FuzzyFinder'
+    Bundle 'L9'
+    Bundle 'FuzzyFinder'
     " scripts not on GitHub
     "Bundle 'git://git.wincent.com/command-t.git'
     " git repos on your local machine (i.e. when working on your own plugin)
     ""Bundle 'file:///home/gmarik/path/to/plugin'
     " ...
     Bundle 'Yggdroot/indentLine'
-    let g:indentLine_char = '┊'
-    "Bundle 'git://git.wincent.com/command-t.git'
-    "Bundle 'Auto-Pairs'
-    "Bundle 'python-imports.vim'
-    "Bundle 'CaptureClipboard'
-    "Bundle 'ctrlp-modified.vim'
-    "Bundle 'last_edit_marker.vim'
-    "Bundle 'synmark.vim'
-    "Bundle 'Python-mode-klen'
-    "Bundle 'SQLComplete.vim'
-    "Bundle 'Javascript-OmniCompletion-with-YUI-and-j'
-    "Bundle 'JavaScript-Indent'
-    "Bundle 'Better-Javascript-Indentation'
-    "Bundle 'jslint.vim'
-    "Bundle 'pangloss/vim-javascript'
-    "Bundle 'Vim-Script-Updater'
-    "Bundle 'ctrlp.vim'
-    "Bundle 'tacahiroy/ctrlp-funky'
-    "Bundle 'jsbeautify'
-    "Bundle 'The-NERD-Commenter'
+    "let g:indentLine_char = '┊'
+    Bundle 'git://git.wincent.com/command-t.git'
+    Bundle 'Auto-Pairs'
+    Bundle 'python-imports.vim'
+    Bundle 'CaptureClipboard'
+    Bundle 'ctrlp-modified.vim'
+    Bundle 'last_edit_marker.vim'
+    Bundle 'synmark.vim'
+    Bundle 'Python-mode-klen'
+    Bundle 'SQLComplete.vim'
+    Bundle 'Javascript-OmniCompletion-with-YUI-and-j'
+    Bundle 'JavaScript-Indent'
+    Bundle 'Better-Javascript-Indentation'
+"    Bundle 'jslint.vim'
+    Bundle 'pangloss/vim-javascript'
+    Bundle 'Vim-Script-Updater'
+    Bundle 'ctrlp.vim'
+    Bundle 'tacahiroy/ctrlp-funky'
+    Bundle 'jsbeautify'
+    Bundle 'The-NERD-Commenter'
     "django
-    "Bundle 'django_templates.vim'
-    "Bundle 'Django-Projects'
+    Bundle 'django_templates.vim'
+    Bundle 'Django-Projects'
 
-    "Bundle 'FredKSchott/CoVim'
+    Bundle 'FredKSchott/CoVim'
     "Bundle 'djangojump'
-    "Bundle 'Valloric/YouCompleteMe'
+    Bundle 'Valloric/YouCompleteMe'
     "Bundle 'honza/vim-snippets'
 
     filetype plugin indent on     " required
@@ -146,8 +145,8 @@ set matchtime=1
 set softtabstop=4 
 
 " 不要用空格代替制表符
-set noexpandtab
-"set expandtab
+"set noexpandtab
+set expandtab
 
 
 set backspace=indent,eol,start
@@ -324,7 +323,7 @@ set foldmethod=indent
 set foldcolumn=0 
 
 " 设置折叠层数为
-setlocal foldlevel=3 
+setlocal foldlevel=9 
 
 " 开始折叠
 set foldenable 
@@ -551,16 +550,16 @@ map <leader>dc a /* */<LEFT><LEFT><LEFT>
 "-----------------------------------------------------------------
 " plugin - NeoComplCache.vim 自动补全插件
 "-----------------------------------------------------------------
-"let g:AutoComplPop_NotEnableAtStartup = 1
-"let g:NeoComplCache_EnableAtStartup = 1
-"let g:NeoComplCache_SmartCase = 1
-"let g:NeoComplCache_TagsAutoUpdate = 1
-"let g:NeoComplCache_EnableInfo = 1
-"let g:NeoComplCache_EnableCamelCaseCompletion = 1
-"let g:NeoComplCache_MinSyntaxLength = 3
-"let g:NeoComplCache_EnableSkipCompletion = 1
-"let g:NeoComplCache_SkipInputTime = '0.5'
-"let g:NeoComplCache_SnippetsDir = $VIMFILES.'/snippets'
+let g:AutoComplPop_NotEnableAtStartup = 1
+let g:NeoComplCache_EnableAtStartup = 1
+let g:NeoComplCache_SmartCase = 1
+let g:NeoComplCache_TagsAutoUpdate = 1
+let g:NeoComplCache_EnableInfo = 1
+let g:NeoComplCache_EnableCamelCaseCompletion = 1
+let g:NeoComplCache_MinSyntaxLength = 3
+let g:NeoComplCache_EnableSkipCompletion = 1
+let g:NeoComplCache_SkipInputTime = '0.5'
+let g:NeoComplCache_SnippetsDir = $VIMFILES.'/snippets'
 " <TAB> completion.
 inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 " snippets expand key
@@ -836,7 +835,7 @@ autocmd FileType c,cpp map <buffer> <leader><space> :w<cr>:make<cr>
 set completeopt=preview,menu
 
 "打开文件类型检测, 加了这句才可以用智能补全
-"set completeopt=longest,menu
+set completeopt=longest,menu
 
 "共享剪贴板  
 set clipboard+=unnamed
