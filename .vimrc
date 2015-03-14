@@ -18,60 +18,82 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=.vim/bundle/vundle/
+set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 " alternatively, pass a path where Vundle should install bundles
-"let path = '~/some/path/here'
-"call vundle#rc(path)
+let path = '~/.vim/bundle-install/'
+call vundle#rc(path)
 
 " let Vundle manage Vundle, required
-Bundle 'gmarik/vundle'
+"Bundle 'gmarik/vundle'
 
 " The following are examples of different formats supported.
 " Keep bundle commands between here and filetype plugin indent on.
 " scripts on GitHub repos
-Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'tpope/vim-rails.git'
+" Bundle 'tpope/vim-fugitive'
+"Bundle 'Lokaltog/vim-easymotion'
+"Bundle 'tpope/vim-rails.git'
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 " scripts from http://vim-scripts.org/vim/scripts.html
-Bundle 'L9'
-Bundle 'FuzzyFinder'
+"Bundle 'L9'
+"Bundle 'FuzzyFinder'
 " scripts not on GitHub
-Bundle 'git://git.wincent.com/command-t.git'
+"Bundle 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (i.e. when working on your own plugin)
-""Bundle 'file:///home/gmarik/path/to/plugin'
+"Bundle 'file:///home/gmarik/path/to/plugin'
 " ...
-Bundle 'Yggdroot/indentLine'
+"Bundle 'Yggdroot/indentLine'
 "let g:indentLine_char = '┊'
-Bundle 'git://git.wincent.com/command-t.git'
-Bundle 'Auto-Pairs'
+"Bundle 'git://git.wincent.com/command-t.git'
+"Bundle 'Auto-Pairs'
 Bundle 'python-imports.vim'
 Bundle 'CaptureClipboard'
-Bundle 'ctrlp-modified.vim'
-Bundle 'last_edit_marker.vim'
-Bundle 'synmark.vim'
-Bundle 'Python-mode-klen'
-Bundle 'SQLComplete.vim'
-Bundle 'Javascript-OmniCompletion-with-YUI-and-j'
-Bundle 'JavaScript-Indent'
-Bundle 'Better-Javascript-Indentation'
-Bundle 'jslint.vim'
-Bundle "pangloss/vim-javascript"
-Bundle 'Vim-Script-Updater'
-Bundle 'ctrlp.vim'
-Bundle 'tacahiroy/ctrlp-funky'
-Bundle 'jsbeautify'
+"Bundle 'ctrlp-modified.vim'
+"Bundle 'last_edit_marker.vim'
+
+"用来提供单个源代码文件的函数列表之类的功能`
+Bundle 'majutsushi/tagbar'
+
+"提供超强的快速生成代码段的功能
+Bundle 'sirver/ultisnips'
+
+"一个通用的语法检查插件，支持c,js,等等
+Bundle 'tomtom/checksyntax_vim'
+
+"用来帮助缩进对齐的插件
+Bundle 'nathanaelkane/vim-indent-guides'
+
+"提供实时检查python代码语法的功能
+"Bundle 'kevinw/pyflakes-vim'
+
+"提供快速编写xml/html的能力
+Bundle 'othree/xml.vim'
+
+"自动检测文件编码
+Bundle 'adah1972/tellenc'
+
+"Bundle 'synmark.vim'
+"Bundle 'Python-mode-klen'
+"Bundle 'SQLComplete.vim'
+"Bundle 'Javascript-OmniCompletion-with-YUI-and-j'
+"Bundle 'JavaScript-Indent'
+"Bundle 'Better-Javascript-Indentation'
+"Bundle 'jslint.vim'
+"Bundle 'pangloss/vim-javascript'
+"Bundle 'Vim-Script-Updater'
+"Bundle 'ctrlp.vim'
+"Bundle 'tacahiroy/ctrlp-funky'
+"Bundle 'jsbeautify'
 Bundle 'The-NERD-Commenter'
 "django
-Bundle 'django_templates.vim'
-Bundle 'Django-Projects'
+"Bundle 'django_templates.vim'
+"Bundle 'Django-Projects'
 
-Bundle 'FredKSchott/CoVim'
+"Bundle 'FredKSchott/CoVim'
 "Bundle 'djangojump'
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 
 filetype plugin indent on     " required
 "
