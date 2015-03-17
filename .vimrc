@@ -13,7 +13,6 @@
 " install:Launch vim and run :BundleInstall
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -330,7 +329,7 @@ set guioptions-=m
 
 
 " 设置语法折叠
-"set foldmethod=syntax 
+set foldmethod=syntax 
 
 " 手动折叠
 "set foldmethod=manual
@@ -856,6 +855,8 @@ function! ClosePair(char)
 		return a:char
 	endif
 endfunction
+map <F9> :set paste<CR>
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTags的设定  
