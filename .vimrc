@@ -465,18 +465,10 @@ autocmd FileType php setlocal dict+=$VIMFILES/dict/php_funclist.dict
 autocmd FileType css setlocal dict+=$VIMFILES/dict/css.dict
 autocmd FileType c setlocal dict+=$VIMFILES/dict/c.dict
 autocmd FileType cpp setlocal dict+=$VIMFILES/dict/cpp.dict
-autocmd FileType scale setlocal dict+=$VIMFILES/dict/scale.dict
 autocmd FileType javascript setlocal dict+=$VIMFILES/dict/javascript.dict
 autocmd FileType html setlocal dict+=$VIMFILES/dict/javascript.dict
 autocmd FileType html setlocal dict+=$VIMFILES/dict/css.dict
-autocmd FileType php setlocal dict+=$VIMFILES/dict/php_funclist.dict
-autocmd FileType css setlocal dict+=$VIMFILES/dict/css.dict
-autocmd FileType c setlocal dict+=$VIMFILES/dict/c.dict
-autocmd FileType cpp setlocal dict+=$VIMFILES/dict/cpp.dict
 autocmd FileType scale setlocal dict+=$VIMFILES/dict/scale.dict
-autocmd FileType javascript setlocal dict+=$VIMFILES/dict/javascript.dict
-autocmd FileType html setlocal dict+=$VIMFILES/dict/javascript.dict
-autocmd FileType html setlocal dict+=$VIMFILES/dict/css.dict
 
 "rkdown to HTML 
 nmap md :!$VIMFILES/markdown.pl % > %.html <CR><CR>
@@ -584,7 +576,7 @@ let g:NeoComplCache_EnableSkipCompletion = 1
 let g:NeoComplCache_SkipInputTime = '0.5'
 let g:NeoComplCache_SnippetsDir = $VIMFILES.'/snippets'
 " <TAB> completion.
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 " snippets expand key
 imap <silent> <C-e> <Plug>(neocomplcache_snippets_expand)
 smap <silent> <C-e> <Plug>(neocomplcache_snippets_expand)
@@ -615,7 +607,8 @@ autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"
 "定义函数SetTitle，自动插入文件头 
 
 func SetTitle() 
-	"如果文件类型为.sh文件 
+	"如果文件类型为.sh文件
+    let l:lineNum = 0
 	if &filetype == 'sh'  
 		call setline(1,"\#########################################################################") 
 		call append(line("."), "\# File Name: ".expand("%")) 
@@ -638,18 +631,61 @@ func SetTitle()
 
 	else
 		call setline(1, "/*************************************************************************") 
-		call append(line("."), "    > File Name: ".expand("%")) 
-		call append(line(".")+1, "    > Author: tiankonguse") 
-		call append(line(".")+2, "    > Mail: i@tiankonguse.com ") 
-		call append(line(".")+3, "    > Created Time: ".strftime("%c")) 
-		call append(line(".")+4, " ************************************************************************/") 
-		call append(line(".")+5, "")
+        call append(line(".")+l:lineNum, "    > File Name: ".expand("%")) 
+        let l:lineNum += 1
+        call append(line(".")+l:lineNum, "    > Author: tiankonguse") 
+        let l:lineNum += 1
+		call append(line(".")+l:lineNum, "    > Mail: i@tiankonguse.com ") 
+        let l:lineNum += 1
+		call append(line(".")+l:lineNum, "    > Created Time: ".strftime("%c")) 
+        let l:lineNum += 1
+		call append(line(".")+l:lineNum, " ************************************************************************/") 
+        let l:lineNum += 1
+		call append(line(".")+l:lineNum, "")
+        let l:lineNum += 1
 	endif
 	
 	if &filetype == 'cpp'
-		call append(line(".")+6, "#include<iostream>")
-		call append(line(".")+7, "using namespace std;")
-		call append(line(".")+8, "")
+        call append(line(".")+l:lineNum,"#include<stdio.h>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<stdlib.h>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<string.h>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<stack>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<map>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<queue>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<vector>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<time.h>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"using namespace std;")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"void test(){")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"    srand(time(NULL));")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"    Solution work(1);")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"}")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"int main(){")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"    test();")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"    return 0;")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"}")
+        let l:lineNum +=1
 	endif
 	
 	if &filetype == 'c'
@@ -855,8 +891,8 @@ function! ClosePair(char)
 		return a:char
 	endif
 endfunction
-map <F9> :set paste<CR>
-
+""map <F9> :set pastetoggle<CR>
+set pastetoggle=<F9>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTags的设定  
