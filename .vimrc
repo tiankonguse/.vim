@@ -652,6 +652,8 @@ func SetTitle()
         let l:lineNum +=1
         call append(line(".")+l:lineNum,"#include<string.h>")
         let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<string>")
+        let l:lineNum +=1
         call append(line(".")+l:lineNum,"#include<stack>")
         let l:lineNum +=1
         call append(line(".")+l:lineNum,"#include<map>")
