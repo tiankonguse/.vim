@@ -268,7 +268,7 @@ set ruler
 set showcmd
 
 " 不要图形按钮
-set go=             
+set go= "无菜单、工具栏" 
 
 " 设置背景主题
 "color asmanian2    
@@ -493,12 +493,12 @@ let Tlist_Show_One_File = 1 " 不同时显示多个文件的tag，只显示当�
 let Tlist_Exit_OnlyWindow = 1 " 如果taglist窗口是最后一个窗口，则退出vim
 let Tlist_Use_Right_Window = 1 " 在右侧窗口中显示taglist窗口
 let Tlist_File_Fold_Auto_Close=1 " 自动折叠当前非编辑文件的方法列表
-let Tlist_Auto_Open = 0
+let Tlist_Auto_Open = 1
 let Tlist_Auto_Update = 1
 let Tlist_Hightlight_Tag_On_BufEnter = 1
-let Tlist_Enable_Fold_Column = 0
+let Tlist_Enable_Fold_Column = 1
 let Tlist_Process_File_Always = 1
-let Tlist_Display_Prototype = 0
+let Tlist_Display_Prototype = 1
 let Tlist_Compact_Format = 1
 
 "-----------------------------------------------------------------
