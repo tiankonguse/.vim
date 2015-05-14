@@ -1,0 +1,1278 @@
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+argglobal
+let s:cpo_save=&cpo
+set cpo&vim
+imap <buffer> <silent> <S-F2> :A
+imap <buffer> <silent> <S-F9> :call C_Arguments()
+imap <buffer> <silent> <C-F9> :call C_Run()
+imap <buffer> <silent> <F9> :call C_Link():call C_HlMessage()
+imap <buffer> <silent> <M-F9> :call C_Compile():call C_HlMessage()
+nmap <buffer> <silent> <NL> i=C_JumpCtrlJ()
+vnoremap <buffer> /* s/*  */<Left><Left><Left>p
+inoremap <buffer> <silent> ­ =EchoFuncP()
+inoremap <buffer> <silent> ½ =EchoFuncN()
+nnoremap <buffer> <silent> \cl :call C_EndOfLineComment()
+nnoremap <buffer> <silent> \c* :call C_CodeToCommentC():nohlsearchj
+nnoremap <buffer> <silent> \cc :call C_CodeToCommentCpp():nohlsearchj
+nnoremap <buffer> <silent> \co :call C_CommentToCode():nohlsearch
+nnoremap <buffer> <silent> \cd :call C_InsertDateAndTime('d')
+nnoremap <buffer> <silent> \ct :call C_InsertDateAndTime('dt')
+nnoremap <buffer> <silent> \cx :call C_CommentToggle( )
+nnoremap <buffer> <silent> \sd :call C_InsertTemplate("statements.do-while")
+nnoremap <buffer> <silent> \sfo :call C_InsertTemplate("statements.for-block")
+nnoremap <buffer> <silent> \sif :call C_InsertTemplate("statements.if-block")
+nnoremap <buffer> <silent> \sie :call C_InsertTemplate("statements.if-else")
+nnoremap <buffer> <silent> \sife :call C_InsertTemplate("statements.if-block-else")
+nnoremap <buffer> <silent> \se :call C_InsertTemplate("statements.else-block")
+nnoremap <buffer> <silent> \swh :call C_InsertTemplate("statements.while-block")
+nnoremap <buffer> <silent> \ss :call C_InsertTemplate("statements.switch")
+nnoremap <buffer> <silent> \s{ :call C_InsertTemplate("statements.block")
+nnoremap <buffer> <silent> \sb :call C_InsertTemplate("statements.block")
+nnoremap <buffer> <silent> \pif :call C_InsertTemplate("preprocessor.if-endif")
+nnoremap <buffer> <silent> \pie :call C_InsertTemplate("preprocessor.if-else-endif")
+nnoremap <buffer> <silent> \pid :call C_InsertTemplate("preprocessor.ifdef-else-endif")
+nnoremap <buffer> <silent> \pin :call C_InsertTemplate("preprocessor.ifndef-else-endif")
+nnoremap <buffer> <silent> \pind :call C_InsertTemplate("preprocessor.ifndef-def-endif")
+nnoremap <buffer> <silent> \pi0 :call C_PPIf0("a")2ji
+nnoremap <buffer> <silent> \if :call C_InsertTemplate("idioms.function")
+nnoremap <buffer> <silent> \isf :call C_InsertTemplate("idioms.function-static")
+nnoremap <buffer> <silent> \im :call C_InsertTemplate("idioms.main")
+nnoremap <buffer> <silent> \i0 :call C_CodeFor("up"  )
+nnoremap <buffer> <silent> \in :call C_CodeFor("down")
+nnoremap <buffer> <silent> \ie :call C_InsertTemplate("idioms.enum")
+nnoremap <buffer> <silent> \is :call C_InsertTemplate("idioms.struct")
+nnoremap <buffer> <silent> \iu :call C_InsertTemplate("idioms.union")
+nnoremap <buffer> <silent> \isi :call C_InsertTemplate("idioms.sizeof")
+nnoremap <buffer> <silent> \ias :call C_InsertTemplate("idioms.assert")
+nnoremap <buffer> <silent> \ii :call C_InsertTemplate("idioms.open-input-file")
+nnoremap <buffer> <silent> \io :call C_InsertTemplate("idioms.open-output-file")
+nnoremap <buffer> <silent> \nw :call C_CodeSnippet("w")
+nnoremap <buffer> <silent> \np :call C_ProtoPick("function")
+nnoremap <buffer> <silent> \nf :call C_ProtoPick("function")
+nnoremap <buffer> <silent> \nm :call C_ProtoPick("method")
+nnoremap <buffer> <silent> \+tr :call C_InsertTemplate("cpp.try-catch")
+nnoremap <buffer> <silent> \+ca :call C_InsertTemplate("cpp.catch")
+nnoremap <buffer> <silent> \+c. :call C_InsertTemplate("cpp.catch-points")
+nmap <buffer> <silent> \rh :call C_Hardcopy()
+map <buffer> <silent> \hm :call C_Help("m")
+map <buffer> <silent> \hp :call C_HelpCsupport()
+map <buffer> <silent> \ro :call C_Toggle_Gvim_Xterm()
+map <buffer> <silent> \rx :call C_XtermSize()
+vmap <buffer> <silent> \rh :call C_Hardcopy()
+map <buffer> <silent> \rs :call C_Settings()
+omap <buffer> <silent> \rh :call C_Hardcopy()
+map <buffer> <silent> \rd :call C_Indent()
+map <buffer> <silent> \rpa :call C_SplintArguments()
+map <buffer> <silent> \rp :call C_SplintCheck():call C_HlMessage()
+map <buffer> <silent> \rma :call C_MakeArguments()
+map <buffer> <silent> \rme :call C_MakeExeToRun()
+map <buffer> <silent> \rmc :call C_MakeClean()
+map <buffer> <silent> \rcm :call C_ChooseMakefile()
+map <buffer> <silent> \rm :call C_Make()
+map <buffer> <silent> \ra :call C_Arguments()
+map <buffer> <silent> \rr :call C_Run()
+map <buffer> <silent> \rl :call C_Link():call C_HlMessage()
+map <buffer> <silent> \rc :call C_Compile():call C_HlMessage()
+vnoremap <buffer> <silent> \+c. :call C_InsertTemplate("cpp.catch-points", "v")
+onoremap <buffer> <silent> \+c. :call C_InsertTemplate("cpp.catch-points")
+vnoremap <buffer> <silent> \+ca :call C_InsertTemplate("cpp.catch", "v")
+onoremap <buffer> <silent> \+ca :call C_InsertTemplate("cpp.catch")
+vnoremap <buffer> <silent> \+tr :call C_InsertTemplate("cpp.try-catch", "v")
+onoremap <buffer> <silent> \+tr :call C_InsertTemplate("cpp.try-catch")
+noremap <buffer> <silent> \+ec :call C_InsertTemplate("cpp.error-class")
+noremap <buffer> <silent> \+tf :call C_InsertTemplate("cpp.template-function")
+noremap <buffer> <silent> \+tai :call C_InsertTemplate("cpp.template-accessor-implementation")
+noremap <buffer> <silent> \+tmi :call C_InsertTemplate("cpp.template-method-implementation")
+noremap <buffer> <silent> \+tcni :call C_InsertTemplate("cpp.template-class-using-new-implementation")
+noremap <buffer> <silent> \+tci :call C_InsertTemplate("cpp.template-class-implementation")
+noremap <buffer> <silent> \+tcn :call C_InsertTemplate("cpp.template-class-using-new-definition")
+noremap <buffer> <silent> \+tc :call C_InsertTemplate("cpp.template-class-definition")
+noremap <buffer> <silent> \+ai :call C_InsertTemplate("cpp.accessor-implementation")
+noremap <buffer> <silent> \+mi :call C_InsertTemplate("cpp.method-implementation")
+noremap <buffer> <silent> \+cni :call C_InsertTemplate("cpp.class-using-new-implementation")
+noremap <buffer> <silent> \+ci :call C_InsertTemplate("cpp.class-implementation")
+noremap <buffer> <silent> \+cn :call C_InsertTemplate("cpp.class-using-new-definition")
+noremap <buffer> <silent> \+c :call C_InsertTemplate("cpp.class-definition")
+noremap <buffer> <silent> \+co :call C_InsertTemplate("cpp.cout")
+noremap <buffer> <silent> \+" :call C_InsertTemplate("cpp.cout-operator")
+noremap <buffer> \nts :CStyle 
+noremap <buffer> <silent> \ntr :call C_RereadTemplates()
+noremap <buffer> <silent> \ntl :call C_BrowseTemplateFiles("Local")
+noremap <buffer> <silent> \ns :call C_ProtoShow()
+noremap <buffer> <silent> \nc :call C_ProtoClear()
+noremap <buffer> <silent> \ni :call C_ProtoInsert()
+vnoremap <buffer> <silent> \nm :call C_ProtoPick("method")
+onoremap <buffer> <silent> \nm :call C_ProtoPick("method")
+vnoremap <buffer> <silent> \nf :call C_ProtoPick("function")
+onoremap <buffer> <silent> \nf :call C_ProtoPick("function")
+vnoremap <buffer> <silent> \np :call C_ProtoPick("function")
+onoremap <buffer> <silent> \np :call C_ProtoPick("function")
+noremap <buffer> <silent> \ne :call C_CodeSnippet("e")
+vnoremap <buffer> <silent> \nw :call C_CodeSnippet("wv")
+onoremap <buffer> <silent> \nw :call C_CodeSnippet("w")
+noremap <buffer> <silent> \nr :call C_CodeSnippet("r")
+noremap <buffer> <silent> \ifp :call C_InsertTemplate("idioms.fprintf")
+noremap <buffer> <silent> \ifs :call C_InsertTemplate("idioms.fscanf")
+vnoremap <buffer> <silent> \io :call C_InsertTemplate("idioms.open-output-file", "v")
+onoremap <buffer> <silent> \io :call C_InsertTemplate("idioms.open-output-file")
+vnoremap <buffer> <silent> \ii :call C_InsertTemplate("idioms.open-input-file", "v")
+onoremap <buffer> <silent> \ii :call C_InsertTemplate("idioms.open-input-file")
+vnoremap <buffer> <silent> \ias :call C_InsertTemplate("idioms.assert", "v")
+onoremap <buffer> <silent> \ias :call C_InsertTemplate("idioms.assert")
+vnoremap <buffer> <silent> \isi :call C_InsertTemplate("idioms.sizeof", "v")
+onoremap <buffer> <silent> \isi :call C_InsertTemplate("idioms.sizeof")
+noremap <buffer> <silent> \ire :call C_InsertTemplate("idioms.realloc")
+noremap <buffer> <silent> \ima :call C_InsertTemplate("idioms.malloc")
+noremap <buffer> <silent> \ica :call C_InsertTemplate("idioms.calloc")
+noremap <buffer> <silent> \isc :call C_InsertTemplate("idioms.scanf")
+noremap <buffer> <silent> \ip :call C_InsertTemplate("idioms.printf")
+vnoremap <buffer> <silent> \iu :call C_InsertTemplate("idioms.union" , "v")
+onoremap <buffer> <silent> \iu :call C_InsertTemplate("idioms.union")
+vnoremap <buffer> <silent> \is :call C_InsertTemplate("idioms.struct", "v")
+onoremap <buffer> <silent> \is :call C_InsertTemplate("idioms.struct")
+vnoremap <buffer> <silent> \ie :call C_InsertTemplate("idioms.enum"  , "v")
+onoremap <buffer> <silent> \ie :call C_InsertTemplate("idioms.enum")
+vnoremap <buffer> <silent> \in :call C_CodeFor("down")
+onoremap <buffer> <silent> \in :call C_CodeFor("down")
+vnoremap <buffer> <silent> \i0 :call C_CodeFor("up"  )
+onoremap <buffer> <silent> \i0 :call C_CodeFor("up"  )
+vnoremap <buffer> <silent> \im :call C_InsertTemplate("idioms.main", "v")
+onoremap <buffer> <silent> \im :call C_InsertTemplate("idioms.main")
+vnoremap <buffer> <silent> \isf :call C_InsertTemplate("idioms.function-static", "v")
+onoremap <buffer> <silent> \isf :call C_InsertTemplate("idioms.function-static")
+vnoremap <buffer> <silent> \if :call C_InsertTemplate("idioms.function", "v")
+onoremap <buffer> <silent> \if :call C_InsertTemplate("idioms.function")
+noremap <buffer> <silent> \pp :call C_InsertTemplate("preprocessor.pragma")
+noremap <buffer> <silent> \pl :call C_InsertTemplate("preprocessor.line")
+noremap <buffer> <silent> \pe :call C_InsertTemplate("preprocessor.error")
+noremap <buffer> <silent> \pr0 :call C_PPIf0Remove()
+vnoremap <buffer> <silent> \pi0 :call C_PPIf0("v")
+onoremap <buffer> <silent> \pi0 :call C_PPIf0("a")2ji
+vnoremap <buffer> <silent> \pind :call C_InsertTemplate("preprocessor.ifndef-def-endif", "v")
+vnoremap <buffer> <silent> \pin :call C_InsertTemplate("preprocessor.ifndef-else-endif", "v")
+vnoremap <buffer> <silent> \pid :call C_InsertTemplate("preprocessor.ifdef-else-endif", "v")
+vnoremap <buffer> <silent> \pie :call C_InsertTemplate("preprocessor.if-else-endif", "v")
+vnoremap <buffer> <silent> \pif :call C_InsertTemplate("preprocessor.if-endif", "v")
+onoremap <buffer> <silent> \pind :call C_InsertTemplate("preprocessor.ifndef-def-endif")
+onoremap <buffer> <silent> \pin :call C_InsertTemplate("preprocessor.ifndef-else-endif")
+onoremap <buffer> <silent> \pid :call C_InsertTemplate("preprocessor.ifdef-else-endif")
+onoremap <buffer> <silent> \pie :call C_InsertTemplate("preprocessor.if-else-endif")
+onoremap <buffer> <silent> \pif :call C_InsertTemplate("preprocessor.if-endif")
+noremap <buffer> <silent> \pu :call C_InsertTemplate("preprocessor.undefine")
+noremap <buffer> <silent> \pd :call C_InsertTemplate("preprocessor.define")
+noremap <buffer> <silent> \p" :call C_InsertTemplate("preprocessor.include-local")
+noremap <buffer> <silent> \p< :call C_InsertTemplate("preprocessor.include-global")
+noremap <buffer> \+pc :IncludeCppCLibrary 
+noremap <buffer> \+ps :IncludeCppLibrary 
+noremap <buffer> \pc :IncludeC99Library 
+noremap <buffer> \ps :IncludeStdLibrary 
+vnoremap <buffer> <silent> \sb :call C_InsertTemplate("statements.block", "v")
+onoremap <buffer> <silent> \sb :call C_InsertTemplate("statements.block")
+vnoremap <buffer> <silent> \s{ :call C_InsertTemplate("statements.block", "v")
+onoremap <buffer> <silent> \s{ :call C_InsertTemplate("statements.block")
+noremap <buffer> <silent> \sc :call C_InsertTemplate("statements.case")
+vnoremap <buffer> <silent> \ss :call C_InsertTemplate("statements.switch", "v")
+onoremap <buffer> <silent> \ss :call C_InsertTemplate("statements.switch")
+vnoremap <buffer> <silent> \swh :call C_InsertTemplate("statements.while-block", "v")
+onoremap <buffer> <silent> \swh :call C_InsertTemplate("statements.while-block")
+noremap <buffer> <silent> \sw :call C_InsertTemplate("statements.while")
+vnoremap <buffer> <silent> \se :call C_InsertTemplate("statements.else-block", "v")
+onoremap <buffer> <silent> \se :call C_InsertTemplate("statements.else-block")
+vnoremap <buffer> <silent> \sife :call C_InsertTemplate("statements.if-block-else", "v")
+onoremap <buffer> <silent> \sife :call C_InsertTemplate("statements.if-block-else")
+vnoremap <buffer> <silent> \sie :call C_InsertTemplate("statements.if-else", "v")
+onoremap <buffer> <silent> \sie :call C_InsertTemplate("statements.if-else")
+vnoremap <buffer> <silent> \sif :call C_InsertTemplate("statements.if-block", "v")
+onoremap <buffer> <silent> \sif :call C_InsertTemplate("statements.if-block")
+noremap <buffer> <silent> \si :call C_InsertTemplate("statements.if")
+vnoremap <buffer> <silent> \sfo :call C_InsertTemplate("statements.for-block", "v")
+onoremap <buffer> <silent> \sfo :call C_InsertTemplate("statements.for-block")
+noremap <buffer> <silent> \sf :call C_InsertTemplate("statements.for")
+vnoremap <buffer> <silent> \sd :call C_InsertTemplate("statements.do-while", "v")
+onoremap <buffer> <silent> \sd :call C_InsertTemplate("statements.do-while")
+noremap <buffer> \csc :SpecialComment 
+noremap <buffer> \ckc :KeywordComment 
+noremap <buffer> \chs :HFileSection 
+noremap <buffer> \ccs :CFileSection 
+vnoremap <buffer> <silent> \cx :call C_CommentToggle( )
+onoremap <buffer> <silent> \cx :call C_CommentToggle( )
+vnoremap <buffer> <silent> \ct s:call C_InsertDateAndTime('dt')a
+onoremap <buffer> <silent> \ct :call C_InsertDateAndTime('dt')
+vnoremap <buffer> <silent> \cd s:call C_InsertDateAndTime('d')a
+onoremap <buffer> <silent> \cd :call C_InsertDateAndTime('d')
+noremap <buffer> <silent> \cfdh :call C_InsertTemplate("comment.file-description-header")
+noremap <buffer> <silent> \cfdi :call C_InsertTemplate("comment.file-description")
+noremap <buffer> <silent> \ccl :call C_InsertTemplate("comment.class")
+noremap <buffer> <silent> \cme :call C_InsertTemplate("comment.method")
+noremap <buffer> <silent> \cfu :call C_InsertTemplate("comment.function")
+noremap <buffer> <silent> \cfr :call C_InsertTemplate("comment.frame")
+vnoremap <buffer> <silent> \co :call C_CommentToCode():nohlsearch
+onoremap <buffer> <silent> \co :call C_CommentToCode():nohlsearch
+vnoremap <buffer> <silent> \cc :call C_CodeToCommentCpp():nohlsearchj
+onoremap <buffer> <silent> \cc :call C_CodeToCommentCpp():nohlsearchj
+vnoremap <buffer> <silent> \c* :call C_CodeToCommentC():nohlsearchj
+onoremap <buffer> <silent> \c* :call C_CodeToCommentC():nohlsearchj
+noremap <buffer> <silent> \cs :call C_GetLineEndCommCol()
+vnoremap <buffer> <silent> \cj :call C_AdjustLineEndComm()
+nnoremap <buffer> <silent> \cj :call C_AdjustLineEndComm()
+vnoremap <buffer> <silent> \cl :call C_EndOfLineComment()
+onoremap <buffer> <silent> \cl :call C_EndOfLineComment()
+vnoremap <buffer> { S{}Pk=iB
+map <buffer> <silent> <S-F2> :A
+map <buffer> <silent> <S-F9> :call C_Arguments()
+map <buffer> <silent> <C-F9> :call C_Run()
+map <buffer> <silent> <F9> :call C_Link():call C_HlMessage()
+map <buffer> <silent> <M-F9> :call C_Compile():call C_HlMessage()
+inoremap <buffer> 	 =CodeComplete()=SwitchRegion()
+imap <buffer> <silent> <NL> =C_JumpCtrlJ()
+inoremap <buffer> <silent> ( (=EchoFunc()
+inoremap <buffer> <silent> ) =EchoFuncClear())
+inoremap <buffer> /* /*/kA 
+inoremap <buffer> /* /*  */<Left><Left><Left>
+imap <buffer> <silent> \hm :call C_Help("m")
+imap <buffer> <silent> \hp :call C_HelpCsupport()
+imap <buffer> <silent> \ro :call C_Toggle_Gvim_Xterm()
+imap <buffer> <silent> \rx :call C_XtermSize()
+imap <buffer> <silent> \rs :call C_Settings()
+imap <buffer> <silent> \rh :call C_Hardcopy()
+imap <buffer> <silent> \rd :call C_Indent()
+imap <buffer> <silent> \rpa :call C_SplintArguments()
+imap <buffer> <silent> \rp :call C_SplintCheck():call C_HlMessage()
+imap <buffer> <silent> \rma :call C_MakeArguments()
+imap <buffer> <silent> \rme :call C_MakeExeToRun()
+imap <buffer> <silent> \rmc :call C_MakeClean()
+imap <buffer> <silent> \rm :call C_Make()
+imap <buffer> <silent> \ra :call C_Arguments()
+imap <buffer> <silent> \rr :call C_Run()
+imap <buffer> <silent> \rl :call C_Link():call C_HlMessage()
+imap <buffer> <silent> \rc :call C_Compile():call C_HlMessage()
+inoremap <buffer> <silent> \+c. :call C_InsertTemplate("cpp.catch-points")
+inoremap <buffer> <silent> \+ca :call C_InsertTemplate("cpp.catch")
+inoremap <buffer> <silent> \+tr :call C_InsertTemplate("cpp.try-catch")
+inoremap <buffer> <silent> \+ec :call C_InsertTemplate("cpp.error-class")
+inoremap <buffer> <silent> \+tf :call C_InsertTemplate("cpp.template-function")
+inoremap <buffer> <silent> \+tai :call C_InsertTemplate("cpp.template-accessor-implementation")
+inoremap <buffer> <silent> \+tmi :call C_InsertTemplate("cpp.template-method-implementation")
+inoremap <buffer> <silent> \+tcni :call C_InsertTemplate("cpp.template-class-using-new-implementation")
+inoremap <buffer> <silent> \+tci :call C_InsertTemplate("cpp.template-class-implementation")
+inoremap <buffer> <silent> \+tcn :call C_InsertTemplate("cpp.template-class-using-new-definition")
+inoremap <buffer> <silent> \+tc :call C_InsertTemplate("cpp.template-class-definition")
+inoremap <buffer> <silent> \+ai :call C_InsertTemplate("cpp.accessor-implementation")
+inoremap <buffer> <silent> \+mi :call C_InsertTemplate("cpp.method-implementation")
+inoremap <buffer> <silent> \+cni :call C_InsertTemplate("cpp.class-using-new-implementation")
+inoremap <buffer> <silent> \+ci :call C_InsertTemplate("cpp.class-implementation")
+inoremap <buffer> <silent> \+cn :call C_InsertTemplate("cpp.class-using-new-definition")
+inoremap <buffer> <silent> \+c :call C_InsertTemplate("cpp.class-definition")
+inoremap <buffer> <silent> \+co :call C_InsertTemplate("cpp.cout")
+inoremap <buffer> <silent> \+" :call C_InsertTemplate("cpp.cout-operator")
+inoremap <buffer> \nts :CStyle 
+inoremap <buffer> <silent> \ntr :call C_RereadTemplates()
+inoremap <buffer> <silent> \ntl :call C_BrowseTemplateFiles("Local")
+inoremap <buffer> <silent> \ns :call C_ProtoShow()
+inoremap <buffer> <silent> \nc :call C_ProtoClear()
+inoremap <buffer> <silent> \ni :call C_ProtoInsert()
+inoremap <buffer> <silent> \nm :call C_ProtoPick("method")
+inoremap <buffer> <silent> \nf :call C_ProtoPick("function")
+inoremap <buffer> <silent> \np :call C_ProtoPick("function")
+inoremap <buffer> <silent> \ne :call C_CodeSnippet("e")
+inoremap <buffer> <silent> \nw :call C_CodeSnippet("w")
+inoremap <buffer> <silent> \nr :call C_CodeSnippet("r")
+inoremap <buffer> <silent> \ifp :call C_InsertTemplate("idioms.fprintf")
+inoremap <buffer> <silent> \ifs :call C_InsertTemplate("idioms.fscanf")
+inoremap <buffer> <silent> \io :call C_InsertTemplate("idioms.open-output-file")
+inoremap <buffer> <silent> \ii :call C_InsertTemplate("idioms.open-input-file")
+inoremap <buffer> <silent> \ias :call C_InsertTemplate("idioms.assert")
+inoremap <buffer> <silent> \isi :call C_InsertTemplate("idioms.sizeof")
+inoremap <buffer> <silent> \ire :call C_InsertTemplate("idioms.realloc")
+inoremap <buffer> <silent> \ima :call C_InsertTemplate("idioms.malloc")
+inoremap <buffer> <silent> \ica :call C_InsertTemplate("idioms.calloc")
+inoremap <buffer> <silent> \isc :call C_InsertTemplate("idioms.scanf")
+inoremap <buffer> <silent> \ip :call C_InsertTemplate("idioms.printf")
+inoremap <buffer> <silent> \iu :call C_InsertTemplate("idioms.union")
+inoremap <buffer> <silent> \is :call C_InsertTemplate("idioms.struct")
+inoremap <buffer> <silent> \ie :call C_InsertTemplate("idioms.enum")
+inoremap <buffer> <silent> \in :call C_CodeFor("down")i
+inoremap <buffer> <silent> \i0 :call C_CodeFor("up"  )i
+inoremap <buffer> <silent> \im :call C_InsertTemplate("idioms.main")
+inoremap <buffer> <silent> \isf :call C_InsertTemplate("idioms.function-static")
+inoremap <buffer> <silent> \if :call C_InsertTemplate("idioms.function")
+inoremap <buffer> <silent> \pp :call C_InsertTemplate("preprocessor.pragma")
+inoremap <buffer> <silent> \pl :call C_InsertTemplate("preprocessor.line")
+inoremap <buffer> <silent> \pe :call C_InsertTemplate("preprocessor.error")
+inoremap <buffer> <silent> \pr0 :call C_PPIf0Remove()
+inoremap <buffer> <silent> \pi0 :call C_PPIf0("a")2ji
+inoremap <buffer> <silent> \pind :call C_InsertTemplate("preprocessor.ifndef-def-endif")
+inoremap <buffer> <silent> \pin :call C_InsertTemplate("preprocessor.ifndef-else-endif")
+inoremap <buffer> <silent> \pid :call C_InsertTemplate("preprocessor.ifdef-else-endif")
+inoremap <buffer> <silent> \pie :call C_InsertTemplate("preprocessor.if-else-endif")
+inoremap <buffer> <silent> \pif :call C_InsertTemplate("preprocessor.if-endif")
+inoremap <buffer> <silent> \pu :call C_InsertTemplate("preprocessor.undefine")
+inoremap <buffer> <silent> \pd :call C_InsertTemplate("preprocessor.define")
+inoremap <buffer> <silent> \p" :call C_InsertTemplate("preprocessor.include-local")
+inoremap <buffer> <silent> \p< :call C_InsertTemplate("preprocessor.include-global")
+inoremap <buffer> \+pc :IncludeCppC9Library 
+inoremap <buffer> \+ps :IncludeCppLibrary 
+inoremap <buffer> \pc :IncludeC99Library 
+inoremap <buffer> \ps :IncludeStdLibrary 
+inoremap <buffer> <silent> \sb :call C_InsertTemplate("statements.block")
+inoremap <buffer> <silent> \s{ :call C_InsertTemplate("statements.block")
+inoremap <buffer> <silent> \sc :call C_InsertTemplate("statements.case")
+inoremap <buffer> <silent> \ss :call C_InsertTemplate("statements.switch")
+inoremap <buffer> <silent> \swh :call C_InsertTemplate("statements.while-block")
+inoremap <buffer> <silent> \sw :call C_InsertTemplate("statements.while")
+inoremap <buffer> <silent> \se :call C_InsertTemplate("statements.else-block")
+inoremap <buffer> <silent> \sife :call C_InsertTemplate("statements.if-block-else")
+inoremap <buffer> <silent> \sie :call C_InsertTemplate("statements.if-else")
+inoremap <buffer> <silent> \sif :call C_InsertTemplate("statements.if-block")
+inoremap <buffer> <silent> \si :call C_InsertTemplate("statements.if")
+inoremap <buffer> <silent> \sfo :call C_InsertTemplate("statements.for-block")
+inoremap <buffer> <silent> \sf :call C_InsertTemplate("statements.for")
+inoremap <buffer> <silent> \sd :call C_InsertTemplate("statements.do-while")
+inoremap <buffer> \csc :SpecialComment 
+inoremap <buffer> \ckc :KeywordComment 
+inoremap <buffer> \chs :HFileSection 
+inoremap <buffer> \ccs :CFileSection 
+inoremap <buffer> <silent> \cx :call C_CommentToggle( )
+inoremap <buffer> <silent> \ct :call C_InsertDateAndTime('dt')a
+inoremap <buffer> <silent> \cd :call C_InsertDateAndTime('d')a
+inoremap <buffer> <silent> \cfdh :call C_InsertTemplate("comment.file-description-header")
+inoremap <buffer> <silent> \cfdi :call C_InsertTemplate("comment.file-description")
+inoremap <buffer> <silent> \ccl :call C_InsertTemplate("comment.class")
+inoremap <buffer> <silent> \cme :call C_InsertTemplate("comment.method")
+inoremap <buffer> <silent> \cfu :call C_InsertTemplate("comment.function")
+inoremap <buffer> <silent> \cfr :call C_InsertTemplate("comment.frame")
+inoremap <buffer> <silent> \cj :call C_AdjustLineEndComm()a
+inoremap <buffer> <silent> \cl :call C_EndOfLineComment()
+inoremap <buffer> { {}O
+let &cpo=s:cpo_save
+unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal nobinary
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal cindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=:0g0t0(sus
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
+setlocal commentstring=/*%s*/
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal define=
+setlocal dictionary=~/.vim/c-support/wordlists/c-c++-keywords.list,~/.vim/c-support/wordlists/k+r.list,~/.vim/c-support/wordlists/stl_index.list
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal noexpandtab
+if &filetype != 'cpp'
+setlocal filetype=cpp
+endif
+setlocal foldcolumn=3
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=syntax
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=croql
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=0
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal nolist
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=octal,hex
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=omni#cpp#complete#Main
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=4
+setlocal noshortname
+setlocal nosmartindent
+setlocal softtabstop=4
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=
+setlocal suffixesadd=
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'cpp'
+setlocal syntax=cpp
+endif
+setlocal tabstop=4
+setlocal tags=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+1
+normal zo
+12
+normal zo
+23
+normal zo
+25
+normal zo
+40
+normal zo
+45
+normal zo
+50
+normal zo
+52
+normal zo
+50
+normal zo
+23
+normal zo
+12
+normal zo
+66
+normal zo
+69
+normal zo
+3675
+normal zo
+3680
+normal zo
+3685
+normal zo
+3690
+normal zo
+3695
+normal zo
+3700
+normal zo
+3705
+normal zo
+3710
+normal zo
+3715
+normal zo
+3720
+normal zo
+3725
+normal zo
+3730
+normal zo
+3735
+normal zo
+3740
+normal zo
+3745
+normal zo
+3750
+normal zo
+3755
+normal zo
+3760
+normal zo
+3765
+normal zo
+3770
+normal zo
+3775
+normal zo
+3780
+normal zo
+3785
+normal zo
+3790
+normal zo
+3795
+normal zo
+3800
+normal zo
+3805
+normal zo
+3810
+normal zo
+3815
+normal zo
+3820
+normal zo
+3825
+normal zo
+3830
+normal zo
+3835
+normal zo
+3840
+normal zo
+3845
+normal zo
+3850
+normal zo
+3855
+normal zo
+3860
+normal zo
+3865
+normal zo
+3870
+normal zo
+3875
+normal zo
+3880
+normal zo
+3885
+normal zo
+3890
+normal zo
+3895
+normal zo
+3900
+normal zo
+3905
+normal zo
+3910
+normal zo
+3915
+normal zo
+3920
+normal zo
+3925
+normal zo
+3930
+normal zo
+3935
+normal zo
+3940
+normal zo
+3945
+normal zo
+3950
+normal zo
+3955
+normal zo
+3960
+normal zo
+3965
+normal zo
+3970
+normal zo
+3975
+normal zo
+3980
+normal zo
+3985
+normal zo
+3990
+normal zo
+3995
+normal zo
+4000
+normal zo
+4005
+normal zo
+4010
+normal zo
+4015
+normal zo
+4020
+normal zo
+4025
+normal zo
+4030
+normal zo
+4035
+normal zo
+4040
+normal zo
+4045
+normal zo
+4050
+normal zo
+4055
+normal zo
+4060
+normal zo
+4065
+normal zo
+4070
+normal zo
+4075
+normal zo
+4080
+normal zo
+4085
+normal zo
+4090
+normal zo
+4095
+normal zo
+4100
+normal zo
+4105
+normal zo
+4110
+normal zo
+4115
+normal zo
+4120
+normal zo
+4125
+normal zo
+4130
+normal zo
+4135
+normal zo
+4140
+normal zo
+4145
+normal zo
+4150
+normal zo
+4155
+normal zo
+4160
+normal zo
+4165
+normal zo
+4170
+normal zo
+4175
+normal zo
+4180
+normal zo
+4185
+normal zo
+4190
+normal zo
+4195
+normal zo
+4200
+normal zo
+4205
+normal zo
+4210
+normal zo
+4215
+normal zo
+4220
+normal zo
+4225
+normal zo
+4230
+normal zo
+4235
+normal zo
+4240
+normal zo
+4245
+normal zo
+4250
+normal zo
+4255
+normal zo
+4260
+normal zo
+4265
+normal zo
+4270
+normal zo
+4275
+normal zo
+4280
+normal zo
+4285
+normal zo
+4290
+normal zo
+4295
+normal zo
+4300
+normal zo
+4305
+normal zo
+4310
+normal zo
+4315
+normal zo
+4320
+normal zo
+4325
+normal zo
+4330
+normal zo
+4335
+normal zo
+4340
+normal zo
+4345
+normal zo
+4350
+normal zo
+4355
+normal zo
+4360
+normal zo
+4365
+normal zo
+4370
+normal zo
+4375
+normal zo
+4380
+normal zo
+4385
+normal zo
+4390
+normal zo
+4395
+normal zo
+4400
+normal zo
+4405
+normal zo
+4410
+normal zo
+4415
+normal zo
+4420
+normal zo
+4425
+normal zo
+4430
+normal zo
+4435
+normal zo
+4440
+normal zo
+4445
+normal zo
+4450
+normal zo
+4455
+normal zo
+4460
+normal zo
+4465
+normal zo
+4470
+normal zo
+4475
+normal zo
+4480
+normal zo
+4485
+normal zo
+4490
+normal zo
+4494
+normal zo
+4499
+normal zo
+4504
+normal zo
+4509
+normal zo
+4514
+normal zo
+4519
+normal zo
+4524
+normal zo
+4529
+normal zo
+4534
+normal zo
+4539
+normal zo
+4544
+normal zo
+4549
+normal zo
+4554
+normal zo
+4559
+normal zo
+4564
+normal zo
+4569
+normal zo
+4574
+normal zo
+4579
+normal zo
+4584
+normal zo
+4589
+normal zo
+4594
+normal zo
+4599
+normal zo
+4604
+normal zo
+4609
+normal zo
+4614
+normal zo
+4618
+normal zo
+4623
+normal zo
+4628
+normal zo
+4633
+normal zo
+4638
+normal zo
+4643
+normal zo
+4648
+normal zo
+4653
+normal zo
+4658
+normal zo
+4663
+normal zo
+4668
+normal zo
+4673
+normal zo
+4678
+normal zo
+4683
+normal zo
+4688
+normal zo
+4693
+normal zo
+4698
+normal zo
+4703
+normal zo
+4708
+normal zo
+4713
+normal zo
+4718
+normal zo
+4723
+normal zo
+4728
+normal zo
+4733
+normal zo
+4738
+normal zo
+4743
+normal zo
+4748
+normal zo
+4753
+normal zo
+4758
+normal zo
+4763
+normal zo
+4768
+normal zo
+4773
+normal zo
+4778
+normal zo
+4783
+normal zo
+4788
+normal zo
+4793
+normal zo
+4798
+normal zo
+4803
+normal zo
+4808
+normal zo
+4813
+normal zo
+4818
+normal zo
+4823
+normal zo
+4828
+normal zo
+4833
+normal zo
+4838
+normal zo
+4843
+normal zo
+4848
+normal zo
+4853
+normal zo
+4858
+normal zo
+4863
+normal zo
+4868
+normal zo
+4873
+normal zo
+4878
+normal zo
+4883
+normal zo
+4888
+normal zo
+4893
+normal zo
+4898
+normal zo
+4903
+normal zo
+4908
+normal zo
+4913
+normal zo
+4918
+normal zo
+4923
+normal zo
+4928
+normal zo
+4933
+normal zo
+4938
+normal zo
+4943
+normal zo
+4947
+normal zo
+4952
+normal zo
+4957
+normal zo
+4962
+normal zo
+4967
+normal zo
+4972
+normal zo
+4977
+normal zo
+4982
+normal zo
+4987
+normal zo
+4992
+normal zo
+4997
+normal zo
+5002
+normal zo
+5007
+normal zo
+5012
+normal zo
+5017
+normal zo
+5022
+normal zo
+5027
+normal zo
+5032
+normal zo
+5037
+normal zo
+5042
+normal zo
+5046
+normal zo
+5051
+normal zo
+5056
+normal zo
+5061
+normal zo
+5066
+normal zo
+5071
+normal zo
+5076
+normal zo
+5081
+normal zo
+5086
+normal zo
+5091
+normal zo
+5096
+normal zo
+5101
+normal zo
+5106
+normal zo
+5111
+normal zo
+5116
+normal zo
+5121
+normal zo
+5126
+normal zo
+5131
+normal zo
+5136
+normal zo
+5141
+normal zo
+5146
+normal zo
+5151
+normal zo
+5156
+normal zo
+5161
+normal zo
+5166
+normal zo
+5171
+normal zo
+5176
+normal zo
+5181
+normal zo
+5186
+normal zo
+5191
+normal zo
+5196
+normal zo
+5201
+normal zo
+5206
+normal zo
+5211
+normal zo
+5216
+normal zo
+5221
+normal zo
+5226
+normal zo
+5231
+normal zo
+5236
+normal zo
+5241
+normal zo
+5246
+normal zo
+5251
+normal zo
+5256
+normal zo
+5261
+normal zo
+5266
+normal zo
+5271
+normal zo
+5276
+normal zo
+5281
+normal zo
+5286
+normal zo
+5291
+normal zo
+5296
+normal zo
+5301
+normal zo
+5306
+normal zo
+5311
+normal zo
+5316
+normal zo
+5321
+normal zo
+5326
+normal zo
+5331
+normal zo
+5336
+normal zo
+5341
+normal zo
+5346
+normal zo
+5351
+normal zo
+5356
+normal zo
+5361
+normal zo
+5366
+normal zo
+5371
+normal zo
+5376
+normal zo
+5381
+normal zo
+5386
+normal zo
+5391
+normal zo
+5396
+normal zo
+5401
+normal zo
+5406
+normal zo
+5411
+normal zo
+5416
+normal zo
+5421
+normal zo
+5426
+normal zo
+5431
+normal zo
+5436
+normal zo
+5441
+normal zo
+5446
+normal zo
+5451
+normal zo
+5456
+normal zo
+5461
+normal zo
+5466
+normal zo
+5471
+normal zo
+5476
+normal zo
+5481
+normal zo
+5486
+normal zo
+5491
+normal zo
+5496
+normal zo
+5501
+normal zo
+5506
+normal zo
+5511
+normal zo
+5516
+normal zo
+5521
+normal zo
+5526
+normal zo
+5531
+normal zo
+5536
+normal zo
+5541
+normal zo
+5546
+normal zo
+5551
+normal zo
+5556
+normal zo
+5561
+normal zo
+5566
+normal zo
+5571
+normal zo
+5576
+normal zo
+5581
+normal zo
+5586
+normal zo
+5591
+normal zo
+5596
+normal zo
+5601
+normal zo
+5606
+normal zo
+5611
+normal zo
+5616
+normal zo
+5621
+normal zo
+5626
+normal zo
+5631
+normal zo
+5636
+normal zo
+5641
+normal zo
+69
+normal zo
+66
+normal zo
+5652
+normal zo
+let s:l = 5651 - ((40 * winheight(0) + 24) / 49)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+5651
+normal! 0
+let &so = s:so_save | let &siso = s:siso_save
+doautoall SessionLoadPost
+" vim: set ft=vim :

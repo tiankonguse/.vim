@@ -1,0 +1,3888 @@
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+argglobal
+let s:cpo_save=&cpo
+set cpo&vim
+imap <buffer> <silent> <S-F2> :A
+imap <buffer> <silent> <S-F9> :call C_Arguments()
+imap <buffer> <silent> <C-F9> :call C_Run()
+imap <buffer> <silent> <F9> :call C_Link():call C_HlMessage()
+imap <buffer> <silent> <M-F9> :call C_Compile():call C_HlMessage()
+nmap <buffer> <silent> <NL> i=C_JumpCtrlJ()
+vnoremap <buffer> /* s/*  */<Left><Left><Left>p
+inoremap <buffer> <silent> ­ =EchoFuncP()
+inoremap <buffer> <silent> ½ =EchoFuncN()
+nmap <buffer> <silent> \rh :call C_Hardcopy()
+nnoremap <buffer> <silent> \+c. :call C_InsertTemplate("cpp.catch-points")
+nnoremap <buffer> <silent> \+ca :call C_InsertTemplate("cpp.catch")
+nnoremap <buffer> <silent> \+tr :call C_InsertTemplate("cpp.try-catch")
+nnoremap <buffer> <silent> \nm :call C_ProtoPick("method")
+nnoremap <buffer> <silent> \nf :call C_ProtoPick("function")
+nnoremap <buffer> <silent> \np :call C_ProtoPick("function")
+nnoremap <buffer> <silent> \nw :call C_CodeSnippet("w")
+nnoremap <buffer> <silent> \io :call C_InsertTemplate("idioms.open-output-file")
+nnoremap <buffer> <silent> \ii :call C_InsertTemplate("idioms.open-input-file")
+nnoremap <buffer> <silent> \ias :call C_InsertTemplate("idioms.assert")
+nnoremap <buffer> <silent> \isi :call C_InsertTemplate("idioms.sizeof")
+nnoremap <buffer> <silent> \iu :call C_InsertTemplate("idioms.union")
+nnoremap <buffer> <silent> \is :call C_InsertTemplate("idioms.struct")
+nnoremap <buffer> <silent> \ie :call C_InsertTemplate("idioms.enum")
+nnoremap <buffer> <silent> \in :call C_CodeFor("down")
+nnoremap <buffer> <silent> \i0 :call C_CodeFor("up"  )
+nnoremap <buffer> <silent> \im :call C_InsertTemplate("idioms.main")
+nnoremap <buffer> <silent> \isf :call C_InsertTemplate("idioms.function-static")
+nnoremap <buffer> <silent> \if :call C_InsertTemplate("idioms.function")
+nnoremap <buffer> <silent> \pi0 :call C_PPIf0("a")2ji
+nnoremap <buffer> <silent> \pind :call C_InsertTemplate("preprocessor.ifndef-def-endif")
+nnoremap <buffer> <silent> \pin :call C_InsertTemplate("preprocessor.ifndef-else-endif")
+nnoremap <buffer> <silent> \pid :call C_InsertTemplate("preprocessor.ifdef-else-endif")
+nnoremap <buffer> <silent> \pie :call C_InsertTemplate("preprocessor.if-else-endif")
+nnoremap <buffer> <silent> \pif :call C_InsertTemplate("preprocessor.if-endif")
+nnoremap <buffer> <silent> \sb :call C_InsertTemplate("statements.block")
+nnoremap <buffer> <silent> \s{ :call C_InsertTemplate("statements.block")
+nnoremap <buffer> <silent> \ss :call C_InsertTemplate("statements.switch")
+nnoremap <buffer> <silent> \swh :call C_InsertTemplate("statements.while-block")
+nnoremap <buffer> <silent> \se :call C_InsertTemplate("statements.else-block")
+nnoremap <buffer> <silent> \sife :call C_InsertTemplate("statements.if-block-else")
+nnoremap <buffer> <silent> \sie :call C_InsertTemplate("statements.if-else")
+nnoremap <buffer> <silent> \sif :call C_InsertTemplate("statements.if-block")
+nnoremap <buffer> <silent> \sfo :call C_InsertTemplate("statements.for-block")
+nnoremap <buffer> <silent> \sd :call C_InsertTemplate("statements.do-while")
+nnoremap <buffer> <silent> \cx :call C_CommentToggle( )
+nnoremap <buffer> <silent> \ct :call C_InsertDateAndTime('dt')
+nnoremap <buffer> <silent> \cd :call C_InsertDateAndTime('d')
+nnoremap <buffer> <silent> \co :call C_CommentToCode():nohlsearch
+nnoremap <buffer> <silent> \cc :call C_CodeToCommentCpp():nohlsearchj
+nnoremap <buffer> <silent> \c* :call C_CodeToCommentC():nohlsearchj
+nnoremap <buffer> <silent> \cl :call C_EndOfLineComment()
+map <buffer> <silent> \hm :call C_Help("m")
+map <buffer> <silent> \hp :call C_HelpCsupport()
+map <buffer> <silent> \ro :call C_Toggle_Gvim_Xterm()
+map <buffer> <silent> \rx :call C_XtermSize()
+vmap <buffer> <silent> \rh :call C_Hardcopy()
+map <buffer> <silent> \rs :call C_Settings()
+omap <buffer> <silent> \rh :call C_Hardcopy()
+map <buffer> <silent> \rd :call C_Indent()
+map <buffer> <silent> \rpa :call C_SplintArguments()
+map <buffer> <silent> \rp :call C_SplintCheck():call C_HlMessage()
+map <buffer> <silent> \rma :call C_MakeArguments()
+map <buffer> <silent> \rme :call C_MakeExeToRun()
+map <buffer> <silent> \rmc :call C_MakeClean()
+map <buffer> <silent> \rcm :call C_ChooseMakefile()
+map <buffer> <silent> \rm :call C_Make()
+map <buffer> <silent> \ra :call C_Arguments()
+map <buffer> <silent> \rr :call C_Run()
+map <buffer> <silent> \rl :call C_Link():call C_HlMessage()
+map <buffer> <silent> \rc :call C_Compile():call C_HlMessage()
+vnoremap <buffer> <silent> \+c. :call C_InsertTemplate("cpp.catch-points", "v")
+onoremap <buffer> <silent> \+c. :call C_InsertTemplate("cpp.catch-points")
+vnoremap <buffer> <silent> \+ca :call C_InsertTemplate("cpp.catch", "v")
+onoremap <buffer> <silent> \+ca :call C_InsertTemplate("cpp.catch")
+vnoremap <buffer> <silent> \+tr :call C_InsertTemplate("cpp.try-catch", "v")
+onoremap <buffer> <silent> \+tr :call C_InsertTemplate("cpp.try-catch")
+noremap <buffer> <silent> \+ec :call C_InsertTemplate("cpp.error-class")
+noremap <buffer> <silent> \+tf :call C_InsertTemplate("cpp.template-function")
+noremap <buffer> <silent> \+tai :call C_InsertTemplate("cpp.template-accessor-implementation")
+noremap <buffer> <silent> \+tmi :call C_InsertTemplate("cpp.template-method-implementation")
+noremap <buffer> <silent> \+tcni :call C_InsertTemplate("cpp.template-class-using-new-implementation")
+noremap <buffer> <silent> \+tci :call C_InsertTemplate("cpp.template-class-implementation")
+noremap <buffer> <silent> \+tcn :call C_InsertTemplate("cpp.template-class-using-new-definition")
+noremap <buffer> <silent> \+tc :call C_InsertTemplate("cpp.template-class-definition")
+noremap <buffer> <silent> \+ai :call C_InsertTemplate("cpp.accessor-implementation")
+noremap <buffer> <silent> \+mi :call C_InsertTemplate("cpp.method-implementation")
+noremap <buffer> <silent> \+cni :call C_InsertTemplate("cpp.class-using-new-implementation")
+noremap <buffer> <silent> \+ci :call C_InsertTemplate("cpp.class-implementation")
+noremap <buffer> <silent> \+cn :call C_InsertTemplate("cpp.class-using-new-definition")
+noremap <buffer> <silent> \+c :call C_InsertTemplate("cpp.class-definition")
+noremap <buffer> <silent> \+co :call C_InsertTemplate("cpp.cout")
+noremap <buffer> <silent> \+" :call C_InsertTemplate("cpp.cout-operator")
+noremap <buffer> \nts :CStyle 
+noremap <buffer> <silent> \ntr :call C_RereadTemplates()
+noremap <buffer> <silent> \ntl :call C_BrowseTemplateFiles("Local")
+noremap <buffer> <silent> \ns :call C_ProtoShow()
+noremap <buffer> <silent> \nc :call C_ProtoClear()
+noremap <buffer> <silent> \ni :call C_ProtoInsert()
+vnoremap <buffer> <silent> \nm :call C_ProtoPick("method")
+onoremap <buffer> <silent> \nm :call C_ProtoPick("method")
+vnoremap <buffer> <silent> \nf :call C_ProtoPick("function")
+onoremap <buffer> <silent> \nf :call C_ProtoPick("function")
+vnoremap <buffer> <silent> \np :call C_ProtoPick("function")
+onoremap <buffer> <silent> \np :call C_ProtoPick("function")
+noremap <buffer> <silent> \ne :call C_CodeSnippet("e")
+vnoremap <buffer> <silent> \nw :call C_CodeSnippet("wv")
+onoremap <buffer> <silent> \nw :call C_CodeSnippet("w")
+noremap <buffer> <silent> \nr :call C_CodeSnippet("r")
+noremap <buffer> <silent> \ifp :call C_InsertTemplate("idioms.fprintf")
+noremap <buffer> <silent> \ifs :call C_InsertTemplate("idioms.fscanf")
+vnoremap <buffer> <silent> \io :call C_InsertTemplate("idioms.open-output-file", "v")
+onoremap <buffer> <silent> \io :call C_InsertTemplate("idioms.open-output-file")
+vnoremap <buffer> <silent> \ii :call C_InsertTemplate("idioms.open-input-file", "v")
+onoremap <buffer> <silent> \ii :call C_InsertTemplate("idioms.open-input-file")
+vnoremap <buffer> <silent> \ias :call C_InsertTemplate("idioms.assert", "v")
+onoremap <buffer> <silent> \ias :call C_InsertTemplate("idioms.assert")
+vnoremap <buffer> <silent> \isi :call C_InsertTemplate("idioms.sizeof", "v")
+onoremap <buffer> <silent> \isi :call C_InsertTemplate("idioms.sizeof")
+noremap <buffer> <silent> \ire :call C_InsertTemplate("idioms.realloc")
+noremap <buffer> <silent> \ima :call C_InsertTemplate("idioms.malloc")
+noremap <buffer> <silent> \ica :call C_InsertTemplate("idioms.calloc")
+noremap <buffer> <silent> \isc :call C_InsertTemplate("idioms.scanf")
+noremap <buffer> <silent> \ip :call C_InsertTemplate("idioms.printf")
+vnoremap <buffer> <silent> \iu :call C_InsertTemplate("idioms.union" , "v")
+onoremap <buffer> <silent> \iu :call C_InsertTemplate("idioms.union")
+vnoremap <buffer> <silent> \is :call C_InsertTemplate("idioms.struct", "v")
+onoremap <buffer> <silent> \is :call C_InsertTemplate("idioms.struct")
+vnoremap <buffer> <silent> \ie :call C_InsertTemplate("idioms.enum"  , "v")
+onoremap <buffer> <silent> \ie :call C_InsertTemplate("idioms.enum")
+vnoremap <buffer> <silent> \in :call C_CodeFor("down")
+onoremap <buffer> <silent> \in :call C_CodeFor("down")
+vnoremap <buffer> <silent> \i0 :call C_CodeFor("up"  )
+onoremap <buffer> <silent> \i0 :call C_CodeFor("up"  )
+vnoremap <buffer> <silent> \im :call C_InsertTemplate("idioms.main", "v")
+onoremap <buffer> <silent> \im :call C_InsertTemplate("idioms.main")
+vnoremap <buffer> <silent> \isf :call C_InsertTemplate("idioms.function-static", "v")
+onoremap <buffer> <silent> \isf :call C_InsertTemplate("idioms.function-static")
+vnoremap <buffer> <silent> \if :call C_InsertTemplate("idioms.function", "v")
+onoremap <buffer> <silent> \if :call C_InsertTemplate("idioms.function")
+noremap <buffer> <silent> \pp :call C_InsertTemplate("preprocessor.pragma")
+noremap <buffer> <silent> \pl :call C_InsertTemplate("preprocessor.line")
+noremap <buffer> <silent> \pe :call C_InsertTemplate("preprocessor.error")
+noremap <buffer> <silent> \pr0 :call C_PPIf0Remove()
+vnoremap <buffer> <silent> \pi0 :call C_PPIf0("v")
+onoremap <buffer> <silent> \pi0 :call C_PPIf0("a")2ji
+vnoremap <buffer> <silent> \pind :call C_InsertTemplate("preprocessor.ifndef-def-endif", "v")
+vnoremap <buffer> <silent> \pin :call C_InsertTemplate("preprocessor.ifndef-else-endif", "v")
+vnoremap <buffer> <silent> \pid :call C_InsertTemplate("preprocessor.ifdef-else-endif", "v")
+vnoremap <buffer> <silent> \pie :call C_InsertTemplate("preprocessor.if-else-endif", "v")
+vnoremap <buffer> <silent> \pif :call C_InsertTemplate("preprocessor.if-endif", "v")
+onoremap <buffer> <silent> \pind :call C_InsertTemplate("preprocessor.ifndef-def-endif")
+onoremap <buffer> <silent> \pin :call C_InsertTemplate("preprocessor.ifndef-else-endif")
+onoremap <buffer> <silent> \pid :call C_InsertTemplate("preprocessor.ifdef-else-endif")
+onoremap <buffer> <silent> \pie :call C_InsertTemplate("preprocessor.if-else-endif")
+onoremap <buffer> <silent> \pif :call C_InsertTemplate("preprocessor.if-endif")
+noremap <buffer> <silent> \pu :call C_InsertTemplate("preprocessor.undefine")
+noremap <buffer> <silent> \pd :call C_InsertTemplate("preprocessor.define")
+noremap <buffer> <silent> \p" :call C_InsertTemplate("preprocessor.include-local")
+noremap <buffer> <silent> \p< :call C_InsertTemplate("preprocessor.include-global")
+noremap <buffer> \+pc :IncludeCppCLibrary 
+noremap <buffer> \+ps :IncludeCppLibrary 
+noremap <buffer> \pc :IncludeC99Library 
+noremap <buffer> \ps :IncludeStdLibrary 
+vnoremap <buffer> <silent> \sb :call C_InsertTemplate("statements.block", "v")
+onoremap <buffer> <silent> \sb :call C_InsertTemplate("statements.block")
+vnoremap <buffer> <silent> \s{ :call C_InsertTemplate("statements.block", "v")
+onoremap <buffer> <silent> \s{ :call C_InsertTemplate("statements.block")
+noremap <buffer> <silent> \sc :call C_InsertTemplate("statements.case")
+vnoremap <buffer> <silent> \ss :call C_InsertTemplate("statements.switch", "v")
+onoremap <buffer> <silent> \ss :call C_InsertTemplate("statements.switch")
+vnoremap <buffer> <silent> \swh :call C_InsertTemplate("statements.while-block", "v")
+onoremap <buffer> <silent> \swh :call C_InsertTemplate("statements.while-block")
+noremap <buffer> <silent> \sw :call C_InsertTemplate("statements.while")
+vnoremap <buffer> <silent> \se :call C_InsertTemplate("statements.else-block", "v")
+onoremap <buffer> <silent> \se :call C_InsertTemplate("statements.else-block")
+vnoremap <buffer> <silent> \sife :call C_InsertTemplate("statements.if-block-else", "v")
+onoremap <buffer> <silent> \sife :call C_InsertTemplate("statements.if-block-else")
+vnoremap <buffer> <silent> \sie :call C_InsertTemplate("statements.if-else", "v")
+onoremap <buffer> <silent> \sie :call C_InsertTemplate("statements.if-else")
+vnoremap <buffer> <silent> \sif :call C_InsertTemplate("statements.if-block", "v")
+onoremap <buffer> <silent> \sif :call C_InsertTemplate("statements.if-block")
+noremap <buffer> <silent> \si :call C_InsertTemplate("statements.if")
+vnoremap <buffer> <silent> \sfo :call C_InsertTemplate("statements.for-block", "v")
+onoremap <buffer> <silent> \sfo :call C_InsertTemplate("statements.for-block")
+noremap <buffer> <silent> \sf :call C_InsertTemplate("statements.for")
+vnoremap <buffer> <silent> \sd :call C_InsertTemplate("statements.do-while", "v")
+onoremap <buffer> <silent> \sd :call C_InsertTemplate("statements.do-while")
+noremap <buffer> \csc :SpecialComment 
+noremap <buffer> \ckc :KeywordComment 
+noremap <buffer> \chs :HFileSection 
+noremap <buffer> \ccs :CFileSection 
+vnoremap <buffer> <silent> \cx :call C_CommentToggle( )
+onoremap <buffer> <silent> \cx :call C_CommentToggle( )
+vnoremap <buffer> <silent> \ct s:call C_InsertDateAndTime('dt')a
+onoremap <buffer> <silent> \ct :call C_InsertDateAndTime('dt')
+vnoremap <buffer> <silent> \cd s:call C_InsertDateAndTime('d')a
+onoremap <buffer> <silent> \cd :call C_InsertDateAndTime('d')
+noremap <buffer> <silent> \cfdh :call C_InsertTemplate("comment.file-description-header")
+noremap <buffer> <silent> \cfdi :call C_InsertTemplate("comment.file-description")
+noremap <buffer> <silent> \ccl :call C_InsertTemplate("comment.class")
+noremap <buffer> <silent> \cme :call C_InsertTemplate("comment.method")
+noremap <buffer> <silent> \cfu :call C_InsertTemplate("comment.function")
+noremap <buffer> <silent> \cfr :call C_InsertTemplate("comment.frame")
+vnoremap <buffer> <silent> \co :call C_CommentToCode():nohlsearch
+onoremap <buffer> <silent> \co :call C_CommentToCode():nohlsearch
+vnoremap <buffer> <silent> \cc :call C_CodeToCommentCpp():nohlsearchj
+onoremap <buffer> <silent> \cc :call C_CodeToCommentCpp():nohlsearchj
+vnoremap <buffer> <silent> \c* :call C_CodeToCommentC():nohlsearchj
+onoremap <buffer> <silent> \c* :call C_CodeToCommentC():nohlsearchj
+noremap <buffer> <silent> \cs :call C_GetLineEndCommCol()
+vnoremap <buffer> <silent> \cj :call C_AdjustLineEndComm()
+nnoremap <buffer> <silent> \cj :call C_AdjustLineEndComm()
+vnoremap <buffer> <silent> \cl :call C_EndOfLineComment()
+onoremap <buffer> <silent> \cl :call C_EndOfLineComment()
+vnoremap <buffer> { S{}Pk=iB
+map <buffer> <silent> <S-F2> :A
+map <buffer> <silent> <S-F9> :call C_Arguments()
+map <buffer> <silent> <C-F9> :call C_Run()
+map <buffer> <silent> <F9> :call C_Link():call C_HlMessage()
+map <buffer> <silent> <M-F9> :call C_Compile():call C_HlMessage()
+inoremap <buffer> 	 =CodeComplete()=SwitchRegion()
+imap <buffer> <silent> <NL> =C_JumpCtrlJ()
+inoremap <buffer> <silent> ( (=EchoFunc()
+inoremap <buffer> <silent> ) =EchoFuncClear())
+inoremap <buffer> /* /*/kA 
+inoremap <buffer> /* /*  */<Left><Left><Left>
+imap <buffer> <silent> \hm :call C_Help("m")
+imap <buffer> <silent> \hp :call C_HelpCsupport()
+imap <buffer> <silent> \ro :call C_Toggle_Gvim_Xterm()
+imap <buffer> <silent> \rx :call C_XtermSize()
+imap <buffer> <silent> \rs :call C_Settings()
+imap <buffer> <silent> \rh :call C_Hardcopy()
+imap <buffer> <silent> \rd :call C_Indent()
+imap <buffer> <silent> \rpa :call C_SplintArguments()
+imap <buffer> <silent> \rp :call C_SplintCheck():call C_HlMessage()
+imap <buffer> <silent> \rma :call C_MakeArguments()
+imap <buffer> <silent> \rme :call C_MakeExeToRun()
+imap <buffer> <silent> \rmc :call C_MakeClean()
+imap <buffer> <silent> \rm :call C_Make()
+imap <buffer> <silent> \ra :call C_Arguments()
+imap <buffer> <silent> \rr :call C_Run()
+imap <buffer> <silent> \rl :call C_Link():call C_HlMessage()
+imap <buffer> <silent> \rc :call C_Compile():call C_HlMessage()
+inoremap <buffer> <silent> \+c. :call C_InsertTemplate("cpp.catch-points")
+inoremap <buffer> <silent> \+ca :call C_InsertTemplate("cpp.catch")
+inoremap <buffer> <silent> \+tr :call C_InsertTemplate("cpp.try-catch")
+inoremap <buffer> <silent> \+ec :call C_InsertTemplate("cpp.error-class")
+inoremap <buffer> <silent> \+tf :call C_InsertTemplate("cpp.template-function")
+inoremap <buffer> <silent> \+tai :call C_InsertTemplate("cpp.template-accessor-implementation")
+inoremap <buffer> <silent> \+tmi :call C_InsertTemplate("cpp.template-method-implementation")
+inoremap <buffer> <silent> \+tcni :call C_InsertTemplate("cpp.template-class-using-new-implementation")
+inoremap <buffer> <silent> \+tci :call C_InsertTemplate("cpp.template-class-implementation")
+inoremap <buffer> <silent> \+tcn :call C_InsertTemplate("cpp.template-class-using-new-definition")
+inoremap <buffer> <silent> \+tc :call C_InsertTemplate("cpp.template-class-definition")
+inoremap <buffer> <silent> \+ai :call C_InsertTemplate("cpp.accessor-implementation")
+inoremap <buffer> <silent> \+mi :call C_InsertTemplate("cpp.method-implementation")
+inoremap <buffer> <silent> \+cni :call C_InsertTemplate("cpp.class-using-new-implementation")
+inoremap <buffer> <silent> \+ci :call C_InsertTemplate("cpp.class-implementation")
+inoremap <buffer> <silent> \+cn :call C_InsertTemplate("cpp.class-using-new-definition")
+inoremap <buffer> <silent> \+c :call C_InsertTemplate("cpp.class-definition")
+inoremap <buffer> <silent> \+co :call C_InsertTemplate("cpp.cout")
+inoremap <buffer> <silent> \+" :call C_InsertTemplate("cpp.cout-operator")
+inoremap <buffer> \nts :CStyle 
+inoremap <buffer> <silent> \ntr :call C_RereadTemplates()
+inoremap <buffer> <silent> \ntl :call C_BrowseTemplateFiles("Local")
+inoremap <buffer> <silent> \ns :call C_ProtoShow()
+inoremap <buffer> <silent> \nc :call C_ProtoClear()
+inoremap <buffer> <silent> \ni :call C_ProtoInsert()
+inoremap <buffer> <silent> \nm :call C_ProtoPick("method")
+inoremap <buffer> <silent> \nf :call C_ProtoPick("function")
+inoremap <buffer> <silent> \np :call C_ProtoPick("function")
+inoremap <buffer> <silent> \ne :call C_CodeSnippet("e")
+inoremap <buffer> <silent> \nw :call C_CodeSnippet("w")
+inoremap <buffer> <silent> \nr :call C_CodeSnippet("r")
+inoremap <buffer> <silent> \ifp :call C_InsertTemplate("idioms.fprintf")
+inoremap <buffer> <silent> \ifs :call C_InsertTemplate("idioms.fscanf")
+inoremap <buffer> <silent> \io :call C_InsertTemplate("idioms.open-output-file")
+inoremap <buffer> <silent> \ii :call C_InsertTemplate("idioms.open-input-file")
+inoremap <buffer> <silent> \ias :call C_InsertTemplate("idioms.assert")
+inoremap <buffer> <silent> \isi :call C_InsertTemplate("idioms.sizeof")
+inoremap <buffer> <silent> \ire :call C_InsertTemplate("idioms.realloc")
+inoremap <buffer> <silent> \ima :call C_InsertTemplate("idioms.malloc")
+inoremap <buffer> <silent> \ica :call C_InsertTemplate("idioms.calloc")
+inoremap <buffer> <silent> \isc :call C_InsertTemplate("idioms.scanf")
+inoremap <buffer> <silent> \ip :call C_InsertTemplate("idioms.printf")
+inoremap <buffer> <silent> \iu :call C_InsertTemplate("idioms.union")
+inoremap <buffer> <silent> \is :call C_InsertTemplate("idioms.struct")
+inoremap <buffer> <silent> \ie :call C_InsertTemplate("idioms.enum")
+inoremap <buffer> <silent> \in :call C_CodeFor("down")i
+inoremap <buffer> <silent> \i0 :call C_CodeFor("up"  )i
+inoremap <buffer> <silent> \im :call C_InsertTemplate("idioms.main")
+inoremap <buffer> <silent> \isf :call C_InsertTemplate("idioms.function-static")
+inoremap <buffer> <silent> \if :call C_InsertTemplate("idioms.function")
+inoremap <buffer> <silent> \pp :call C_InsertTemplate("preprocessor.pragma")
+inoremap <buffer> <silent> \pl :call C_InsertTemplate("preprocessor.line")
+inoremap <buffer> <silent> \pe :call C_InsertTemplate("preprocessor.error")
+inoremap <buffer> <silent> \pr0 :call C_PPIf0Remove()
+inoremap <buffer> <silent> \pi0 :call C_PPIf0("a")2ji
+inoremap <buffer> <silent> \pind :call C_InsertTemplate("preprocessor.ifndef-def-endif")
+inoremap <buffer> <silent> \pin :call C_InsertTemplate("preprocessor.ifndef-else-endif")
+inoremap <buffer> <silent> \pid :call C_InsertTemplate("preprocessor.ifdef-else-endif")
+inoremap <buffer> <silent> \pie :call C_InsertTemplate("preprocessor.if-else-endif")
+inoremap <buffer> <silent> \pif :call C_InsertTemplate("preprocessor.if-endif")
+inoremap <buffer> <silent> \pu :call C_InsertTemplate("preprocessor.undefine")
+inoremap <buffer> <silent> \pd :call C_InsertTemplate("preprocessor.define")
+inoremap <buffer> <silent> \p" :call C_InsertTemplate("preprocessor.include-local")
+inoremap <buffer> <silent> \p< :call C_InsertTemplate("preprocessor.include-global")
+inoremap <buffer> \+pc :IncludeCppC9Library 
+inoremap <buffer> \+ps :IncludeCppLibrary 
+inoremap <buffer> \pc :IncludeC99Library 
+inoremap <buffer> \ps :IncludeStdLibrary 
+inoremap <buffer> <silent> \sb :call C_InsertTemplate("statements.block")
+inoremap <buffer> <silent> \s{ :call C_InsertTemplate("statements.block")
+inoremap <buffer> <silent> \sc :call C_InsertTemplate("statements.case")
+inoremap <buffer> <silent> \ss :call C_InsertTemplate("statements.switch")
+inoremap <buffer> <silent> \swh :call C_InsertTemplate("statements.while-block")
+inoremap <buffer> <silent> \sw :call C_InsertTemplate("statements.while")
+inoremap <buffer> <silent> \se :call C_InsertTemplate("statements.else-block")
+inoremap <buffer> <silent> \sife :call C_InsertTemplate("statements.if-block-else")
+inoremap <buffer> <silent> \sie :call C_InsertTemplate("statements.if-else")
+inoremap <buffer> <silent> \sif :call C_InsertTemplate("statements.if-block")
+inoremap <buffer> <silent> \si :call C_InsertTemplate("statements.if")
+inoremap <buffer> <silent> \sfo :call C_InsertTemplate("statements.for-block")
+inoremap <buffer> <silent> \sf :call C_InsertTemplate("statements.for")
+inoremap <buffer> <silent> \sd :call C_InsertTemplate("statements.do-while")
+inoremap <buffer> \csc :SpecialComment 
+inoremap <buffer> \ckc :KeywordComment 
+inoremap <buffer> \chs :HFileSection 
+inoremap <buffer> \ccs :CFileSection 
+inoremap <buffer> <silent> \cx :call C_CommentToggle( )
+inoremap <buffer> <silent> \ct :call C_InsertDateAndTime('dt')a
+inoremap <buffer> <silent> \cd :call C_InsertDateAndTime('d')a
+inoremap <buffer> <silent> \cfdh :call C_InsertTemplate("comment.file-description-header")
+inoremap <buffer> <silent> \cfdi :call C_InsertTemplate("comment.file-description")
+inoremap <buffer> <silent> \ccl :call C_InsertTemplate("comment.class")
+inoremap <buffer> <silent> \cme :call C_InsertTemplate("comment.method")
+inoremap <buffer> <silent> \cfu :call C_InsertTemplate("comment.function")
+inoremap <buffer> <silent> \cfr :call C_InsertTemplate("comment.frame")
+inoremap <buffer> <silent> \cj :call C_AdjustLineEndComm()a
+inoremap <buffer> <silent> \cl :call C_EndOfLineComment()
+inoremap <buffer> { {}O
+let &cpo=s:cpo_save
+unlet s:cpo_save
+setlocal keymap=
+setlocal noarabic
+setlocal autoindent
+setlocal nobinary
+setlocal bufhidden=
+setlocal buflisted
+setlocal buftype=
+setlocal cindent
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,e
+setlocal cinoptions=:0g0t0(sus
+setlocal cinwords=if,else,while,do,for,switch
+setlocal colorcolumn=
+setlocal comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,://
+setlocal commentstring=/*%s*/
+setlocal complete=.,w,b,u,t,i
+setlocal concealcursor=
+setlocal conceallevel=0
+setlocal completefunc=
+setlocal nocopyindent
+setlocal cryptmethod=
+setlocal nocursorbind
+setlocal nocursorcolumn
+setlocal nocursorline
+setlocal define=
+setlocal dictionary=~/.vim/c-support/wordlists/c-c++-keywords.list,~/.vim/c-support/wordlists/k+r.list,~/.vim/c-support/wordlists/stl_index.list
+setlocal nodiff
+setlocal equalprg=
+setlocal errorformat=
+setlocal noexpandtab
+if &filetype != 'cpp'
+setlocal filetype=cpp
+endif
+setlocal foldcolumn=3
+setlocal foldenable
+setlocal foldexpr=0
+setlocal foldignore=#
+setlocal foldlevel=0
+setlocal foldmarker={{{,}}}
+setlocal foldmethod=syntax
+setlocal foldminlines=1
+setlocal foldnestmax=20
+setlocal foldtext=foldtext()
+setlocal formatexpr=
+setlocal formatoptions=croql
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
+setlocal grepprg=
+setlocal iminsert=0
+setlocal imsearch=0
+setlocal include=
+setlocal includeexpr=
+setlocal indentexpr=
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,e
+setlocal noinfercase
+setlocal iskeyword=@,48-57,_,192-255
+setlocal keywordprg=
+setlocal nolinebreak
+setlocal nolisp
+setlocal nolist
+setlocal makeprg=
+setlocal matchpairs=(:),{:},[:]
+setlocal modeline
+setlocal modifiable
+setlocal nrformats=octal,hex
+setlocal number
+setlocal numberwidth=4
+setlocal omnifunc=omni#cpp#complete#Main
+setlocal path=
+setlocal nopreserveindent
+setlocal nopreviewwindow
+setlocal quoteescape=\\
+setlocal noreadonly
+setlocal norelativenumber
+setlocal norightleft
+setlocal rightleftcmd=search
+setlocal noscrollbind
+setlocal shiftwidth=4
+setlocal noshortname
+setlocal nosmartindent
+setlocal softtabstop=4
+setlocal nospell
+setlocal spellcapcheck=[.?!]\\_[\\])'\"\	\ ]\\+
+setlocal spellfile=
+setlocal spelllang=en
+setlocal statusline=
+setlocal suffixesadd=
+setlocal swapfile
+setlocal synmaxcol=3000
+if &syntax != 'cpp'
+setlocal syntax=cpp
+endif
+setlocal tabstop=4
+setlocal tags=
+setlocal textwidth=0
+setlocal thesaurus=
+setlocal noundofile
+setlocal nowinfixheight
+setlocal nowinfixwidth
+setlocal wrap
+setlocal wrapmargin=0
+2710
+normal zo
+2717
+normal zo
+2720
+normal zo
+2724
+normal zo
+2720
+normal zo
+2717
+normal zo
+2710
+normal zo
+2737
+normal zo
+2744
+normal zo
+2747
+normal zo
+2751
+normal zo
+2747
+normal zo
+2744
+normal zo
+2737
+normal zo
+2764
+normal zo
+2771
+normal zo
+2774
+normal zo
+2778
+normal zo
+2774
+normal zo
+2771
+normal zo
+2764
+normal zo
+2791
+normal zo
+2799
+normal zo
+2813
+normal zo
+2828
+normal zo
+2832
+normal zo
+2836
+normal zo
+2848
+normal zo
+2858
+normal zo
+2863
+normal zo
+2858
+normal zo
+2875
+normal zo
+2848
+normal zo
+2882
+normal zo
+2828
+normal zo
+2888
+normal zo
+2791
+normal zo
+2896
+normal zo
+2904
+normal zo
+2918
+normal zo
+2933
+normal zo
+2937
+normal zo
+2941
+normal zo
+2953
+normal zo
+2967
+normal zo
+2972
+normal zo
+2967
+normal zo
+2984
+normal zo
+2953
+normal zo
+2991
+normal zo
+2933
+normal zo
+2997
+normal zo
+2896
+normal zo
+3006
+normal zo
+3014
+normal zo
+3060
+normal zo
+3063
+normal zo
+3067
+normal zo
+3094
+normal zo
+3108
+normal zo
+3125
+normal zo
+3128
+normal zo
+3130
+normal zo
+3137
+normal zo
+3144
+normal zo
+3151
+normal zo
+3158
+normal zo
+3164
+normal zo
+3170
+normal zo
+3179
+normal zo
+3185
+normal zo
+3191
+normal zo
+3197
+normal zo
+3204
+normal zo
+3210
+normal zo
+3216
+normal zo
+3222
+normal zo
+3228
+normal zo
+3128
+normal zo
+3125
+normal zo
+3108
+normal zo
+3237
+normal zo
+3094
+normal zo
+3244
+normal zo
+3060
+normal zo
+3250
+normal zo
+3006
+normal zo
+3259
+normal zo
+3267
+normal zo
+3313
+normal zo
+3317
+normal zo
+3321
+normal zo
+3348
+normal zo
+3365
+normal zo
+3382
+normal zo
+3385
+normal zo
+3387
+normal zo
+3394
+normal zo
+3401
+normal zo
+3408
+normal zo
+3415
+normal zo
+3421
+normal zo
+3427
+normal zo
+3436
+normal zo
+3442
+normal zo
+3448
+normal zo
+3454
+normal zo
+3461
+normal zo
+3467
+normal zo
+3473
+normal zo
+3479
+normal zo
+3485
+normal zo
+3385
+normal zo
+3382
+normal zo
+3365
+normal zo
+3494
+normal zo
+3348
+normal zo
+3501
+normal zo
+3313
+normal zo
+3507
+normal zo
+3259
+normal zo
+3519
+normal zo
+3527
+normal zo
+3578
+normal zo
+3582
+normal zo
+3586
+normal zo
+3617
+normal zo
+3631
+normal zo
+3648
+normal zo
+3651
+normal zo
+3653
+normal zo
+3660
+normal zo
+3667
+normal zo
+3674
+normal zo
+3681
+normal zo
+3687
+normal zo
+3693
+normal zo
+3702
+normal zo
+3708
+normal zo
+3714
+normal zo
+3720
+normal zo
+3727
+normal zo
+3733
+normal zo
+3739
+normal zo
+3745
+normal zo
+3751
+normal zo
+3651
+normal zo
+3648
+normal zo
+3631
+normal zo
+3760
+normal zo
+3617
+normal zo
+3767
+normal zo
+3578
+normal zo
+3773
+normal zo
+3519
+normal zo
+3781
+normal zo
+3789
+normal zo
+3835
+normal zo
+3839
+normal zo
+3843
+normal zo
+3870
+normal zo
+3888
+normal zo
+3905
+normal zo
+3908
+normal zo
+3910
+normal zo
+3917
+normal zo
+3924
+normal zo
+3931
+normal zo
+3938
+normal zo
+3944
+normal zo
+3950
+normal zo
+3959
+normal zo
+3965
+normal zo
+3971
+normal zo
+3977
+normal zo
+3984
+normal zo
+3990
+normal zo
+3996
+normal zo
+4002
+normal zo
+4008
+normal zo
+3908
+normal zo
+3905
+normal zo
+3888
+normal zo
+4017
+normal zo
+3870
+normal zo
+4024
+normal zo
+3835
+normal zo
+4030
+normal zo
+3781
+normal zo
+4038
+normal zo
+4054
+normal zo
+4058
+normal zo
+4064
+normal zo
+4069
+normal zo
+4054
+normal zo
+4075
+normal zo
+4038
+normal zo
+4083
+normal zo
+4091
+normal zo
+4099
+normal zo
+4112
+normal zo
+4116
+normal zo
+4120
+normal zo
+4135
+normal zo
+4146
+normal zo
+4135
+normal zo
+4154
+normal zo
+4112
+normal zo
+4161
+normal zo
+4083
+normal zo
+4176
+normal zo
+4184
+normal zo
+4192
+normal zo
+4239
+normal zo
+4244
+normal zo
+4253
+normal zo
+4239
+normal zo
+4274
+normal zo
+4278
+normal zo
+4282
+normal zo
+4296
+normal zo
+4307
+normal zo
+4319
+normal zo
+4296
+normal zo
+4326
+normal zo
+4274
+normal zo
+4332
+normal zo
+4176
+normal zo
+4342
+normal zo
+4350
+normal zo
+4359
+normal zo
+4363
+normal zo
+4367
+normal zo
+4414
+normal zo
+4419
+normal zo
+4428
+normal zo
+4414
+normal zo
+4437
+normal zo
+4442
+normal zo
+4455
+normal zo
+4473
+normal zo
+4455
+normal zo
+4437
+normal zo
+4482
+normal zo
+4487
+normal zo
+4500
+normal zo
+4519
+normal zo
+4500
+normal zo
+4482
+normal zo
+4538
+normal zo
+4542
+normal zo
+4546
+normal zo
+4560
+normal zo
+4575
+normal zo
+4587
+normal zo
+4590
+normal zo
+4587
+normal zo
+4560
+normal zo
+4600
+normal zo
+4538
+normal zo
+4607
+normal zo
+4342
+normal zo
+4617
+normal zo
+4625
+normal zo
+4644
+normal zo
+4648
+normal zo
+4652
+normal zo
+4662
+normal zo
+4668
+normal zo
+4672
+normal zo
+4662
+normal zo
+4679
+normal zo
+4644
+normal zo
+4685
+normal zo
+4617
+normal zo
+4693
+normal zo
+4701
+normal zo
+4720
+normal zo
+4724
+normal zo
+4728
+normal zo
+4738
+normal zo
+4748
+normal zo
+4752
+normal zo
+4738
+normal zo
+4759
+normal zo
+4720
+normal zo
+4765
+normal zo
+4693
+normal zo
+4771
+normal zo
+5223
+normal zo
+5231
+normal zo
+5254
+normal zo
+5257
+normal zo
+5261
+normal zo
+5278
+normal zo
+5294
+normal zo
+5300
+normal zo
+5307
+normal zo
+5317
+normal zo
+5300
+normal zo
+5294
+normal zo
+5329
+normal zo
+5278
+normal zo
+5336
+normal zo
+5254
+normal zo
+5342
+normal zo
+5223
+normal zo
+5350
+normal zo
+5359
+normal zo
+5379
+normal zo
+5400
+normal zo
+5404
+normal zo
+5408
+normal zo
+5422
+normal zo
+5432
+normal zo
+5436
+normal zo
+5443
+normal zo
+5436
+normal zo
+5432
+normal zo
+5457
+normal zo
+5422
+normal zo
+5464
+normal zo
+5400
+normal zo
+5470
+normal zo
+5350
+normal zo
+5480
+normal zo
+5489
+normal zo
+5509
+normal zo
+5530
+normal zo
+5534
+normal zo
+5538
+normal zo
+5552
+normal zo
+5565
+normal zo
+5569
+normal zo
+5576
+normal zo
+5569
+normal zo
+5565
+normal zo
+5590
+normal zo
+5552
+normal zo
+5597
+normal zo
+5530
+normal zo
+5603
+normal zo
+5480
+normal zo
+5613
+normal zo
+5630
+normal zo
+5647
+normal zo
+5651
+normal zo
+5659
+normal zo
+5674
+normal zo
+5677
+normal zo
+5674
+normal zo
+5688
+normal zo
+5659
+normal zo
+5695
+normal zo
+5647
+normal zo
+5701
+normal zo
+5613
+normal zo
+5709
+normal zo
+5726
+normal zo
+5743
+normal zo
+5747
+normal zo
+5755
+normal zo
+5774
+normal zo
+5777
+normal zo
+5774
+normal zo
+5788
+normal zo
+5755
+normal zo
+5795
+normal zo
+5743
+normal zo
+5801
+normal zo
+5709
+normal zo
+5809
+normal zo
+5817
+normal zo
+5851
+normal zo
+5855
+normal zo
+5864
+normal zo
+5878
+normal zo
+5896
+normal zo
+5878
+normal zo
+5906
+normal zo
+5864
+normal zo
+5912
+normal zo
+5851
+normal zo
+5918
+normal zo
+5809
+normal zo
+5928
+normal zo
+5936
+normal zo
+5970
+normal zo
+5974
+normal zo
+5983
+normal zo
+6000
+normal zo
+6017
+normal zo
+6000
+normal zo
+6027
+normal zo
+5983
+normal zo
+6033
+normal zo
+5970
+normal zo
+6039
+normal zo
+5928
+normal zo
+6048
+normal zo
+6062
+normal zo
+6078
+normal zo
+6082
+normal zo
+6090
+normal zo
+6091
+normal zo
+6105
+normal zo
+6108
+normal zo
+6105
+normal zo
+6119
+normal zo
+6090
+normal zo
+6126
+normal zo
+6078
+normal zo
+6132
+normal zo
+6048
+normal zo
+6140
+normal zo
+6154
+normal zo
+6170
+normal zo
+6174
+normal zo
+6182
+normal zo
+6197
+normal zo
+6200
+normal zo
+6197
+normal zo
+6211
+normal zo
+6182
+normal zo
+6218
+normal zo
+6170
+normal zo
+6224
+normal zo
+6140
+normal zo
+6232
+normal zo
+6245
+normal zo
+6260
+normal zo
+6264
+normal zo
+6273
+normal zo
+6274
+normal zo
+6287
+normal zo
+6290
+normal zo
+6287
+normal zo
+6305
+normal zo
+6273
+normal zo
+6312
+normal zo
+6260
+normal zo
+6318
+normal zo
+6232
+normal zo
+6327
+normal zo
+6340
+normal zo
+6355
+normal zo
+6359
+normal zo
+6368
+normal zo
+6382
+normal zo
+6385
+normal zo
+6382
+normal zo
+6400
+normal zo
+6368
+normal zo
+6407
+normal zo
+6355
+normal zo
+6413
+normal zo
+6327
+normal zo
+6422
+normal zo
+6431
+normal zo
+6454
+normal zo
+6471
+normal zo
+6475
+normal zo
+6485
+normal zo
+6486
+normal zo
+6498
+normal zo
+6505
+normal zo
+6485
+normal zo
+6512
+normal zo
+6471
+normal zo
+6518
+normal zo
+6422
+normal zo
+6527
+normal zo
+6536
+normal zo
+6559
+normal zo
+6576
+normal zo
+6580
+normal zo
+6590
+normal zo
+6603
+normal zo
+6610
+normal zo
+6590
+normal zo
+6617
+normal zo
+6576
+normal zo
+6623
+normal zo
+6527
+normal zo
+6634
+normal zo
+6643
+normal zo
+6665
+normal zo
+6682
+normal zo
+6686
+normal zo
+6696
+normal zo
+6697
+normal zo
+6709
+normal zo
+6716
+normal zo
+6696
+normal zo
+6723
+normal zo
+6682
+normal zo
+6729
+normal zo
+6634
+normal zo
+6738
+normal zo
+6747
+normal zo
+6769
+normal zo
+6786
+normal zo
+6790
+normal zo
+6800
+normal zo
+6813
+normal zo
+6820
+normal zo
+6800
+normal zo
+6827
+normal zo
+6786
+normal zo
+6833
+normal zo
+6738
+normal zo
+6842
+normal zo
+6852
+normal zo
+6892
+normal zo
+6895
+normal zo
+6899
+normal zo
+6918
+normal zo
+6919
+normal zo
+6931
+normal zo
+6937
+normal zo
+6931
+normal zo
+6951
+normal zo
+6918
+normal zo
+6958
+normal zo
+6892
+normal zo
+6964
+normal zo
+6842
+normal zo
+6972
+normal zo
+6982
+normal zo
+7022
+normal zo
+7025
+normal zo
+7029
+normal zo
+7048
+normal zo
+7061
+normal zo
+7067
+normal zo
+7061
+normal zo
+7081
+normal zo
+7048
+normal zo
+7088
+normal zo
+7022
+normal zo
+7094
+normal zo
+6972
+normal zo
+7103
+normal zo
+7112
+normal zo
+7131
+normal zo
+7134
+normal zo
+7138
+normal zo
+7148
+normal zo
+7149
+normal zo
+7162
+normal zo
+7171
+normal zo
+7148
+normal zo
+7178
+normal zo
+7131
+normal zo
+7184
+normal zo
+7103
+normal zo
+7192
+normal zo
+7202
+normal zo
+7221
+normal zo
+7224
+normal zo
+7228
+normal zo
+7238
+normal zo
+7252
+normal zo
+7261
+normal zo
+7238
+normal zo
+7268
+normal zo
+7221
+normal zo
+7274
+normal zo
+7192
+normal zo
+7283
+normal zo
+7292
+normal zo
+7316
+normal zo
+7336
+normal zo
+7340
+normal zo
+7344
+normal zo
+7366
+normal zo
+7379
+normal zo
+7386
+normal zo
+7366
+normal zo
+7393
+normal zo
+7336
+normal zo
+7399
+normal zo
+7283
+normal zo
+7409
+normal zo
+7418
+normal zo
+7442
+normal zo
+7462
+normal zo
+7466
+normal zo
+7470
+normal zo
+7492
+normal zo
+7505
+normal zo
+7512
+normal zo
+7492
+normal zo
+7519
+normal zo
+7462
+normal zo
+7525
+normal zo
+7409
+normal zo
+7534
+normal zo
+7544
+normal zo
+7580
+normal zo
+7583
+normal zo
+7587
+normal zo
+7617
+normal zo
+7630
+normal zo
+7636
+normal zo
+7630
+normal zo
+7652
+normal zo
+7617
+normal zo
+7659
+normal zo
+7580
+normal zo
+7665
+normal zo
+7534
+normal zo
+7676
+normal zo
+7685
+normal zo
+7712
+normal zo
+7715
+normal zo
+7719
+normal zo
+7734
+normal zo
+7735
+normal zo
+7750
+normal zo
+7759
+normal zo
+7750
+normal zo
+7767
+normal zo
+7734
+normal zo
+7774
+normal zo
+7712
+normal zo
+7780
+normal zo
+7676
+normal zo
+7788
+normal zo
+7797
+normal zo
+7824
+normal zo
+7827
+normal zo
+7831
+normal zo
+7846
+normal zo
+7862
+normal zo
+7871
+normal zo
+7862
+normal zo
+7879
+normal zo
+7846
+normal zo
+7886
+normal zo
+7824
+normal zo
+7892
+normal zo
+7788
+normal zo
+7900
+normal zo
+7910
+normal zo
+7939
+normal zo
+7942
+normal zo
+7946
+normal zo
+7952
+normal zo
+7953
+normal zo
+7968
+normal zo
+7977
+normal zo
+7968
+normal zo
+7986
+normal zo
+7952
+normal zo
+7993
+normal zo
+7939
+normal zo
+7999
+normal zo
+7900
+normal zo
+8008
+normal zo
+8017
+normal zo
+8046
+normal zo
+8049
+normal zo
+8053
+normal zo
+8059
+normal zo
+8075
+normal zo
+8084
+normal zo
+8075
+normal zo
+8093
+normal zo
+8059
+normal zo
+8100
+normal zo
+8046
+normal zo
+8106
+normal zo
+8008
+normal zo
+8115
+normal zo
+8124
+normal zo
+8151
+normal zo
+8155
+normal zo
+8159
+normal zo
+8173
+normal zo
+8183
+normal zo
+8190
+normal zo
+8183
+normal zo
+8204
+normal zo
+8173
+normal zo
+8211
+normal zo
+8151
+normal zo
+8217
+normal zo
+8115
+normal zo
+8226
+normal zo
+8236
+normal zo
+8263
+normal zo
+8267
+normal zo
+8271
+normal zo
+8285
+normal zo
+8299
+normal zo
+8306
+normal zo
+8299
+normal zo
+8320
+normal zo
+8285
+normal zo
+8327
+normal zo
+8263
+normal zo
+8333
+normal zo
+8226
+normal zo
+8341
+normal zo
+8350
+normal zo
+8385
+normal zo
+8389
+normal zo
+8393
+normal zo
+8401
+normal zo
+8402
+normal zo
+8414
+normal zo
+8418
+normal zo
+8414
+normal zo
+8429
+normal zo
+8401
+normal zo
+8436
+normal zo
+8385
+normal zo
+8442
+normal zo
+8341
+normal zo
+8450
+normal zo
+8459
+normal zo
+8494
+normal zo
+8498
+normal zo
+8502
+normal zo
+8510
+normal zo
+8523
+normal zo
+8527
+normal zo
+8523
+normal zo
+8538
+normal zo
+8510
+normal zo
+8545
+normal zo
+8494
+normal zo
+8551
+normal zo
+8450
+normal zo
+8559
+normal zo
+8568
+normal zo
+8597
+normal zo
+8601
+normal zo
+8605
+normal zo
+8613
+normal zo
+8614
+normal zo
+8625
+normal zo
+8632
+normal zo
+8613
+normal zo
+8639
+normal zo
+8597
+normal zo
+8645
+normal zo
+8559
+normal zo
+8653
+normal zo
+8662
+normal zo
+8691
+normal zo
+8695
+normal zo
+8699
+normal zo
+8707
+normal zo
+8719
+normal zo
+8726
+normal zo
+8707
+normal zo
+8733
+normal zo
+8691
+normal zo
+8739
+normal zo
+8653
+normal zo
+8747
+normal zo
+8756
+normal zo
+8779
+normal zo
+8783
+normal zo
+8787
+normal zo
+8795
+normal zo
+8796
+normal zo
+8807
+normal zo
+8818
+normal zo
+8795
+normal zo
+8825
+normal zo
+8779
+normal zo
+8831
+normal zo
+8747
+normal zo
+8839
+normal zo
+8848
+normal zo
+8871
+normal zo
+8875
+normal zo
+8879
+normal zo
+8887
+normal zo
+8899
+normal zo
+8910
+normal zo
+8887
+normal zo
+8917
+normal zo
+8871
+normal zo
+8923
+normal zo
+8839
+normal zo
+8931
+normal zo
+8933
+normal zo
+8950
+normal zo
+8931
+normal zo
+8963
+normal zo
+8967
+normal zo
+8971
+normal zo
+8974
+normal zo
+8992
+normal zo
+9011
+normal zo
+9018
+normal zo
+9029
+normal zo
+9035
+normal zo
+9039
+normal zo
+9043
+normal zo
+9029
+normal zo
+9018
+normal zo
+9011
+normal zo
+9054
+normal zo
+8992
+normal zo
+9060
+normal zo
+8967
+normal zo
+9065
+normal zo
+8963
+normal zo
+9072
+normal zo
+9080
+normal zo
+9072
+normal zo
+9100
+normal zo
+9105
+normal zo
+9108
+normal zo
+9111
+normal zo
+9128
+normal zo
+9145
+normal zo
+9150
+normal zo
+9157
+normal zo
+9150
+normal zo
+9145
+normal zo
+9167
+normal zo
+9128
+normal zo
+9173
+normal zo
+9105
+normal zo
+9178
+normal zo
+9100
+normal zo
+9185
+normal zo
+9193
+normal zo
+9185
+normal zo
+9213
+normal zo
+9218
+normal zo
+9221
+normal zo
+9224
+normal zo
+9241
+normal zo
+9258
+normal zo
+9263
+normal zo
+9270
+normal zo
+9263
+normal zo
+9258
+normal zo
+9280
+normal zo
+9241
+normal zo
+9286
+normal zo
+9218
+normal zo
+9291
+normal zo
+9213
+normal zo
+9299
+normal zo
+9307
+normal zo
+9299
+normal zo
+9326
+normal zo
+9331
+normal zo
+9334
+normal zo
+9337
+normal zo
+9354
+normal zo
+9371
+normal zo
+9377
+normal zo
+9384
+normal zo
+9395
+normal zo
+9377
+normal zo
+9371
+normal zo
+9406
+normal zo
+9354
+normal zo
+9412
+normal zo
+9331
+normal zo
+9417
+normal zo
+9326
+normal zo
+9425
+normal zo
+9434
+normal zo
+9457
+normal zo
+9461
+normal zo
+9465
+normal zo
+9472
+normal zo
+9473
+normal zo
+9486
+normal zo
+9494
+normal zo
+9486
+normal zo
+9506
+normal zo
+9472
+normal zo
+9513
+normal zo
+9457
+normal zo
+9519
+normal zo
+9425
+normal zo
+9527
+normal zo
+9536
+normal zo
+9559
+normal zo
+9563
+normal zo
+9567
+normal zo
+9574
+normal zo
+9588
+normal zo
+9596
+normal zo
+9588
+normal zo
+9608
+normal zo
+9574
+normal zo
+9615
+normal zo
+9559
+normal zo
+9621
+normal zo
+9527
+normal zo
+9629
+normal zo
+9638
+normal zo
+9646
+normal zo
+9660
+normal zo
+9664
+normal zo
+9668
+normal zo
+9677
+normal zo
+9678
+normal zo
+9690
+normal zo
+9677
+normal zo
+9701
+normal zo
+9660
+normal zo
+9707
+normal zo
+9629
+normal zo
+9715
+normal zo
+9724
+normal zo
+9733
+normal zo
+9747
+normal zo
+9751
+normal zo
+9755
+normal zo
+9764
+normal zo
+9777
+normal zo
+9764
+normal zo
+9788
+normal zo
+9747
+normal zo
+9794
+normal zo
+9715
+normal zo
+9802
+normal zo
+9811
+normal zo
+9824
+normal zo
+9828
+normal zo
+9824
+normal zo
+9843
+normal zo
+9847
+normal zo
+9851
+normal zo
+9860
+normal zo
+9864
+normal zo
+9843
+normal zo
+9870
+normal zo
+9802
+normal zo
+9878
+normal zo
+9887
+normal zo
+9901
+normal zo
+9905
+normal zo
+9901
+normal zo
+9920
+normal zo
+9924
+normal zo
+9928
+normal zo
+9937
+normal zo
+9942
+normal zo
+9920
+normal zo
+9948
+normal zo
+9878
+normal zo
+9956
+normal zo
+9961
+normal zo
+9964
+normal zo
+9968
+normal zo
+9964
+normal zo
+9961
+normal zo
+9956
+normal zo
+9983
+normal zo
+9992
+normal zo
+10002
+normal zo
+10016
+normal zo
+10020
+normal zo
+10024
+normal zo
+10030
+normal zo
+10034
+normal zo
+10016
+normal zo
+10040
+normal zo
+9983
+normal zo
+10048
+normal zo
+10057
+normal zo
+10067
+normal zo
+10081
+normal zo
+10085
+normal zo
+10089
+normal zo
+10095
+normal zo
+10099
+normal zo
+10081
+normal zo
+10105
+normal zo
+10048
+normal zo
+10114
+normal zo
+10124
+normal zo
+10134
+normal zo
+10148
+normal zo
+10152
+normal zo
+10156
+normal zo
+10164
+normal zo
+10175
+normal zo
+10182
+normal zo
+10175
+normal zo
+10164
+normal zo
+10191
+normal zo
+10148
+normal zo
+10197
+normal zo
+10114
+normal zo
+10206
+normal zo
+10216
+normal zo
+10226
+normal zo
+10240
+normal zo
+10244
+normal zo
+10248
+normal zo
+10256
+normal zo
+10272
+normal zo
+10279
+normal zo
+10272
+normal zo
+10256
+normal zo
+10288
+normal zo
+10240
+normal zo
+10294
+normal zo
+10206
+normal zo
+10303
+normal zo
+10313
+normal zo
+10325
+normal zo
+10331
+normal zo
+10345
+normal zo
+10349
+normal zo
+10353
+normal zo
+10376
+normal zo
+10388
+normal zo
+10393
+normal zo
+10398
+normal zo
+10400
+normal zo
+10406
+normal zo
+10412
+normal zo
+10418
+normal zo
+10424
+normal zo
+10433
+normal zo
+10440
+normal zo
+10446
+normal zo
+10398
+normal zo
+10393
+normal zo
+10388
+normal zo
+10376
+normal zo
+10460
+normal zo
+10345
+normal zo
+10466
+normal zo
+10303
+normal zo
+10474
+normal zo
+10484
+normal zo
+10496
+normal zo
+10502
+normal zo
+10516
+normal zo
+10520
+normal zo
+10524
+normal zo
+10540
+normal zo
+10556
+normal zo
+10561
+normal zo
+10566
+normal zo
+10568
+normal zo
+10574
+normal zo
+10580
+normal zo
+10586
+normal zo
+10592
+normal zo
+10600
+normal zo
+10607
+normal zo
+10613
+normal zo
+10566
+normal zo
+10561
+normal zo
+10556
+normal zo
+10540
+normal zo
+10627
+normal zo
+10516
+normal zo
+10633
+normal zo
+10474
+normal zo
+10641
+normal zo
+10650
+normal zo
+10662
+normal zo
+10678
+normal zo
+10682
+normal zo
+10686
+normal zo
+10693
+normal zo
+10697
+normal zo
+10678
+normal zo
+10703
+normal zo
+10641
+normal zo
+10712
+normal zo
+10721
+normal zo
+10733
+normal zo
+10749
+normal zo
+10753
+normal zo
+10757
+normal zo
+10764
+normal zo
+10768
+normal zo
+10749
+normal zo
+10774
+normal zo
+10712
+normal zo
+10782
+normal zo
+10791
+normal zo
+10814
+normal zo
+10818
+normal zo
+10822
+normal zo
+10835
+normal zo
+10844
+normal zo
+10852
+normal zo
+10844
+normal zo
+10864
+normal zo
+10835
+normal zo
+10871
+normal zo
+10814
+normal zo
+10877
+normal zo
+10782
+normal zo
+10885
+normal zo
+10894
+normal zo
+10917
+normal zo
+10921
+normal zo
+10925
+normal zo
+10938
+normal zo
+10952
+normal zo
+10960
+normal zo
+10952
+normal zo
+10972
+normal zo
+10938
+normal zo
+10979
+normal zo
+10917
+normal zo
+10985
+normal zo
+10885
+normal zo
+10993
+normal zo
+11002
+normal zo
+11033
+normal zo
+11037
+normal zo
+11041
+normal zo
+11049
+normal zo
+11058
+normal zo
+11066
+normal zo
+11058
+normal zo
+11078
+normal zo
+11049
+normal zo
+11085
+normal zo
+11033
+normal zo
+11091
+normal zo
+10993
+normal zo
+11100
+normal zo
+11109
+normal zo
+11140
+normal zo
+11144
+normal zo
+11148
+normal zo
+11156
+normal zo
+11170
+normal zo
+11178
+normal zo
+11170
+normal zo
+11190
+normal zo
+11156
+normal zo
+11197
+normal zo
+11140
+normal zo
+11203
+normal zo
+11100
+normal zo
+11211
+normal zo
+11220
+normal zo
+11239
+normal zo
+11243
+normal zo
+11247
+normal zo
+11254
+normal zo
+11260
+normal zo
+11265
+normal zo
+11254
+normal zo
+11271
+normal zo
+11239
+normal zo
+11277
+normal zo
+11211
+normal zo
+11286
+normal zo
+11295
+normal zo
+11314
+normal zo
+11318
+normal zo
+11322
+normal zo
+11329
+normal zo
+11339
+normal zo
+11344
+normal zo
+11329
+normal zo
+11351
+normal zo
+11314
+normal zo
+11357
+normal zo
+11286
+normal zo
+11365
+normal zo
+11374
+normal zo
+11390
+normal zo
+11394
+normal zo
+11398
+normal zo
+11405
+normal zo
+11411
+normal zo
+11415
+normal zo
+11405
+normal zo
+11421
+normal zo
+11390
+normal zo
+11427
+normal zo
+11365
+normal zo
+11436
+normal zo
+11445
+normal zo
+11461
+normal zo
+11465
+normal zo
+11469
+normal zo
+11476
+normal zo
+11485
+normal zo
+11489
+normal zo
+11476
+normal zo
+11495
+normal zo
+11461
+normal zo
+11501
+normal zo
+11436
+normal zo
+11509
+normal zo
+11518
+normal zo
+11533
+normal zo
+11537
+normal zo
+11542
+normal zo
+11533
+normal zo
+11558
+normal zo
+11562
+normal zo
+11566
+normal zo
+11573
+normal zo
+11582
+normal zo
+11586
+normal zo
+11573
+normal zo
+11592
+normal zo
+11558
+normal zo
+11598
+normal zo
+11509
+normal zo
+11607
+normal zo
+11616
+normal zo
+11651
+normal zo
+11655
+normal zo
+11659
+normal zo
+11682
+normal zo
+11691
+normal zo
+11699
+normal zo
+11691
+normal zo
+11709
+normal zo
+11682
+normal zo
+11715
+normal zo
+11651
+normal zo
+11721
+normal zo
+11607
+normal zo
+11730
+normal zo
+11739
+normal zo
+11765
+normal zo
+11768
+normal zo
+11772
+normal zo
+11778
+normal zo
+11794
+normal zo
+11803
+normal zo
+11794
+normal zo
+11812
+normal zo
+11778
+normal zo
+11819
+normal zo
+11765
+normal zo
+11825
+normal zo
+11730
+normal zo
+11833
+normal zo
+11842
+normal zo
+11855
+normal zo
+11869
+normal zo
+11872
+normal zo
+11879
+normal zo
+11892
+normal zo
+11899
+normal zo
+11892
+normal zo
+11909
+normal zo
+11879
+normal zo
+11916
+normal zo
+11869
+normal zo
+11922
+normal zo
+11833
+normal zo
+11930
+normal zo
+11939
+normal zo
+11963
+normal zo
+11967
+normal zo
+11971
+normal zo
+11977
+normal zo
+11978
+normal zo
+11992
+normal zo
+11996
+normal zo
+11977
+normal zo
+12002
+normal zo
+11963
+normal zo
+12008
+normal zo
+11930
+normal zo
+12016
+normal zo
+12025
+normal zo
+12049
+normal zo
+12053
+normal zo
+12057
+normal zo
+12063
+normal zo
+12078
+normal zo
+12082
+normal zo
+12063
+normal zo
+12088
+normal zo
+12049
+normal zo
+12094
+normal zo
+12016
+normal zo
+12103
+normal zo
+12112
+normal zo
+12136
+normal zo
+12140
+normal zo
+12144
+normal zo
+12150
+normal zo
+12165
+normal zo
+12169
+normal zo
+12150
+normal zo
+12175
+normal zo
+12136
+normal zo
+12181
+normal zo
+12103
+normal zo
+12190
+normal zo
+12199
+normal zo
+12230
+normal zo
+12234
+normal zo
+12238
+normal zo
+12249
+normal zo
+12261
+normal zo
+12265
+normal zo
+12249
+normal zo
+12271
+normal zo
+12230
+normal zo
+12277
+normal zo
+12190
+normal zo
+12288
+normal zo
+12299
+normal zo
+12310
+normal zo
+12326
+normal zo
+12330
+normal zo
+12334
+normal zo
+12342
+normal zo
+12353
+normal zo
+12355
+normal zo
+12367
+normal zo
+12353
+normal zo
+12377
+normal zo
+12342
+normal zo
+12383
+normal zo
+12326
+normal zo
+12389
+normal zo
+12288
+normal zo
+12398
+normal zo
+12409
+normal zo
+12429
+normal zo
+12433
+normal zo
+12437
+normal zo
+12445
+normal zo
+12457
+normal zo
+12472
+normal zo
+12477
+normal zo
+12472
+normal zo
+12457
+normal zo
+12484
+normal zo
+12445
+normal zo
+12490
+normal zo
+12429
+normal zo
+12496
+normal zo
+12398
+normal zo
+12507
+normal zo
+12516
+normal zo
+12538
+normal zo
+12542
+normal zo
+12547
+normal zo
+12560
+normal zo
+12569
+normal zo
+12592
+normal zo
+12596
+normal zo
+12592
+normal zo
+12569
+normal zo
+12606
+normal zo
+12560
+normal zo
+12612
+normal zo
+12538
+normal zo
+12618
+normal zo
+12507
+normal zo
+12629
+normal zo
+12638
+normal zo
+12660
+normal zo
+12664
+normal zo
+12669
+normal zo
+12681
+normal zo
+12690
+normal zo
+12698
+normal zo
+12708
+normal zo
+12690
+normal zo
+12715
+normal zo
+12681
+normal zo
+12721
+normal zo
+12660
+normal zo
+12727
+normal zo
+12629
+normal zo
+12736
+normal zo
+12745
+normal zo
+12761
+normal zo
+12780
+normal zo
+12784
+normal zo
+12788
+normal zo
+12800
+normal zo
+12812
+normal zo
+12817
+normal zo
+12812
+normal zo
+12824
+normal zo
+12800
+normal zo
+12830
+normal zo
+12780
+normal zo
+12836
+normal zo
+12736
+normal zo
+12849
+normal zo
+12858
+normal zo
+12876
+normal zo
+12880
+normal zo
+12884
+normal zo
+12890
+normal zo
+12902
+normal zo
+12906
+normal zo
+12890
+normal zo
+12912
+normal zo
+12876
+normal zo
+12918
+normal zo
+12849
+normal zo
+12926
+normal zo
+12935
+normal zo
+12942
+normal zo
+12956
+normal zo
+12960
+normal zo
+12964
+normal zo
+12972
+normal zo
+12985
+normal zo
+12989
+normal zo
+12985
+normal zo
+12997
+normal zo
+12972
+normal zo
+13003
+normal zo
+12956
+normal zo
+13009
+normal zo
+12926
+normal zo
+13017
+normal zo
+13026
+normal zo
+13046
+normal zo
+13050
+normal zo
+13054
+normal zo
+13062
+normal zo
+13075
+normal zo
+13082
+normal zo
+13088
+normal zo
+13092
+normal zo
+13094
+normal zo
+13101
+normal zo
+13107
+normal zo
+13092
+normal zo
+13088
+normal zo
+13082
+normal zo
+13075
+normal zo
+13121
+normal zo
+13062
+normal zo
+13127
+normal zo
+13046
+normal zo
+13133
+normal zo
+13017
+normal zo
+13143
+normal zo
+13153
+normal zo
+13164
+normal zo
+13172
+normal zo
+13178
+normal zo
+13196
+normal zo
+13200
+normal zo
+13204
+normal zo
+13215
+normal zo
+13228
+normal zo
+13231
+normal zo
+13238
+normal zo
+13250
+normal zo
+13254
+normal zo
+13258
+normal zo
+13238
+normal zo
+13231
+normal zo
+13228
+normal zo
+13271
+normal zo
+13215
+normal zo
+13278
+normal zo
+13196
+normal zo
+13284
+normal zo
+13143
+normal zo
+13295
+normal zo
+13305
+normal zo
+13316
+normal zo
+13326
+normal zo
+13345
+normal zo
+13349
+normal zo
+13353
+normal zo
+13362
+normal zo
+13375
+normal zo
+13379
+normal zo
+13362
+normal zo
+13386
+normal zo
+13345
+normal zo
+13392
+normal zo
+13295
+normal zo
+13402
+normal zo
+13419
+normal zo
+13423
+normal zo
+13432
+normal zo
+13440
+normal zo
+13432
+normal zo
+13451
+normal zo
+13419
+normal zo
+13457
+normal zo
+13402
+normal zo
+13465
+normal zo
+13486
+normal zo
+13490
+normal zo
+13500
+normal zo
+13504
+normal zo
+13510
+normal zo
+13500
+normal zo
+13517
+normal zo
+13486
+normal zo
+13523
+normal zo
+13465
+normal zo
+13532
+normal zo
+13553
+normal zo
+13557
+normal zo
+13567
+normal zo
+13571
+normal zo
+13575
+normal zo
+13567
+normal zo
+13582
+normal zo
+13553
+normal zo
+13588
+normal zo
+13532
+normal zo
+13598
+normal zo
+13618
+normal zo
+13622
+normal zo
+13632
+normal zo
+13636
+normal zo
+13654
+normal zo
+13632
+normal zo
+13666
+normal zo
+13618
+normal zo
+13672
+normal zo
+13598
+normal zo
+13681
+normal zo
+13686
+normal zo
+13692
+normal zo
+13696
+normal zo
+13705
+normal zo
+13720
+normal zo
+13724
+normal zo
+13731
+normal zo
+13746
+normal zo
+13750
+normal zo
+13754
+normal zo
+13750
+normal zo
+13768
+normal zo
+13746
+normal zo
+13780
+normal zo
+13720
+normal zo
+13786
+normal zo
+13681
+normal zo
+13796
+normal zo
+13816
+normal zo
+13820
+normal zo
+13830
+normal zo
+13834
+normal zo
+13842
+normal zo
+13830
+normal zo
+13854
+normal zo
+13816
+normal zo
+13860
+normal zo
+13796
+normal zo
+13867
+normal zo
+13876
+normal zo
+13921
+normal zo
+13924
+normal zo
+13928
+normal zo
+13934
+normal zo
+13950
+normal zo
+13959
+normal zo
+13950
+normal zo
+13968
+normal zo
+13934
+normal zo
+13975
+normal zo
+13921
+normal zo
+13981
+normal zo
+13867
+normal zo
+13990
+normal zo
+13995
+normal zo
+14000
+normal zo
+14008
+normal zo
+13990
+normal zo
+14017
+normal zo
+14021
+normal zo
+14017
+normal zo
+14031
+normal zo
+14044
+normal zo
+14051
+normal zo
+14056
+normal zo
+14051
+normal zo
+14031
+normal zo
+14066
+normal zo
+14075
+normal zo
+14096
+normal zo
+14100
+normal zo
+14110
+normal zo
+14114
+normal zo
+14118
+normal zo
+14114
+normal zo
+14129
+normal zo
+14110
+normal zo
+14136
+normal zo
+14096
+normal zo
+14142
+normal zo
+14075
+normal zo
+14152
+normal zo
+14157
+normal zo
+14185
+normal zo
+14187
+normal zo
+14192
+normal zo
+14201
+normal zo
+14211
+normal zo
+14201
+normal zo
+14231
+normal zo
+14192
+normal zo
+14236
+normal zo
+14185
+normal zo
+14241
+normal zo
+14157
+normal zo
+14248
+normal zo
+14252
+normal zo
+14267
+normal zo
+14285
+normal zo
+14287
+normal zo
+14292
+normal zo
+14301
+normal zo
+14309
+normal zo
+14318
+normal zo
+14322
+normal zo
+14318
+normal zo
+14301
+normal zo
+14338
+normal zo
+14292
+normal zo
+14343
+normal zo
+14285
+normal zo
+14348
+normal zo
+14252
+normal zo
+14355
+normal zo
+14360
+normal zo
+14377
+normal zo
+14405
+normal zo
+14407
+normal zo
+14412
+normal zo
+14421
+normal zo
+14427
+normal zo
+14421
+normal zo
+14437
+normal zo
+14412
+normal zo
+14442
+normal zo
+14405
+normal zo
+14447
+normal zo
+14360
+normal zo
+14454
+normal zo
+14458
+normal zo
+14467
+normal zo
+14490
+normal zo
+14496
+normal zo
+14505
+normal zo
+14521
+normal zo
+14525
+normal zo
+14529
+normal zo
+14541
+normal zo
+14550
+normal zo
+14554
+normal zo
+14541
+normal zo
+14561
+normal zo
+14521
+normal zo
+14567
+normal zo
+14458
+normal zo
+14577
+normal zo
+14618
+normal zo
+14622
+normal zo
+14627
+normal zo
+14633
+normal zo
+14644
+normal zo
+14651
+normal zo
+14657
+normal zo
+14659
+normal zo
+14680
+normal zo
+14687
+normal zo
+14680
+normal zo
+14657
+normal zo
+14651
+normal zo
+14633
+normal zo
+14701
+normal zo
+14577
+normal zo
+14710
+normal zo
+14743
+normal zo
+14747
+normal zo
+14752
+normal zo
+14758
+normal zo
+14768
+normal zo
+14774
+normal zo
+14781
+normal zo
+14785
+normal zo
+14781
+normal zo
+14758
+normal zo
+14797
+normal zo
+14710
+normal zo
+14806
+normal zo
+14816
+normal zo
+14840
+normal zo
+14844
+normal zo
+14849
+normal zo
+14855
+normal zo
+14865
+normal zo
+14871
+normal zo
+14874
+normal zo
+14883
+normal zo
+14855
+normal zo
+14898
+normal zo
+14806
+normal zo
+14908
+normal zo
+14932
+normal zo
+14908
+normal zo
+let s:l = 2714 - ((30 * winheight(0) + 17) / 34)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+2714
+normal! 0
+let &so = s:so_save | let &siso = s:siso_save
+doautoall SessionLoadPost
+" vim: set ft=vim :
