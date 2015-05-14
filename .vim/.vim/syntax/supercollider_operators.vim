@@ -1,1 +1,0 @@
-/usr/share/vim/addons/syntax/supercollider_operators.vim
