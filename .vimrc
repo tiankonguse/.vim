@@ -1,49 +1,44 @@
-" ~/.vimrc是用户自己的vim配置文件，这个配置文件中设置的配置只影响该用户自己
-"即简单地补全到文档中已有的词，快捷键为 Ctrl-N 或 Ctrl-P。
-"插入模式 Ctrl-T增加缩进，Ctrl-D减小缩进。
-"命令模式  >> 右缩进， << 左缩进，注意n<< 或 n>>是缩进多行，如4>>
-"可视模式 < 、 > 用于左右缩进， n< 、 n> 可做多节缩进，如 2> 。
-"= 可对选中的部分进行自动缩进
-"]p可以实现p的粘贴功能，并自动缩进。
-"true
+" vim config - tiankonguse
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"------------------------平台设置---------------------------------
+"auto compiled Ctrl-N or Ctrl-P
+"insert model : 
+"    add indent Ctrl-T, >>, n<<
+"    del indent Ctrl-P, <<, n>>
+"visual model:
+"    add indent >, n>
+"    del indent <, n<
+"auto indent:
+"    visual model, =
+"paste indent
+"    ]p
+
+"------------------------platform setting---------------------------------
 
 if(has("win32") || has("win95") || has("win64") || has("win16"))
     let g:vimrc_iswindows=1
 else
     let g:vimrc_iswindows=0
 endif
+
+" unknow setting
 autocmd BufEnter * lcd %:p:h
 
-" 不要vim模仿vi模式，否则会有很多不兼容的问题
-set nocompatible              " be iMproved, required
-filetype off                  " required
-
-"-------------- 进行Tlist的设置-----------------------------------
-"map <F3> :silent! Tlist<CR>
-map tl :silent! Tlist<CR>
-let Tlist_Ctags_Cmd='ctags'     "因为我们放在环境变量里，所以可以直接执行
-let Tlist_Use_Right_Window=0    "让窗口显示在右边，0的话就是显示在左边
-let Tlist_Show_One_File=1       "让taglist可以同时展示多个文件的函数列表，如果想只有1个，设置为1
-let Tlist_File_Fold_Auto_Close=1 "非当前文件，函数列表折叠隐藏
-let Tlist_Exit_OnlyWindow=1     "当taglist是最后一个分割窗口时，自动推出vim
-let Tlist_Process_File_Always=1 "是否一直处理tags.1:处理;0:不处理
-let Tlist_WinHeight=100         "设置窗口高度
-let Tlist_WinWidth=24           "设置窗口宽度
-let Tlist_Inc_Winwidth=1
+" no Compatible vi, use vim
+set nocompatible 
 
 
-map <F12> :call Do_CsTag()<CR>
-nmap <C-@>s :cs find s <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-nmap <C-@>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-@>c :cs find c <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-nmap <C-@>t :cs find t <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-nmap <C-@>e :cs find e <C-R>=expand("<cword>")<CR><CR>:copen<CR>
-nmap <C-@>f :cs find f <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
-nmap <C-@>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>:copen<CR>
-nmap <C-@>d :cs find d <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+"--------------tlist setting-----------------------------------
+
+"map <F12> :call Do_CsTag()<CR>
+"nmap <C-@>s :cs find s <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+"nmap <C-@>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+"nmap <C-@>c :cs find c <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+"nmap <C-@>t :cs find t <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+"nmap <C-@>e :cs find e <C-R>=expand("<cword>")<CR><CR>:copen<CR>
+"nmap <C-@>f :cs find f <C-R>=expand("<cfile>")<CR><CR>:copen<CR>
+"nmap <C-@>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>:copen<CR>
+"nmap <C-@>d :cs find d <C-R>=expand("<cword>")<CR><CR>:copen<CR>
 function Do_CsTag()
     let dir = getcwd()
     if filereadable("tags")
@@ -101,25 +96,141 @@ function Do_CsTag()
 endfunction
 
 
-"----------------------主题设置-----------------------------
+"----------------------theame setting-----------------------------
 
 
-" 设置背景主题
+"back color setting 
 "colorscheme desert
 "color asmanian2    
 color desert 
 "color torte 
 "color ron
 
-"颜色与高亮
-"如果还没有高亮显示，则去/etc目录下profile文件中添加语句：export TERM=xterm-color
+"highlighted
+"if no highlight, add 'export TERM=xterm-color' in /etc/profile 
 "set syntax=on
 syntax on
 
 
+" setting cursor line and cursor colum
+set cursorline
+set cursorcolumn
 
-"--------------------- 编码设置 ------------------------------
-"默认编码
+autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
+autocmd InsertEnter * se cul    " 用浅色高亮当前行 
+
+"cursor line backcolor and frontcolor
+highlight cursorline   cterm=NONE ctermbg=lightgray ctermfg=NONE guibg=lightgray guifg=NONE
+"cursor Column backcolor and frontcolor
+highlight CursorColumn cterm=NONE ctermbg=lightgray ctermfg=NONE guibg=lightgray guifg=NONE
+highlight Comment cterm=NONE ctermbg=NONE ctermfg=gray guibg=NONE guifg=7
+
+" highlight search
+set hlsearch
+
+"runtime highlight word
+set incsearch
+
+" ignorecase case
+set ignorecase smartcase 
+
+" cycle search
+"set nowrapscan 
+
+"not auto wrap 
+set nowrap 
+
+
+
+set mouse=a
+"set mouse=y
+"set selection=exclusive
+"set selection=inclusive
+"set selectmode=mouse,key
+
+set wildmenu
+set mousemodel=popup
+
+set modeline
+
+setlocal noswapfile
+set bufhidden=hide
+set nobackup 
+set backupcopy=yes 
+winpos 5 5         
+
+"set nonumber
+set number 
+set history=1000
+"show line number and Column number
+set ruler
+
+set showcmd
+set go=             
+
+set cmdheight=2 
+set laststatus=2 
+
+set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %c:%l/%L%)\ 
+"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
+"set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]
+
+
+set scrolloff=3     
+set novisualbell    
+
+set shortmess=atI   
+" auto cd curent dir
+set autochdir 
+
+set noerrorbells 
+set novisualbell 
+set t_vb= 
+set magic 
+set hidden 
+
+" hide tool menu
+set guioptions-=T 
+" add level scroll
+set guioptions+=b
+" hide menu
+set guioptions-=m 
+
+
+"syntax fold 
+set foldmethod=syntax 
+"set foldmethod=manual
+set foldmethod=indent 
+set foldcolumn=0 
+setlocal foldlevel=9 
+set foldenable 
+set foldclose=all 
+
+" blank contral fold
+nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+
+"---------------------code setting------------------------------
+if has("multi_byte")
+    " UTF-8 编码
+    set encoding=utf-8
+    set termencoding=utf-8
+    set formatoptions+=mM
+    set fencs=utf-8,gbk
+
+    if v:lang =~? '^\(zh\)\|\(ja\)\|\(ko\)'
+        set ambiwidth=double
+    endif
+
+    if has("win32")
+        source $VIMRUNTIME/delmenu.vim
+        source $VIMRUNTIME/menu.vim
+        language messages zh_CN.utf-8
+    endif
+
+else
+    "echoerr "Sorry, this version of (g)vim was not compiled with +multi_byte"
+endif
+
 set enc=utf-8
 set fenc=utf-8
 set fencs=utf-8,usc-bom,euc-jp,gb18030,shift-jis,gbk,gb2312,cp936
@@ -137,238 +248,49 @@ if version >= 603
 endif
 
 
-"-------------------- Tab设置 --------------------------------
+"--------------------tab setting--------------------------------
 
-
-"空格，缩进，自动完成
-" 自动完成
-set wildmenu
-
-" 自动格式化
 set formatoptions=tcrqn
-
-"按C语言格式缩进
 set cindent
-
-"设置Tab长度为4格,简称 ts
+" tab=4, shotcut:ts
 set tabstop=4
-
-"设置自动缩进长度为4格,简称 sw
+" auto indent width 4, shotcut:sw
 set shiftwidth=4
-
-"继承前一行的缩进方式，特别适用于多行注释
 set autoindent
-
-" 开启新行时使用智能自动缩进
 set smartindent 
-
-
-" 在行和段开始处使用制表符
 set smarttab
-
-
-"显示括号匹配
 set showmatch
-
-"括号匹配显示时间为1(单位是十分之一秒)
 set matchtime=1
-
-" 使得按退格键时可以一次删掉 4 个空格
 set softtabstop=4 
 
-" 不要用空格代替制表符
-set noexpandtab
-"set expandtab
+" blank instead tab
+"set noexpandtab
+set expandtab
     
-
-set backspace=indent,eol,start
-
-" 使回格键（backspace）正常处理indent, eol, start等
+"set backspace=indent,eol,start
+set backspace=indent,eol,start whichwrap+=<,>,[,] 
+" backspace process indent, eol, start
 set backspace=2
+"set whichwrap+=<,>,h,l  
 
-" 设置光标行
-"set cursorline
+" Tab shortcuts
+nnoremap <C-TAB> :tabnext<CR>
+nnoremap <C-S-TAB> :tabprev<CR>
 
-"当前行背景色，以及前景色
-highlight cursorline   cterm=NONE ctermbg=lightgray ctermfg=NONE guibg=lightgray guifg=NONE
-
-
-"设置光标列
-"set cursorcolumn
-highlight CursorColumn cterm=NONE ctermbg=lightgray ctermfg=NONE guibg=lightgray guifg=NONE
-
-
-"autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
-"autocmd InsertEnter * se cul    " 用浅色高亮当前行 
+map tn :tabnext<cr>
+map tp :tabprevious<cr>
+map td :tabnew .<cr>
+map te :tabedit
+map tc :tabclose<cr>
 
 
-highlight Comment cterm=NONE ctermbg=NONE ctermfg=gray guibg=NONE guifg=7
-
-
-
-"设置高亮搜索
-set hlsearch
-
-"在搜索时，输入的词句的逐字符高亮
-set incsearch
-
-" 搜索时忽略大小写，但在有一个或以上大写字母时仍保持对大小写敏感
-set ignorecase smartcase 
-
-" 禁止在搜索到文件两端时重新搜索
-"set nowrapscan 
-
-" 不自动换行
-set nowrap 
-
-
-
-"鼠标
-"启用鼠标
-"set mouse=a
-"set mouse=y
-"set selection=exclusive
-"set selection=inclusive
-"set selectmode=mouse,key
-
-set wildmenu
-set mousemodel=popup
-
-"启用Modeline
-set modeline
-
-"侦测文件类型
-filetype on
-
-"载入文件类型插件
-filetype plugin on
-filetype plugin indent on
-
-"为特定文件类型载入相关缩进文件
-filetype indent on
-
-" 开启插件
-filetype plugin indent on 
 
 
 
 source $VIMRUNTIME/vimrc_example.vim
-" 不使用win下的快捷键
 "source $VIMRUNTIME/mswin.vim
 
-
-
-"swap文件
-"不要生成swap文件，当buffer被丢弃的时候隐藏它
-setlocal noswapfile
-set bufhidden=hide
-
-" 覆盖文件时不备份
-set nobackup 
-
-" 设置备份时的行为为覆盖
-set backupcopy=yes 
-
-
-
-" 设定窗口位置
-winpos 5 5         
-
-" 设定窗口大小
-
-" 显示行号
-" 主要是number的前缀就行。这些都行:number|numbe|numb|num|nu
-" 取消显示行号是set nonumber
-set number 
-
-" 历史记录数
-set history=1000
-
-"显示当前的行号列号：
-set ruler
-
-"在状态栏显示正在输入的命令
-set showcmd
-
-" 不要图形按钮
-set go=             
-
-
-" 设置字体
-
-" 命令行（在状态行下）的高度，设置为1  
-set cmdheight=2 
-
-" 显示状态栏 (默认值为 1, 无法显示状态栏)
-set laststatus=2 
-
-" 设置在状态行显示的信息
-set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %c:%l/%L%)\ 
-"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
-"set statusline=[%F]%y%r%m%*%=[Line:%l/%L,Column:%c][%p%%]
-
-
-" 允许backspace和光标键跨越行边界(不建议)  
-"set whichwrap+=<,>,h,l  
-set backspace=indent,eol,start whichwrap+=<,>,[,] 
-
-" 光标移动到buffer的顶部和底部时保持3行距离  
-set scrolloff=3     
-
-" 不要闪烁(不明白)
-set novisualbell    
-
-" 启动的时候不显示那个援助乌干达儿童的提示
-set shortmess=atI   
-
-" 自动切换当前目录为当前文件所在的目录
-set autochdir 
-
-" 关闭错误信息响铃
-"set noerrorbells 
-
-" 关闭使用可视响铃代替呼叫
-"set novisualbell 
-
-" 置空错误铃声的终端代码
-"set t_vb= 
-
-" 设置魔术
-set magic 
-
-" 允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存
-set hidden 
-
-" 隐藏工具栏
-"set guioptions-=T 
-" 添加水平滚动条
-set guioptions+=b
-
-" 隐藏菜单栏
-set guioptions-=m 
-
-
-" 设置语法折叠
-set foldmethod=syntax 
-
-" 手动折叠
-"set foldmethod=manual
-set foldmethod=indent 
-
-" 设置折叠区域的宽度
-set foldcolumn=0 
-
-" 设置折叠层数为
-setlocal foldlevel=9 
-
-" 开始折叠
-set foldenable 
-
-" 设置为自动关闭折叠 
-"set foldclose=all 
-
-" 用空格键来开关折叠
-nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+"---------------path setting-------------------
 
 " return OS type, eg: windows, or linux, mac, et.st..
 function! MySys()
@@ -379,7 +301,6 @@ function! MySys()
     endif
 endfunction
 
-" 用户目录变量$VIMFILES
 if MySys() == "windows"
     let $VIMFILES = $VIM.'/vimfiles'
 elseif MySys() == "linux"
@@ -387,14 +308,12 @@ elseif MySys() == "linux"
 endif
 
 
-" 设定doc文档目录
 let helptags=$VIMFILES.'/doc'
 
 
 
-"------------- GUI 设置 --------------------------------------
+"------------- GUI setting --------------------------------------
 
-" 设置字体 以及中文支持
 if has("win32")
     if (has("gui_running"))
         set guifont=Inconsolata:Monaco:h12:cANSI
@@ -406,7 +325,6 @@ else
     endif
 endif
 
-" 判定当前操作系统类型
 if(has("win32") || has("win95") || has("win64") || has("win16")) 
     let g:iswindows=1
 else
@@ -414,9 +332,7 @@ else
 endif
 
 
-" 允许鼠标的使用
 if(g:iswindows==1) 
-    "防止linux终端下无法拷贝
     if has('mouse')
         set mouse=a
     endif
@@ -424,17 +340,17 @@ if(g:iswindows==1)
 endif
 
 
-if (has("gui_running"))	" 图形界面下的设置
+if (has("gui_running"))	
+"gui seting
     set nowrap
     set guioptions+=b
-else 					" 字符界面下的设置
+else 
+"text seting
     set wrap
 endif
 
-
-"实现打开同一文件时，vim能够自动记住上一次的位置
 if has("autocmd")
-    filetype plugin indent on "根据文件进行缩进
+    filetype plugin indent on 
     augroup vimrcEx
         au!
         autocmd FileType text setlocal textwidth=78
@@ -444,8 +360,6 @@ if has("autocmd")
                     \ endif
     augroup END
 else
-    "智能缩进，相应的有cindent，官方说autoindent可以支持各种文件的缩进，
-    "但是效果会比只支持C/C++的cindent效果会差一点，但笔者并没有看出来
     set autoindent " always set autoindenting on 
 endif
 
@@ -474,53 +388,18 @@ function! MyDiff()
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
 
-
-" 配置多语言环境
-if has("multi_byte")
-    " UTF-8 编码
-    set encoding=utf-8
-    set termencoding=utf-8
-    set formatoptions+=mM
-    set fencs=utf-8,gbk
-
-    if v:lang =~? '^\(zh\)\|\(ja\)\|\(ko\)'
-        set ambiwidth=double
-    endif
-
-    if has("win32")
-        source $VIMRUNTIME/delmenu.vim
-        source $VIMRUNTIME/menu.vim
-        language messages zh_CN.utf-8
-    endif
-
-else
-    "echoerr "Sorry, this version of (g)vim was not compiled with +multi_byte"
-endif
-
-
-" Buffers操作快捷方式!
-nnoremap <C-RETURN> :bnext<CR>
-nnoremap <C-S-RETURN> :bprevious<CR>
-
-" Tab操作快捷方式!
-nnoremap <C-TAB> :tabnext<CR>
-nnoremap <C-S-TAB> :tabprev<CR>
-
-"关于tab的快捷键
-" map tn :tabnext<cr>
-" map tp :tabprevious<cr>
-" map td :tabnew .<cr>
-" map te :tabedit
-" map tc :tabclose<cr>
-
-
-"窗口分割时,进行切换的按键热键需要连接两次
-"比如从下方窗口移动光标到上方窗口,需要<c-w><c-w>k,非常麻烦,
-"现在重映射为<c-k>,切换的时候会变得非常方便.
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+
+
+
+" Buffers shortcuts
+nnoremap <C-RETURN> :bnext<CR>
+nnoremap <C-S-RETURN> :bprevious<CR>
+
 
 "一些不错的映射转换语法（如果在一个文件中混合了不同语言时有用）
 "nnoremap <leader>1 :set filetype=xhtml<CR>
@@ -540,28 +419,30 @@ nnoremap <C-l> <C-w>l
 " map <C-x>p <ESC>:cp<CR>		
 " map <C-x>c <ESC>:cc<CR>		
 		
-" 让 Tohtml 产生有 CSS 语法的 html		
-" syntax/2html.vim，可以用:runtime! syntax/2html.vim		
+" syntax/2html.vim，use :runtime! syntax/2html.vim		
 let html_use_css=1		
 let g:html_indent_inctags = "html,body,head,tbody"		
 let g:html_indent_script1 = "inc"		
 let g:html_indent_style1 = "inc"		
 		
-		
-" Python 文件的一般设置，比如不要 tab 等		
+"------------------------file setting----------------------
+"
+filetype on
+"filetype off   
+filetype plugin on
+filetype indent on
+filetype plugin indent on 
+
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab		
 autocmd FileType python map <F12> :!python %<CR>		
 		
-" 选中状态下 Ctrl+c 复制		
+" select, ctrl-c is copy
 vmap <C-c> "+y		
 		
-" 打开javascript折叠		
 let b:javascript_fold=1		
-		
-" 打开javascript对dom、html和css的支持		
 let javascript_enable_domhtmlcss=1		
 		
-" 设置字典 ~/.vim/dict/文件的路径		
+" setting dict path
 autocmd FileType php setlocal dict+=$VIMFILES/dict/php_funclist.dict		
 autocmd FileType css setlocal dict+=$VIMFILES/dict/css.dict		
 autocmd FileType c setlocal dict+=$VIMFILES/dict/c.dict		
@@ -578,28 +459,40 @@ nmap fi :!firefox %.html & <CR><CR>
 nmap \ \cc		
 vmap \ \cc		
 		
-"将tab替换为空格"		
+" tab replace blank
 nmap tt :%s/\t/    /g<CR>		
 		
 "-----------------------------------------------------------------		
-" plugin - taglist.vim 查看函数列表，需要ctags程序		
-" F4 打开隐藏taglist窗口		
+" plugin - taglist.vim 
+" F4 open and close fold
 "-----------------------------------------------------------------		
-if MySys() == "windows" " 设定windows系统中ctags程序的位置		
+if MySys() == "windows" 
     let Tlist_Ctags_Cmd = '"'.$VIMRUNTIME.'/ctags.exe"'		
-elseif MySys() == "linux" " 设定windows系统中ctags程序的位置		
+elseif MySys() == "linux" 
     let Tlist_Ctags_Cmd = '/usr/bin/ctags'		
 endif		
+
+"map <F3> :silent! Tlist<CR>
+map tl :silent! Tlist<CR>
 nnoremap <silent><F4> :TlistToggle<CR>		
-let Tlist_Show_One_File = 1 " 不同时显示多个文件的tag，只显示当前文件的		
-let Tlist_Exit_OnlyWindow = 1 " 如果taglist窗口是最后一个窗口，则退出vim		
-let Tlist_Use_Right_Window = 1 " 在右侧窗口中显示taglist窗口		
-let Tlist_File_Fold_Auto_Close=1 " 自动折叠当前非编辑文件的方法列表		
+let Tlist_Ctags_Cmd='ctags'
+let Tlist_Use_Right_Window=0 
+let Tlist_Show_One_File=1
+let Tlist_File_Fold_Auto_Close=1
+let Tlist_Exit_OnlyWindow=1 
+let Tlist_Process_File_Always=1 
+
+" set win height
+let Tlist_WinHeight=100 
+
+"set win width
+let Tlist_WinWidth=24 
+let Tlist_Inc_Winwidth=0
+
 let Tlist_Auto_Open = 0		
 let Tlist_Auto_Update = 1		
 let Tlist_Hightlight_Tag_On_BufEnter = 1		
 let Tlist_Enable_Fold_Column = 0		
-let Tlist_Process_File_Always = 1		
 let Tlist_Display_Prototype = 0		
 let Tlist_Compact_Format = 1		
 		
@@ -1316,7 +1209,6 @@ set completeopt=menuone,menu,longest,preview
 " omnicppcomplete plugin added command
 set nocp
 " 开启键车文件类型插件
-filetype plugin indent on
 " 用户手动在当前目录创建tags文件
 map tg :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
@@ -1371,8 +1263,8 @@ nnoremap <silent> <F3> :Grep<CR>
 command! -bang -nargs=? QFix call QFixToggle(<bang>0)
 function! QFixToggle(forced)
   if exists("g:qfix_win") && a:forced == 0
-	 cclose
-     unlet g:qfix_win
+      cclose
+      unlet g:qfix_win
   else
 	 copen 10
 	 let g:qfix_win = bufnr("$")
