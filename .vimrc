@@ -533,6 +533,581 @@ nnoremap <C-l> <C-w>l
 " nmap <leader>fu :se fileformat=unix<CR>
 
 
+		
+" use Ctrl+[l|n|p|cc] to list|next|previous|jump to count the result		
+" map <C-x>l <ESC>:cl<CR>		
+" map <C-x>n <ESC>:cn<CR>		
+" map <C-x>p <ESC>:cp<CR>		
+" map <C-x>c <ESC>:cc<CR>		
+		
+" 让 Tohtml 产生有 CSS 语法的 html		
+" syntax/2html.vim，可以用:runtime! syntax/2html.vim		
+let html_use_css=1		
+let g:html_indent_inctags = "html,body,head,tbody"		
+let g:html_indent_script1 = "inc"		
+let g:html_indent_style1 = "inc"		
+		
+		
+" Python 文件的一般设置，比如不要 tab 等		
+autocmd FileType python set tabstop=4 shiftwidth=4 expandtab		
+autocmd FileType python map <F12> :!python %<CR>		
+		
+" 选中状态下 Ctrl+c 复制		
+vmap <C-c> "+y		
+		
+" 打开javascript折叠		
+let b:javascript_fold=1		
+		
+" 打开javascript对dom、html和css的支持		
+let javascript_enable_domhtmlcss=1		
+		
+" 设置字典 ~/.vim/dict/文件的路径		
+autocmd FileType php setlocal dict+=$VIMFILES/dict/php_funclist.dict		
+autocmd FileType css setlocal dict+=$VIMFILES/dict/css.dict		
+autocmd FileType c setlocal dict+=$VIMFILES/dict/c.dict		
+autocmd FileType cpp setlocal dict+=$VIMFILES/dict/cpp.dict		
+autocmd FileType scale setlocal dict+=$VIMFILES/dict/scale.dict		
+autocmd FileType javascript setlocal dict+=$VIMFILES/dict/javascript.dict		
+autocmd FileType html setlocal dict+=$VIMFILES/dict/javascript.dict		
+autocmd FileType html setlocal dict+=$VIMFILES/dict/css.dict		
+autocmd FileType css setlocal dict+=$VIMFILES/dict/css.dict		
+		
+"rkdown to HTML 		
+nmap md :!$VIMFILES/markdown.pl % > %.html <CR><CR>		
+nmap fi :!firefox %.html & <CR><CR>		
+nmap \ \cc		
+vmap \ \cc		
+		
+"将tab替换为空格"		
+nmap tt :%s/\t/    /g<CR>		
+		
+"-----------------------------------------------------------------		
+" plugin - taglist.vim 查看函数列表，需要ctags程序		
+" F4 打开隐藏taglist窗口		
+"-----------------------------------------------------------------		
+if MySys() == "windows" " 设定windows系统中ctags程序的位置		
+    let Tlist_Ctags_Cmd = '"'.$VIMRUNTIME.'/ctags.exe"'		
+elseif MySys() == "linux" " 设定windows系统中ctags程序的位置		
+    let Tlist_Ctags_Cmd = '/usr/bin/ctags'		
+endif		
+nnoremap <silent><F4> :TlistToggle<CR>		
+let Tlist_Show_One_File = 1 " 不同时显示多个文件的tag，只显示当前文件的		
+let Tlist_Exit_OnlyWindow = 1 " 如果taglist窗口是最后一个窗口，则退出vim		
+let Tlist_Use_Right_Window = 1 " 在右侧窗口中显示taglist窗口		
+let Tlist_File_Fold_Auto_Close=1 " 自动折叠当前非编辑文件的方法列表		
+let Tlist_Auto_Open = 0		
+let Tlist_Auto_Update = 1		
+let Tlist_Hightlight_Tag_On_BufEnter = 1		
+let Tlist_Enable_Fold_Column = 0		
+let Tlist_Process_File_Always = 1		
+let Tlist_Display_Prototype = 0		
+let Tlist_Compact_Format = 1		
+		
+"-----------------------------------------------------------------		
+" plugin - mark.vim 给各种tags标记不同的颜色，便于观看调式的插件。		
+" \m mark or unmark the word under (or before) the cursor		
+" \r manually input a regular expression. 用于搜索.		
+" \n clear this mark (i.e. the mark under the cursor), or clear all highlighted marks .		
+" \* 当前MarkWord的下一个 \# 当前MarkWord的上一个		
+" \/ 所有MarkWords的下一个 \? 所有MarkWords的上一个		
+"-----------------------------------------------------------------		
+		
+"-----------------------------------------------------------------		
+" plugin - NERD_tree.vim 以树状方式浏览系统中的文件和目录		
+" :ERDtree 打开NERD_tree :NERDtreeClose 关闭NERD_tree		
+" o 打开关闭文件或者目录 t 在标签页中打开		
+" T 在后台标签页中打开 ! 执行此文件		
+" p 到上层目录 P 到根目录		
+" K 到第一个节点 J 到最后一个节点		
+" u 打开上层目录 m 显示文件系统菜单（添加、删除、移动操作）		
+" r 递归刷新当前目录 R 递归刷新当前根目录		
+"-----------------------------------------------------------------		
+" F3 NERDTree 切换		
+		
+map <F3> :NERDTreeToggle<CR>		
+imap <F3> <ESC>:NERDTreeToggle<CR>		
+		
+"-----------------------------------------------------------------		
+" plugin - NERD_commenter.vim 注释代码用的，		
+" [count],cc 光标以下count行逐行添加注释(7,cc)		
+" [count],cu 光标以下count行逐行取消注释(7,cu)		
+" [count],cm 光标以下count行尝试添加块注释(7,cm)		
+" ,cA 在行尾插入 /* */,并且进入插入模式。 这个命令方便写注释。		
+" 注：count参数可选，无则默认为选中行或当前行		
+"-----------------------------------------------------------------		
+		
+let NERDSpaceDelims=1 " 让注释符与语句之间留一个空格		
+"let NERDCompact***yComs=1 " 多行注释时样子更好看		
+		
+		
+"-----------------------------------------------------------------		
+" plugin - DoxygenToolkit.vim 由注释生成文档，并且能够快速生成函数标准注释		
+"-----------------------------------------------------------------		
+let g:DoxygenToolkit_authorName="Asins - asinsimple AT gmail DOT com"		
+let g:DoxygenToolkit_briefTag_funcName="yes"		
+map <leader>da :DoxAuthor<CR>		
+map <leader>df :Dox<CR>		
+map <leader>db :DoxBlock<CR>		
+map <leader>dc a /* */<LEFT><LEFT><LEFT>		
+		
+"-----------------------------------------------------------------		
+" plugin – ZenCoding.vim 很酷的插件，HTML代码生成		
+" 插件最新版：http://github.com/mattn/zencoding-vim		
+" 常用命令可看：http://nootn.com/blog/Tool/23/		
+"-----------------------------------------------------------------		
+		
+"-----------------------------------------------------------------		
+" plugin – checksyntax.vim JavaScript常见语法错误检查		
+" 默认快捷方式为 F5		
+"----------------------------------------------------------------		
+		
+"let g:checksyntax_auto = 0 " 不自动检查		
+		
+		
+"-----------------------------------------------------------------		
+" plugin - NeoComplCache.vim 自动补全插件		
+"-----------------------------------------------------------------		
+let g:AutoComplPop_NotEnableAtStartup = 1		
+let g:NeoComplCache_EnableAtStartup = 1		
+let g:NeoComplCache_SmartCase = 1		
+let g:NeoComplCache_TagsAutoUpdate = 1		
+let g:NeoComplCache_EnableInfo = 1		
+let g:NeoComplCache_EnableCamelCaseCompletion = 1		
+let g:NeoComplCache_MinSyntaxLength = 3		
+let g:NeoComplCache_EnableSkipCompletion = 1		
+let g:NeoComplCache_SkipInputTime = '0.5'		
+let g:NeoComplCache_SnippetsDir = $VIMFILES.'/snippets'		
+" <TAB> completion.		
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"		
+" snippets expand key		
+imap <silent> <C-e> <Plug>(neocomplcache_snippets_expand)		
+smap <silent> <C-e> <Plug>(neocomplcache_snippets_expand)		
+		
+"-----------------------------------------------------------------		
+" plugin - matchit.vim 对%命令进行扩展使得能在嵌套标签和语句之间跳转		
+" % 正向匹配 g% 反向匹配		
+" [% 定位块首 ]% 定位块尾		
+"-----------------------------------------------------------------		
+		
+		
+"-----------------------------------------------------------------		
+" plugin - vcscommand.vim 对%命令进行扩展使得能在嵌套标签和语句之间跳转		
+" SVN/git管理工具		
+"-----------------------------------------------------------------		
+		
+		
+"-----------------------------------------------------------------		
+" plugin – a.vim		
+"-----------------------------------------------------------------		
+		
+		
+"------------------------------------------------------------------		
+"新文件标题		
+"------------------------------------------------------------------		
+"新建.c,.h,.sh,.java文件，自动插入文件头		
+autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java exec ":call SetTitle()"		
+"定义函数SetTitle，自动插入文件头 		
+		
+func SetTitle() 		
+    "如果文件类型为.sh文件 		
+    let l:lineNumber=line(".")		
+    if &filetype == 'sh'		
+        call setline(l:lineNumber,"\#########################################################################")		
+        call append(l:lineNumber, "\# File Name: ".expand("%"))		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "\# Author: tiankonguse(skyyuan)") 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "\# mail: i@tiankonguse.com") 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "\# Created Time: ".strftime("%c")) 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "\#########################################################################") 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "\#!/bin/bash") 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "") 		
+        let l:lineNumber+=1		
+    elseif &filetype == 'python'		
+        call setline(l:lineNumber,"\#########################################################################") 		
+        let l:lineNumber+=1		
+        call append(line("."), "\# File Name: ".expand("%")) 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "\# Author: tiankonguse(skyyuan)") 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "\# mail: i@tiankonguse.com") 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "\# Created Time: ".strftime("%c")) 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "\#########################################################################") 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "\#!/usr/bin/env python") 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "\# coding=utf-8") 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "") 		
+        let l:lineNumber+=1		
+		
+    else		
+        call setline(l:lineNumber, "\/*************************************************************************") 		
+        ""let l:lineNumber+=1		
+        call append(l:lineNumber, "  > File Name: ".expand("%")) 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "  > Author: tiankonguse(skyyuan)") 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "  > Mail: i@tiankonguse.com ") 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "  > Created Time: ".strftime("%c")) 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "***********************************************************************/") 		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "")		
+        let l:lineNumber+=1		
+    endif		
+		
+    if &filetype == 'cpp'		
+        call append(l:lineNumber, "#include<iostream>")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "#include<cstdio>")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "#include<cstring>")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "#include<cstdlib>")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "#include<string>")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "#include<queue>")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "#include<map>")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "#include<cmath>")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "#include<stack>")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "#include<algorithm>")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "#include<functional>")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "#include<stdarg.h>")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "using namespace std;")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "#ifdef __int64")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "typedef __int64 LL;")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "#else")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "typedef long long LL;")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "#endif")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "int main() {")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "    return 0;")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "}")		
+        let l:lineNumber+=1		
+    endif		
+		
+    if &filetype == 'c'		
+        call append(l:lineNumber, "#include<stdio.h>")		
+        let l:lineNumber+=1		
+        call append(l:lineNumber, "")		
+        let l:lineNumber+=1		
+    endif		
+		
+    "新建文件后，自动定位到文件末尾		
+    autocmd BufNewFile * normal G		
+endfunc 		
+		
+		
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""		
+"键盘命令		
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""		
+		
+"map <C-w> :w!<cr>		
+" 映射全选+复制 ctrl+a		
+"map <C-A> ggVGY		
+"map! <C-A> <Esc>ggVGY		
+"map <F12> gg=G		
+map <C-A> <Esc><Esc><Esc>ggVG		
+map <C-C> y<Esc><Esc><Esc>		
+"map <C-S> <Esc><Esc><Esc>:w<CR>		
+		
+" 选中状态下 Ctrl+c 复制		
+"vmap <C-c> "+y		
+		
+"粘贴		
+map <C-v> p		
+		
+"map! <C-Z> <Esc>zzi		
+"map! <C-O> <C-Y>,		
+"map <C-A> ggVG$"+y		
+"map <F12> gg=G		
+"map <C-w> <C-w>w		
+"imap <C-k> <C-y>,		
+"imap <C-j> <ESC>		
+" 选中状态下 Ctrl+c 复制		
+" map <C-v> "*pa		
+" imap <C-v> <Esc>"*pa		
+" imap <C-a> <Esc>^		
+" imap <C-e> <Esc>$		
+" vmap <C-c> "+y""""""		
+		
+"去空行  		
+"nnoremap <F2> :g/^\s*$/d<CR> 		
+		
+"比较文件  		
+"nnoremap <C-F2> :vert diffsplit 		
+		
+"新建标签  		
+"map <M-F2> :tabnew<CR>  		
+		
+"列出当前目录文件  		
+"map <F3> :tabnew .<CR>  		
+		
+"打开树状文件目录  		
+"map <C-F3> \be		
+		
+"C，C++ 按F5编译运行		
+"map <F5> :call CompileRunGcc()<CR>		
+func! CompileRunGcc()		
+    exec "w"		
+    if &filetype == 'c'		
+        exec "!g++ % -o %<"		
+        exec "! ./%<"		
+    elseif &filetype == 'cpp'		
+        exec "!g++ % -o %<"		
+        exec "! ./%<"		
+    elseif &filetype == 'java' 		
+        exec "!javac %" 		
+        exec "!java %<"		
+    elseif &filetype == 'python' 		
+        exec "!time python2.7 %"		
+    elseif &filetype == 'html' 		
+        exec "!firefox % &"		
+    elseif &filetype == 'mkd' 		
+        exec "!~/.vim/markdown.pl % > %.html &"		
+        exec "!firefox %.html &"		
+    elseif &filetype == 'sh'		
+        :!./%		
+    endif		
+endfunc		
+		
+"C,C++的调试		
+"map <F8> :call Rungdb()<CR>		
+func! Rungdb()		
+    exec "w"		
+    if &filetype == 'cpp'		
+        exec "!g++ % -g -o %<"		
+        exec "!gdb ./%<"		
+    endif		
+endfunc		
+		
+"代码格式优化化"		
+map <F6> :call FormartSrc()<CR><CR>		
+		
+func FormartSrc()		
+    exec "w"		
+    if &filetype == 'c'		
+        exec "!astyle --style=ansi -a --suffix=none %"		
+    elseif &filetype == 'cpp' || &filetype == 'hpp'		
+        exec "r !astyle --style=ansi --one-line=keep-statements -a --suffix=none %> /dev/null 2>&1"		
+    elseif &filetype == 'perl'		
+        exec "!astyle --style=gnu --suffix=none %"		
+    elseif &filetype == 'py'||&filetype == 'python'		
+        exec "r !autopep8 -i --aggressive %"		
+    elseif &filetype == 'java'		
+        exec "!astyle --style=java --suffix=none %"		
+    elseif &filetype == 'jsp'		
+        exec "!astyle --style=gnu --suffix=none %"		
+    elseif &filetype == 'xml'		
+        exec "!astyle --style=gnu --suffix=none %"		
+    else		
+        exec "normal gg=G"		
+        return		
+    endif		
+    exec "e! %"		
+endfunc		
+		
+"当打开vim且没有文件时自动打开NERDTree		
+autocmd vimenter * if !argc() | NERDTree | endif		
+		
+" 只剩 NERDTree时自动关闭		
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&  b:NERDTreeType == "primary") | q | endif		
+		
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""		
+"实用设置		
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""		
+		
+" 设置当文件被改动时自动载入		
+set autoread		
+		
+" quickfix模式		
+autocmd FileType c,cpp map <buffer> <leader><space> :w<cr>:make<cr>		
+		
+"代码补全 		
+set completeopt=preview,menu		
+		
+"打开文件类型检测, 加了这句才可以用智能补全		
+set completeopt=longest,menu		
+		
+"共享剪贴板  		
+set clipboard+=unnamed		
+		
+		
+"make 运行		
+set makeprg=g++\ -Wall\ \ %		
+		
+"自动保存		
+set autowrite		
+		
+		
+" 不要使用vi的键盘模式，而是vim自己的		
+set nocompatible		
+		
+" 去掉输入错误的提示声音		
+set noeb		
+		
+" 在处理未保存或只读文件的时候，弹出确认		
+set confirm		
+		
+"行内替换		
+set gdefault		
+		
+" 保存全局变量		
+set viminfo+=!		
+		
+" 带有如下符号的单词不要被换行分割		
+set iskeyword+=_,$,@,%,#,-		
+		
+		
+" 字符间插入的像素行数目		
+set linespace=0		
+		
+" 通过使用: commands命令，告诉我们文件的哪一行被改变过		
+set report=0		
+		
+" 在被分割的窗口间显示空白，便于阅读		
+set fillchars=vert:\ ,stl:\ ,stlnc:\		
+		
+"markdown配置		
+au BufRead,BufNewFile *  setfiletype txt		
+au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=mkd		
+au BufRead,BufNewFile *.{go}   set filetype=go		
+au BufRead,BufNewFile *.{js}   set filetype=javascript		
+		
+		
+"自动补全		
+:inoremap ( ()<ESC>i		
+:inoremap ) <c-r>=ClosePair(')')<CR>		
+:inoremap { {<CR>}<ESC>O		
+:inoremap } <c-r>=ClosePair('}')<CR>		
+:inoremap [ []<ESC>i		
+:inoremap ] <c-r>=ClosePair(']')<CR>		
+":inoremap " ""<ESC>i		
+":inoremap ' ''<ESC>i		
+function! ClosePair(char)		
+    if getline('.')[col('.') - 1] == a:char		
+        return "\<Right>"		
+    else		
+        return a:char		
+    endif		
+endfunction		
+		
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""		
+" CTags的设定  		
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""		
+let Tlist_Sort_Type = "name"    " 按照名称排序  		
+let Tlist_Use_Right_Window = 1  " 在右侧显示窗口  		
+let Tlist_Compart_Format = 1    " 压缩方式  		
+let Tlist_Exist_OnlyWindow = 1  " 如果只有一个buffer，kill窗口也kill掉buffe 		
+let Tlist_File_Fold_Auto_Close = 0  " 不要关闭其他文件的tags  		
+let Tlist_Enable_Fold_Column = 0    " 不要显示折叠树  		
+"autocmd FileType java set tags+=D:\tools\java\tags """"""""		
+"autocmd FileType h,cpp,cc,c set tags+=D:\tools\cpp\tags  		
+"let Tlist_Show_One_File=1		
+"不同时显示多个文件的tag，只显示当前文件的		
+"设置tags 		
+		
+set tags=tags;/ 		
+"set autochdir "		
+		
+		
+		
+		
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""		
+" name:pathogen.vim		
+" author:Tim Pope		
+" link:https://github.com/tpope/vim-pathogen/		
+" home:http://tpo.pe/		
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""		
+		
+		
+function! LoadPathogen()		
+    return 1 		
+endfunction		
+		
+if LoadPathogen() == 0 		
+    execute pathogen#infect()		
+    syntax on		
+    filetype plugin indent on		
+    let g:syntastic_python_checkers=['pylint']		
+    let g:syntastic_php_checkers=['php', 'phpcs', 'phpmd']		
+endif		
+		
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""		
+" tiankonguse(skyyuan)'s extend for make a tempalte that makes by latex.		
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""		
+function! Lcode(line_begin, line_end, dir, name)		
+    ""	execute ":!mkdir -p ~/app/latex_study/acm/make/source/".a:dir		
+    execute ":".a:line_begin." s/^/\\\\lstinputlisting[language={C++}]{\\~\\/app\\/latex_study\\/acm\\/make\\/source\\/".a:dir."\\/".a:name.".cpp}\r/"		
+    let a:line_new_begin=a:line_begin+1		
+    let a:line_new_end=a:line_end+1		
+    let a:line_number=a:line_new_end - a:line_new_begin		
+    let a:line_number=a:line_number+1		
+    execute ":".a:line_new_begin.",".a:line_new_end." d"		
+    execute ":vsp \\~\\/app\\/latex_study\\/acm\\/make\\/source\\/".a:dir."\\/".a:name.".cpp"		
+    execute ":pu!"		
+    execute ":".a:line_number." d"		
+endfunction		
+		
+		
+		
+		
+""""""""""""""""""""""""""""""""""""""""		
+"golang		
+"Processing... % (ctrl+c to stop)		
+"""""""""""""""""""""""""""""""""""		
+let g:fencview_autodetect=0		
+set rtp+=$GOROOT/misc/vim		
+		
+		
+		
+		
+		
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.png,*.jpg,*.gif     " MacOSX/Linux		
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe,*.pyc,*.png,*.jpg,*.gif  " Windows		
+		
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'		
+let g:ctrlp_custom_ignore = '\v\.(exe|so|dll)$'		
+let g:ctrlp_extensions = ['funky']		
+		
+let NERDTreeIgnore=['\.pyc']		
+		
+		
+set pastetoggle=<F9>		
+		
+		
+set pastetoggle=<F9>		
+		
+" insert time 		
+" format yyyy-mm-dd hh:MM		
+:nnoremap <F5> "=strftime("%F %R")<CR>gP
+
+
 
 set path=.,/usr/include,/usr/local/include
 "-----------------------------------------------------------------
