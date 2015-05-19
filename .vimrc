@@ -204,7 +204,6 @@ set foldmethod=indent
 set foldcolumn=0 
 setlocal foldlevel=9 
 set foldenable 
-set foldclose=all 
 
 " blank contral fold
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
@@ -478,7 +477,7 @@ nnoremap <silent><F4> :TlistToggle<CR>
 let Tlist_Ctags_Cmd='ctags'
 let Tlist_Use_Right_Window=0 
 let Tlist_Show_One_File=1
-let Tlist_File_Fold_Auto_Close=1
+let Tlist_File_Fold_Auto_Close=0
 let Tlist_Exit_OnlyWindow=1 
 let Tlist_Process_File_Always=1 
 
@@ -894,12 +893,12 @@ au BufRead,BufNewFile *.{js}   set filetype=javascript
 		
 		
 "自动补全		
-:inoremap ( ()<ESC>i		
-:inoremap ) <c-r>=ClosePair(')')<CR>		
-:inoremap { {<CR>}<ESC>O		
-:inoremap } <c-r>=ClosePair('}')<CR>		
-:inoremap [ []<ESC>i		
-:inoremap ] <c-r>=ClosePair(']')<CR>		
+":inoremap ( ()<ESC>i		
+":inoremap ) <c-r>=ClosePair(')')<CR>		
+":inoremap { {<CR>}<ESC>O		
+":inoremap } <c-r>=ClosePair('}')<CR>		
+":inoremap [ []<ESC>i		
+":inoremap ] <c-r>=ClosePair(']')<CR>		
 ":inoremap " ""<ESC>i		
 ":inoremap ' ''<ESC>i		
 function! ClosePair(char)		
@@ -1160,10 +1159,10 @@ set foldmethod=syntax
 set foldcolumn=3
 
 " 设置初始折叠层数为0，即打开时就对函数进行折叠
-setlocal foldlevel=0
+setlocal foldlevel=1
 
 " 设置为自动关闭折叠
-" set foldclose=all
+"set foldclose=all
 
 " 用空格键来开关折叠
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
