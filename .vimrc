@@ -154,6 +154,7 @@ set mousemodel=popup
 set modeline
 
 setlocal noswapfile
+set noswapfile
 set bufhidden=hide
 set nobackup 
 set backupcopy=yes 
