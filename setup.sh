@@ -21,6 +21,6 @@ ln ~/.vimrc ~/.vim/.vimrc
 echo "tiankonguse正在努力为您安装bundle程序" > tiankonguse
 echo "安装完毕将自动退出" >> tiankonguse
 echo "请耐心等待" >> tiankonguse
-vim tiankonguse -c "BundleInstall" -c "q" -c "q"
+vim tiankonguse -c "BundleInstall" -c "q"
 rm tiankonguse 
 echo "安装完成"

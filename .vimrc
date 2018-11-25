@@ -30,16 +30,13 @@ set nocompatible
 
 "back color setting 
 "colorscheme desert
+"set background=dark
+"colorscheme solarized
+"colorscheme macvim-light 
 "color asmanian2    
 color desert 
 "color torte 
 "color ron
-
-"highlighted
-"if no highlight, add 'export TERM=xterm-color' in /etc/profile 
-"set syntax=on
-syntax on
-
 
 " setting cursor line and cursor colum
 set cursorline
@@ -59,19 +56,12 @@ set hlsearch
 "runtime highlight word
 set incsearch
 
-" ignorecase case
-set ignorecase smartcase 
 
 "not auto wrap 
 set nowrap 
 
 
 
-set mouse=a
-"set mouse=y
-"set selection=exclusive
-"set selection=inclusive
-"set selectmode=mouse,key
 
 set wildmenu
 set mousemodel=popup
@@ -85,8 +75,7 @@ set nobackup
 set backupcopy=yes 
 winpos 5 5         
 
-"set nonumber
-set number 
+
 set history=1000
 "show line number and Column number
 set ruler
@@ -95,9 +84,6 @@ set showcmd
 set go=             
 
 set cmdheight=2 
-set laststatus=2 
-
-set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %c:%l/%L%)\ 
 
 
 set scrolloff=3     
@@ -127,7 +113,6 @@ set foldmethod=syntax
 set foldmethod=indent 
 set foldcolumn=0 
 setlocal foldlevel=9 
-set foldenable 
 
 " blank contral fold
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
@@ -162,6 +147,7 @@ set langmenu=zh_CN.UTF-8
 set fileencoding=utf-8
 set fileencodings=utf-8,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936,big5,euc-kr,latin1
 let $LANG = 'zh_CN.UTF-8'
+set wildmode=longest,list " Ex命令自动补全采用bash方式"
 
 if version >= 603
     set helplang=cn
@@ -172,11 +158,6 @@ endif
 
 set formatoptions=tcrqn
 set cindent
-" tab=4, shotcut:ts
-set tabstop=4
-" auto indent width 4, shotcut:sw
-set shiftwidth=4
-set autoindent
 set smartindent 
 set smarttab
 set showmatch
@@ -186,12 +167,7 @@ set softtabstop=4
 " blank instead tab
 "set noexpandtab
 set expandtab
-    
-"set backspace=indent,eol,start
-set backspace=indent,eol,start whichwrap+=<,>,[,] 
-" backspace process indent, eol, start
-set backspace=2
-"set whichwrap+=<,>,h,l  
+
 
 " Tab shortcuts
 nnoremap <C-TAB> :tabnext<CR>
@@ -257,7 +233,7 @@ if(g:iswindows==1)
 endif
 
 
-if (has("gui_running"))	
+if (has("gui_running"))    
 "gui seting
     set nowrap
     set guioptions+=b
@@ -272,104 +248,88 @@ nnoremap <C-S-RETURN> :bprevious<CR>
 
 
 "一些不错的映射转换语法（如果在一个文件中混合了不同语言时有用）
-		
+        
 "------------------------file setting----------------------
 "
 filetype on
-"filetype off   
-filetype plugin on
 filetype indent on
 filetype plugin indent on 
 
 " select, ctrl-c is copy
-vmap <C-c> "+y		
-		
-		
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""		
-"键盘命令		
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""		
-		
-"map <C-w> :w!<cr>		
-" 映射全选+复制 ctrl+a		
-"map <C-A> ggVGY		
-"map! <C-A> <Esc>ggVGY		
-"map <F12> gg=G		
-map <C-A> <Esc><Esc><Esc>ggVG		
-map <C-C> y<Esc><Esc><Esc>		
-"map <C-S> <Esc><Esc><Esc>:w<CR>		
-		
-" 选中状态下 Ctrl+c 复制		
-"vmap <C-c> "+y		
-		
-"粘贴		
-map <C-v> p		
-		
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""		
-"实用设置		
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""		
-		
-" 设置当文件被改动时自动载入		
-set autoread		
-		
-" quickfix模式		
-autocmd FileType c,cpp map <buffer> <leader><space> :w<cr>:make<cr>		
-		
-"代码补全 		
-set completeopt=preview,menu		
-		
-"打开文件类型检测, 加了这句才可以用智能补全		
-set completeopt=longest,menu		
-		
-"共享剪贴板  		
-set clipboard+=unnamed		
-		
-"自动保存		
-set autowrite		
-		
-		
-" 不要使用vi的键盘模式，而是vim自己的		
-set nocompatible		
-		
-" 去掉输入错误的提示声音		
-set noeb		
-		
-" 在处理未保存或只读文件的时候，弹出确认		
-set confirm		
-		
-"行内替换		
-set gdefault		
-		
-" 保存全局变量		
-set viminfo+=!		
-		
-" 带有如下符号的单词不要被换行分割		
-set iskeyword+=_,$,@,%,#,-		
-		
-		
-" 字符间插入的像素行数目		
-set linespace=0		
-		
-" 通过使用: commands命令，告诉我们文件的哪一行被改变过		
-set report=0		
-		
-" 在被分割的窗口间显示空白，便于阅读		
-set fillchars=vert:\ ,stl:\ ,stlnc:\		
-		
-		
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""		
-" name:pathogen.vim		
-" author:Tim Pope		
-" link:https://github.com/tpope/vim-pathogen/		
-" home:http://tpo.pe/		
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""		
-		
-:nnoremap <F5> "=strftime("%F %R")<CR>gP
+vmap <C-c> "+y        
+        
+        
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""        
+"键盘命令        
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""        
+        
+"map <C-w> :w!<cr>        
+" 映射全选+复制 ctrl+a        
+"map <C-A> ggVGY        
+"map! <C-A> <Esc>ggVGY        
+map <C-A> <Esc><Esc><Esc>ggVG        
+map <C-C> y<Esc><Esc><Esc>        
+"map <C-S> <Esc><Esc><Esc>:w<CR>        
+        
+" 选中状态下 Ctrl+c 复制        
+"vmap <C-c> "+y        
+        
+"粘贴        
+map <C-v> p        
+             
+        
+" 设置当文件被改动时自动载入        
+set autoread        
+        
+"代码补全         
+set completeopt=preview,menu        
+        
+"打开文件类型检测, 加了这句才可以用智能补全        
+set completeopt=longest,menu        
+        
+"共享剪贴板          
+set clipboard+=unnamed        
+        
+"自动保存        
+set autowrite        
+        
+        
+" 不要使用vi的键盘模式，而是vim自己的        
+set nocompatible        
+        
+" 去掉输入错误的提示声音        
+set noeb        
+        
+" 在处理未保存或只读文件的时候，弹出确认        
+set confirm        
+        
+"行内替换        
+set gdefault        
+        
+" 保存全局变量        
+set viminfo+=!        
+        
+" 带有如下符号的单词不要被换行分割        
+set iskeyword+=_,$,@,%,#,-        
+        
+        
+" 字符间插入的像素行数目        
+set linespace=0        
+        
+" 通过使用: commands命令，告诉我们文件的哪一行被改变过        
+set report=0        
+        
+" 在被分割的窗口间显示空白，便于阅读        
+"set fillchars=vert:\ ,stl:\ ,stlnc:\        
+        
+
+:nnoremap <F12> "=strftime("%F %R")<CR>gP
+map <F5> :make -j32<CR>:cw<CR>
+map! <F5> <Esc>:w<CR>:make -j32<CR>:cw<CR>
+
 
 set path=.,/usr/include,/usr/local/include
 
-"----------------------------------------------------------------
-" Part III Configurations From Laptop
-" ---------------------------------------------------------------
 "
 " 设置Gvim使用的字体
 set guifont=Courier\ New\ 14
@@ -385,7 +345,14 @@ set guioptions-=m
 set equalalways
 
 " 设置使用鼠标进行选择和导航
+set ttyfast
 "set mouse=a
+"set mouse=a
+"set mouse=y
+"set selection=exclusive
+"set selection=inclusive
+"set selectmode=mouse,key
+set ttymouse=xterm2
 
 " 设置自动缩进
 set autoindent
@@ -395,7 +362,8 @@ syntax enable
 syntax on
 
 " 打开文件时自动显示行号
-"set number
+"set nonumber
+set number
 
 " 关闭vi兼容模式
 set nocompatible
@@ -404,9 +372,10 @@ set nocompatible
 "set cursorline
 
 " 打开状态栏标尺
- set ruler
+set ruler
 
 " shiftwidth用于设置>>和<<命令移动时的宽度
+" auto indent width 4, shotcut:sw
 set shiftwidth=4
 
 " 覆盖文件时不创建备份
@@ -449,13 +418,18 @@ autocmd BufEnter,BufNew,WinEnter *.c,*.h,*.cpp,*.cc,*.C :set cindent | :set shif
 autocmd BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 
 " 设置tab宽度等于4个空格
+" tab=4, shotcut:ts
 set tabstop=4
 
 " 解决在vim下不能使用backspace键进行删除的选项
 set backspace=2
 
 " 不设定在插入状态无法用退格键和Delete键删除回车符
-set backspace=indent,eol,start 
+set backspace=indent,eol,start     
+"set backspace=indent,eol,start
+"set backspace=indent,eol,start whichwrap+=<,>,[,] 
+" backspace process indent, eol, start
+"set whichwrap+=<,>,h,l  
 
 " 设定命令行的行数为1
 set cmdheight=1
@@ -465,6 +439,8 @@ set laststatus=2
 
 " 设置在状态行显示的信息
 set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %c:%l/%L%)\ 
+"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}\ %{EchoFuncGetStatusLine()}      "状态行显示的内容  
+"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}      "状态行显示的内容  
 
 " 开始折叠
 set foldenable
@@ -483,17 +459,17 @@ setlocal foldlevel=1
 
 " 用空格键来开关折叠
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+"map <space> zc<CR>
 
 " 
 set softtabstop=4
 
 " 设置终端以及文件编码方式
 "let &termencoding=&encoding
-" set fileencodings=utf-8,Unicode,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 "set termencoding=utf-8
 "set termencoding=prc
-"set fileformats=unix	" 默认文件格式
-" set encoding=prc		" 文件编码(该编码可能会导致gvim菜单乱码)
+"set fileformats=unix    " 默认文件格式
+" set encoding=prc        " 文件编码(该编码可能会导致gvim菜单乱码)
 
 " 如果无法显式中文帮助，可以设置帮助语言
 set helplang=cn
@@ -511,6 +487,34 @@ set autowrite
 """""""""""""""""""""""""""""""""""""""""""""""""
 " 用户手动在当前目录创建tags文件
 map tg :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+map <F8> :!ctags -R * --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ .<CR><CR>
+imap <F8> <ESC>:!ctags -R * --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ .<CR><CR>
 
 
+" taglist
+let Tlist_Show_One_File=1
+let Tlist_Exit_OnlyWindow=1
+let Tlist_Use_Right_Window=1
+let Tlist_Sort_Type="name"
+map <F3> :TlistToggle<CR>
 
+" omnicppcomplete
+set completeopt=longest,menu
+let OmniCpp_NamespaceSearch = 2 " search namespaces in the current buffer and in included files
+let OmniCpp_ShowPrototypeInAbbr = 1 " 显示函数参数列表
+let OmniCpp_MayCompleteScope = 1 " 输入 :: 后自动补全
+let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]"]"
+let NERDTreeWinPos='left'   "左侧目录树显示
+let NERDTreeWinSize=15
+let NERDTreeDirArrows = 0
+let NERDTreeIgnore=['\.svn', '\.o','\.d']
+map <F2> :NERDTreeMirror<CR>
+map <F2> :NERDTreeToggle<CR>
+
+" minibufexplorer
+"let g:miniBufExplMapWindowNavVim = 1                "Ctrl-<hjkl> to move to window   
+let g:miniBufExplTabWrap = 1                        "make tabs show complete (no broken on two lines)
+"map <t> :w<CR>:bp<CR>
+"map! <t> <ESC>:w<CR>:bp<CR>
+"map <t> :w<CR>:bn<CR>
+"map! <t> <ESC>:w<CR>:bn<CR>
