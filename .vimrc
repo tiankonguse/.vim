@@ -356,8 +356,18 @@ set report=0
         
 
 :nnoremap <F12> "=strftime("%F %R")<CR>gP
-map <F5> :make -j32<CR>:cw<CR>
-map! <F5> <Esc>:w<CR>:make -j32<CR>:cw<CR>
+"map <F5> :make -j32<CR>:cw<CR>
+"map! <F5> <Esc>:w<CR>:make -j32<CR>:cw<CR>
+
+
+
+"< F5> 编译和运行C++
+map <f5> :call CompileRunGpp()<cr>
+func! CompileRunGpp()
+	exec "w"
+	exec "!g++ % -o %<"
+	exec "! ./%<"
+endfunc
 
 
 set path=.,/usr/include,/usr/local/include
@@ -657,7 +667,7 @@ func SetTitle()
         let l:lineNum +=1
         call append(line(".")+l:lineNum,'    //freopen("out.txt", "w", stdout);')
         let l:lineNum +=1
-        call append(line(".")+l:lineNum,"   #endif")
+        call append(line(".")+l:lineNum,"    #endif")
         let l:lineNum +=1
         call append(line(".")+l:lineNum,"")
         let l:lineNum +=1
