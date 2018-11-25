@@ -1,0 +1,43 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Findcomplete	pathogen.vim	/^function! s:Findcomplete(A,L,P)$/;"	f
+Helptags	pathogen.vim	/^command! -bar Helptags :call pathogen#helptags()$/;"	c
+Ve	pathogen.vim	/^command! -bar -bang -range=1 -nargs=1 -complete=customlist,s:Findcomplete Ve       :execute s:find(<count>,'edit<bang>',<q-args>,0)$/;"	c
+Vedit	pathogen.vim	/^command! -bar -bang -range=1 -nargs=1 -complete=customlist,s:Findcomplete Vedit    :execute s:find(<count>,'edit<bang>',<q-args>,0)$/;"	c
+Vopen	pathogen.vim	/^command! -bar -bang -range=1 -nargs=1 -complete=customlist,s:Findcomplete Vopen    :execute s:find(<count>,'edit<bang>',<q-args>,1)$/;"	c
+Vpedit	pathogen.vim	/^command! -bar -bang -range=1 -nargs=1 -complete=customlist,s:Findcomplete Vpedit   :execute s:find(<count>,'pedit',<q-args>,<bang>1)$/;"	c
+Vread	pathogen.vim	/^command! -bar -bang -range=1 -nargs=1 -complete=customlist,s:Findcomplete Vread    :execute s:find(<count>,'read',<q-args>,<bang>1)$/;"	c
+Vsplit	pathogen.vim	/^command! -bar -bang -range=1 -nargs=1 -complete=customlist,s:Findcomplete Vsplit   :execute s:find(<count>,'split',<q-args>,<bang>1)$/;"	c
+Vtabedit	pathogen.vim	/^command! -bar -bang -range=1 -nargs=1 -complete=customlist,s:Findcomplete Vtabedit :execute s:find(<count>,'tabedit',<q-args>,<bang>1)$/;"	c
+Vvsplit	pathogen.vim	/^command! -bar -bang -range=1 -nargs=1 -complete=customlist,s:Findcomplete Vvsplit  :execute s:find(<count>,'vsplit',<q-args>,<bang>1)$/;"	c
+find	pathogen.vim	/^function! s:find(count,cmd,file,lcd)$/;"	f
+g:loaded_pathogen	pathogen.vim	/^let g:loaded_pathogen = 1$/;"	v
+pathogen#cycle_filetype	pathogen.vim	/^function! pathogen#cycle_filetype() abort$/;"	f
+pathogen#execute	pathogen.vim	/^function! pathogen#execute(...) abort$/;"	f
+pathogen#expand	pathogen.vim	/^function! pathogen#expand(pattern) abort$/;"	f
+pathogen#fnameescape	pathogen.vim	/^function! pathogen#fnameescape(string) abort$/;"	f
+pathogen#glob	pathogen.vim	/^function! pathogen#glob(pattern) abort$/;"	f
+pathogen#glob_directories	pathogen.vim	/^function! pathogen#glob_directories(pattern) abort$/;"	f
+pathogen#helptags	pathogen.vim	/^function! pathogen#helptags() abort$/;"	f
+pathogen#incubate	pathogen.vim	/^function! pathogen#incubate(...) abort$/;"	f
+pathogen#infect	pathogen.vim	/^function! pathogen#infect(...) abort$/;"	f
+pathogen#interpose	pathogen.vim	/^function! pathogen#interpose(name) abort$/;"	f
+pathogen#is_absolute	pathogen.vim	/^function! pathogen#is_absolute(path) abort$/;"	f
+pathogen#is_disabled	pathogen.vim	/^function! pathogen#is_disabled(path) abort$/;"	f
+pathogen#join	pathogen.vim	/^function! pathogen#join(...) abort$/;"	f
+pathogen#legacyjoin	pathogen.vim	/^function! pathogen#legacyjoin(...) abort$/;"	f
+pathogen#runtime_append_all_bundles	pathogen.vim	/^function! pathogen#runtime_append_all_bundles(...) abort$/;"	f
+pathogen#runtime_findfile	pathogen.vim	/^function! pathogen#runtime_findfile(file,count) abort "{{{1$/;"	f
+pathogen#runtime_prepend_subdirectories	pathogen.vim	/^function! pathogen#runtime_prepend_subdirectories(path) abort$/;"	f
+pathogen#separator	pathogen.vim	/^function! pathogen#separator() abort$/;"	f
+pathogen#slash	pathogen.vim	/^function! pathogen#slash() abort$/;"	f
+pathogen#split	pathogen.vim	/^function! pathogen#split(path) abort$/;"	f
+pathogen#surround	pathogen.vim	/^function! pathogen#surround(path) abort$/;"	f
+pathogen#uniq	pathogen.vim	/^function! pathogen#uniq(list) abort$/;"	f
+s:done_bundles	pathogen.vim	/^let s:done_bundles = {}$/;"	v
+s:vopen_warning	pathogen.vim	/^let s:vopen_warning = 0$/;"	v
+warn	pathogen.vim	/^function! s:warn(msg) abort$/;"	f

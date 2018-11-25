@@ -13,6 +13,24 @@
 "paste indent
 "    ]p
 
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" name:Vundle
+" author:gmarik
+" link:https://github.com/gmarik/Vundle.vim/
+" install:Launch vim and run :BundleInstall
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+call vundle#end()            " required
+
 "------------------------platform setting---------------------------------
 
 if(has("win32") || has("win95") || has("win64") || has("win16"))
@@ -196,6 +214,7 @@ endfunction
 
 if MySys() == "windows"
     let $VIMFILES = $VIM.'/vimfiles'
+    let $VIMFILES = $HOME.'/.vim'
 elseif MySys() == "linux"
     let $VIMFILES = $HOME.'/.vim'
 endif
