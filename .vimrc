@@ -21,10 +21,30 @@
 " link:https://github.com/gmarik/Vundle.vim/
 " install:Launch vim and run :BundleInstall
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible                " be iMproved
+filetype off                    " required!
+
+set rtp+=~/.vim/bundle/Vundle
+call vundle#begin()
+
+Bundle 'Valloric/ListToggle'
+Bundle 'scrooloose/nerdcommenter'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required 
+
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
 
-
-"------------------------platform setting---------------------------------
+"------------------------ platform setting---------------------------------
 
 if(has("win32") || has("win95") || has("win64") || has("win16"))
     let g:vimrc_iswindows=1
