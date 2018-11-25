@@ -518,3 +518,129 @@ let g:miniBufExplTabWrap = 1                        "make tabs show complete (no
 "map! <t> <ESC>:w<CR>:bp<CR>
 "map <t> :w<CR>:bn<CR>
 "map! <t> <ESC>:w<CR>:bn<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""新文件标题
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"新建.c,.h,.sh,.java,.py文件，自动插入文件头 
+autocmd BufNewFile *.cpp,*.[ch],*.sh,*.java,*.py exec ":call SetTitle()" 
+""定义函数SetTitle，自动插入文件头 
+func SetTitle() 
+	"如果文件类型为.sh文件 
+    let l:lineNum = 0
+	if &filetype == 'sh' 
+		call setline(1,"\#########################################################################") 
+		call append(line("."), "\# File Name: ".expand("%")) 
+		call append(line(".")+1, "\# Author: tiankonguse") 
+		call append(line(".")+2, "\# Desc:") 
+		call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
+		call append(line(".")+4, "\#########################################################################") 
+		call append(line(".")+5, "\#!/bin/bash") 
+		call append(line(".")+6, "") 
+	elseif &filetype == 'python'
+		call setline(1,"#!/usr/bin/env python")
+		call append(line("."),"# coding=utf-8")
+		call append(line(".")+1, "") 
+	else 
+		call setline(1, "/*************************************************************************") 
+        call append(line(".")+l:lineNum, "    > File Name: ".expand("%")) 
+        let l:lineNum += 1
+        call append(line(".")+l:lineNum, "    > Author: tiankonguse") 
+        let l:lineNum += 1
+		call append(line(".")+l:lineNum, "    > Mail: i@tiankonguse.com ") 
+        let l:lineNum += 1
+		call append(line(".")+l:lineNum, "    > Created Time: ".strftime("%c")) 
+        let l:lineNum += 1
+		call append(line(".")+l:lineNum, " ************************************************************************/") 
+        let l:lineNum += 1
+		call append(line(".")+l:lineNum, "")
+        let l:lineNum += 1
+	endif
+
+	if expand("%:e") == 'h'
+		call append(line(".")+6, "#ifndef _".toupper(expand("%:r"))."_H")
+		call append(line(".")+7, "#define _".toupper(expand("%:r"))."_H")
+		call append(line(".")+8, "#endif")
+	endif
+	if expand("%:e") == 'cpp'
+        call append(line(".")+l:lineNum,"#include<cstdio>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<iostream>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<cstdlib>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<cstring>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<string>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<stack>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<map>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<queue>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<vector>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<cmath>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<algorithm>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<functional>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<time.h>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"using namespace std;")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#ifdef __int64")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"typedef __int64 LL;")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#else")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"typedef long long LL;")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#endif")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"const int debug = 0;")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"typedef unsigned uint;")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"typedef unsigned char uchar;")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"int main(){")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"    #ifndef ONLINE_JUDGE")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,'    freopen("in.txt", "r", stdin);')
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,'    //freopen("out.txt", "w", stdout);')
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"   #endif")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"    return 0;")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"}")
+        let l:lineNum +=1
+	endif
+	"新建文件后，自动定位到文件末尾
+	autocmd BufNewFile * normal G
+endfunc 
+
+
+
+
+
+
+
