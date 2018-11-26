@@ -52,8 +52,6 @@ else
     let g:vimrc_iswindows=0
 endif
 
-" unknow setting
-autocmd BufEnter * lcd %:p:h
 
 " no Compatible vi, use vim
 set nocompatible 
@@ -73,8 +71,6 @@ color desert
 set cursorline
 set cursorcolumn
 
-autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
-autocmd InsertEnter * se cul    " 用浅色高亮当前行 
 
 "cursor line backcolor and frontcolor
 highlight cursorline   cterm=NONE ctermbg=lightgray ctermfg=NONE guibg=lightgray guifg=NONE
@@ -393,13 +389,19 @@ set equalalways
 
 " 设置使用鼠标进行选择和导航
 set ttyfast
-"set mouse=a
+set mouse=
 "set mouse=a
 "set mouse=y
 "set selection=exclusive
 "set selection=inclusive
 "set selectmode=mouse,key
 set ttymouse=xterm2
+
+if &term=="xterm"
+     set t_Co=8
+     set t_Sb=^[[4%dm
+     set t_Sf=^[[3%dm
+endif
 
 " 设置自动缩进
 set autoindent
@@ -419,6 +421,7 @@ set nocompatible
 "set cursorline
 
 " 打开状态栏标尺
+" show the cursor position all the time
 set ruler
 
 " shiftwidth用于设置>>和<<命令移动时的宽度
@@ -436,6 +439,8 @@ set autochdir
 
 " 搜索时忽略大小写，但又一个或以上大写字母时仍保存对大小写敏感
 set ignorecase smartcase
+
+set showmode
 
 " 输入搜索内容时就显示搜索结果
 set incsearch
@@ -458,11 +463,6 @@ set matchtime=2
 " 允许在有未保存的修改时切换缓冲区，此时修改由vim复制保存
 set hidden
 
-" 为C/C++源程序文件编辑设置对齐方式
-autocmd BufEnter,BufNew,WinEnter *.c,*.h,*.cpp,*.cc,*.C :set cindent | :set shiftwidth=4
-
-" 设置C++程序的补齐方式
-autocmd BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 
 " 设置tab宽度等于4个空格
 " tab=4, shotcut:ts
@@ -580,6 +580,15 @@ let g:miniBufExplTabWrap = 1                        "make tabs show complete (no
 "map <t> :w<CR>:bn<CR>
 "map! <t> <ESC>:w<CR>:bn<CR>
 
+" unknow setting
+autocmd BufEnter * lcd %:p:h
+autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
+autocmd InsertEnter * se cul    " 用浅色高亮当前行 
+" 为C/C++源程序文件编辑设置对齐方式
+autocmd BufEnter,BufNew,WinEnter *.c,*.h,*.cpp,*.cc,*.C :set cindent | :set shiftwidth=4
+
+" 设置C++程序的补齐方式
+autocmd BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""新文件标题
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -701,8 +710,23 @@ func SetTitle()
 	autocmd BufNewFile * normal G
 endfunc 
 
+if has("cscope") && filereadable("/usr/bin/cscope")
+   set csprg=/usr/bin/cscope
+   set csto=0
+   set cst 
+   set nocsverb
+   " add any database in current directory
+   if filereadable("cscope.out")
+      cs add cscope.out
+   " else add database pointed to by environment
+   elseif $CSCOPE_DB != ""
+      cs add $CSCOPE_DB
+   endif
+   set csverb
+endif
 
 
-
-
+" Don't wake up system with blinking cursor:
+" http://www.linuxpowertop.org/known.php
+let &guicursor = &guicursor . ",a:blinkon0"
 
