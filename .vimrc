@@ -365,8 +365,13 @@ set report=0
 map <f5> :call CompileRunGpp()<cr>
 func! CompileRunGpp()
 	exec "w"
-	exec "!g++ % -o %<"
+	exec "! echo ------ begin combile %<"
+	exec "! g++ % -o %<"
+	exec "! echo ------ begin run %<"
 	exec "! ./%<"
+	exec "! echo ------begin diff"
+	exec "! diff -w -B ans.txt out.txt"
+    exec "! echo ------ f5 end"
 endfunc
 
 
@@ -657,7 +662,7 @@ func SetTitle()
         let l:lineNum +=1
         call append(line(".")+l:lineNum,"typedef unsigned char uchar;")
         let l:lineNum +=1
-        call append(line(".")+l:lineNum,"")
+        call append(line(".")+l:lineNum,"#define  myprintf(fmt,args...) do{if(debug)printf(fmt, ##args);}while(0)")
         let l:lineNum +=1
         call append(line(".")+l:lineNum,"")
         let l:lineNum +=1
@@ -667,7 +672,7 @@ func SetTitle()
         let l:lineNum +=1
         call append(line(".")+l:lineNum,'    freopen("in.txt", "r", stdin);')
         let l:lineNum +=1
-        call append(line(".")+l:lineNum,'    //freopen("out.txt", "w", stdout);')
+        call append(line(".")+l:lineNum,'    if(debug == 0)freopen("out.txt", "w", stdout);')
         let l:lineNum +=1
         call append(line(".")+l:lineNum,"    #endif")
         let l:lineNum +=1
