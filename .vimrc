@@ -538,6 +538,20 @@ map <F8> :!ctags -R * --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --langu
 imap <F8> <ESC>:!ctags -R * --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q --language-force=C++ .<CR><CR>
 
 
+" pathongen 启用pathongen插件管理器
+execute pathogen#infect() 
+
+let g:tagbar_ctags_bin='/usr/bin/ctags'            "ctags程序的路径
+let g:tagbar_width=30                              "窗口宽度的设置
+
+
+""""""""""""""""添加函数注释""""""""""""""""
+let g:doxygen_enhanced_color = 1
+let g:DoxygenToolkit_compactDoc = "yes"
+map <F11>  :Dox<CR>
+map! <F11> <ESC>:Dox <CR> 
+
+
 " taglist
 let Tlist_Show_One_File=1
 let Tlist_Exit_OnlyWindow=1
@@ -686,7 +700,6 @@ func SetTitle()
 	"新建文件后，自动定位到文件末尾
 	autocmd BufNewFile * normal G
 endfunc 
-
 
 
 
