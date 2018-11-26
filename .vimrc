@@ -77,6 +77,9 @@ highlight cursorline   cterm=NONE ctermbg=lightgray ctermfg=NONE guibg=lightgray
 "cursor Column backcolor and frontcolor
 highlight CursorColumn cterm=NONE ctermbg=lightgray ctermfg=NONE guibg=lightgray guifg=NONE
 
+"highlight RedundantSpaces ctermbg=red guibg=red
+"match RedundantSpaces /\s\+$\| \+\ze\t\|\t/
+
 " highlight search
 set hlsearch
 
@@ -86,7 +89,6 @@ set incsearch
 
 "not auto wrap 
 set nowrap 
-
 
 
 
@@ -127,11 +129,11 @@ set magic
 set hidden 
 
 " hide tool menu
-set guioptions-=T 
+"set guioptions-=T 
 " add level scroll
-set guioptions+=b
+"set guioptions+=b
 " hide menu
-set guioptions-=m 
+"set guioptions-=m 
 
 
 "syntax fold 
@@ -197,8 +199,8 @@ set expandtab
 
 
 " Tab shortcuts
-nnoremap <C-TAB> :tabnext<CR>
-nnoremap <C-S-TAB> :tabprev<CR>
+"nnoremap <C-TAB> :tabnext<CR>
+"nnoremap <C-S-TAB> :tabprev<CR>
 
 map tn :tabnext<cr>
 map tp :tabprevious<cr>
@@ -271,8 +273,8 @@ else
 endif
 
 " Buffers shortcuts
-nnoremap <C-RETURN> :bnext<CR>
-nnoremap <C-S-RETURN> :bprevious<CR>
+"nnoremap <C-RETURN> :bnext<CR>
+"nnoremap <C-S-RETURN> :bprevious<CR>
 
 
 "一些不错的映射转换语法（如果在一个文件中混合了不同语言时有用）
@@ -326,7 +328,7 @@ set autowrite
 set nocompatible        
         
 " 去掉输入错误的提示声音        
-set noeb        
+"set noeb        
         
 " 在处理未保存或只读文件的时候，弹出确认        
 set confirm        
@@ -352,6 +354,7 @@ set report=0
         
 
 :nnoremap <F12> "=strftime("%F %R")<CR>gP
+:map <F12> "=strftime("%F %R")<CR>gP
 "map <F5> :make -j32<CR>:cw<CR>
 "map! <F5> <Esc>:w<CR>:make -j32<CR>:cw<CR>
 
@@ -375,14 +378,14 @@ set path=.,/usr/include,/usr/local/include
 
 "
 " 设置Gvim使用的字体
-set guifont=Courier\ New\ 14
+"set guifont=Courier\ New\ 14
 
 
 " 隐藏工具栏
-set guioptions-=T
+"set guioptions-=T
 
 " 隐藏菜单栏
-set guioptions-=m
+"set guioptions-=m
 
 " 设置拆分窗口时所有窗口大小相同
 set equalalways
@@ -396,12 +399,6 @@ set mouse=
 "set selection=inclusive
 "set selectmode=mouse,key
 set ttymouse=xterm2
-
-if &term=="xterm"
-     set t_Co=8
-     set t_Sb=^[[4%dm
-     set t_Sf=^[[3%dm
-endif
 
 " 设置自动缩进
 set autoindent
@@ -709,24 +706,4 @@ func SetTitle()
 	"新建文件后，自动定位到文件末尾
 	autocmd BufNewFile * normal G
 endfunc 
-
-if has("cscope") && filereadable("/usr/bin/cscope")
-   set csprg=/usr/bin/cscope
-   set csto=0
-   set cst 
-   set nocsverb
-   " add any database in current directory
-   if filereadable("cscope.out")
-      cs add cscope.out
-   " else add database pointed to by environment
-   elseif $CSCOPE_DB != ""
-      cs add $CSCOPE_DB
-   endif
-   set csverb
-endif
-
-
-" Don't wake up system with blinking cursor:
-" http://www.linuxpowertop.org/known.php
-let &guicursor = &guicursor . ",a:blinkon0"
 
