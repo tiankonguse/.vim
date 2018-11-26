@@ -619,6 +619,8 @@ func SetTitle()
         let l:lineNum +=1
         call append(line(".")+l:lineNum,"#include<map>")
         let l:lineNum +=1
+        call append(line(".")+l:lineNum,"#include<set>")
+        let l:lineNum +=1
         call append(line(".")+l:lineNum,"#include<queue>")
         let l:lineNum +=1
         call append(line(".")+l:lineNum,"#include<vector>")
