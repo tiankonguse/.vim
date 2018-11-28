@@ -539,6 +539,7 @@ imap <F8> <ESC>:!ctags -R * --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q -
 execute pathogen#infect() 
 
 let g:tagbar_ctags_bin='/usr/bin/ctags'            "ctags程序的路径
+let Tlist_Ctags_Cmd = '/usr/bin/ctags'
 let g:tagbar_width=30                              "窗口宽度的设置
 
 
@@ -554,6 +555,14 @@ let Tlist_Show_One_File=1
 let Tlist_Exit_OnlyWindow=1
 let Tlist_Use_Right_Window=1
 let Tlist_Sort_Type="name"
+let Tlist_File_Fold_Auto_Close=1 " 自动折叠当前非编辑文件的方法列表
+let Tlist_Auto_Open = 0
+let Tlist_Auto_Update = 1
+let Tlist_Hightlight_Tag_On_BufEnter = 1
+let Tlist_Enable_Fold_Column = 0
+let Tlist_Process_File_Always = 1
+let Tlist_Display_Prototype = 0
+let Tlist_Compact_Format = 1
 map <F3> :TlistToggle<CR>
 
 " omnicppcomplete
@@ -706,4 +715,42 @@ func SetTitle()
 	"新建文件后，自动定位到文件末尾
 	autocmd BufNewFile * normal G
 endfunc 
+
+"当打开vim且没有文件时自动打开NERDTree
+autocmd vimenter * if !argc() | NERDTree | endif
+
+" 只剩 NERDTree时自动关闭
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&  b:NERDTreeType == "primary") | q | endif
+
+"-----------------------------------------------------------------
+" plugin - NeoComplCache.vim 自动补全插件
+"-----------------------------------------------------------------
+let g:AutoComplPop_NotEnableAtStartup = 1
+let g:NeoComplCache_EnableAtStartup = 1
+let g:NeoComplCache_SmartCase = 1
+let g:NeoComplCache_TagsAutoUpdate = 1
+let g:NeoComplCache_EnableInfo = 1
+let g:NeoComplCache_EnableCamelCaseCompletion = 1
+let g:NeoComplCache_MinSyntaxLength = 3
+let g:NeoComplCache_EnableSkipCompletion = 1
+let g:NeoComplCache_SkipInputTime = '0.5'
+let g:NeoComplCache_SnippetsDir = $VIMFILES.'/snippets'
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" CTags的设定  
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let Tlist_Sort_Type = "name"    " 按照名称排序  
+let Tlist_Use_Right_Window = 1  " 在右侧显示窗口  
+let Tlist_Compart_Format = 1    " 压缩方式  
+let Tlist_Exist_OnlyWindow = 1  " 如果只有一个buffer，kill窗口也kill掉buffe 
+let Tlist_File_Fold_Auto_Close = 0  " 不要关闭其他文件的tags  
+let Tlist_Enable_Fold_Column = 0    " 不要显示折叠树  
+"let Tlist_Show_One_File=1
+"不同时显示多个文件的tag，只显示当前文件的
+"设置tags 
+
+set tags=tags;/ 
+"set autochdir "
+
+set pastetoggle=<F9>
 
