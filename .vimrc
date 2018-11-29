@@ -24,14 +24,13 @@
 set nocompatible                " be iMproved
 filetype off                    " required!
 
-set rtp+=~/.vim/bundle/Vundle
-call vundle#begin()
+"set rtp+=~/.vim/bundle/Vundle
+"call vundle#begin()
 
-Bundle 'Valloric/ListToggle'
-Bundle 'scrooloose/nerdcommenter'
+"Bundle 'Valloric/ListToggle'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+"call vundle#end()            " required
 filetype plugin indent on    " required 
 
 " Brief help
