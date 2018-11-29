@@ -13,51 +13,7 @@
 "paste indent
 "    ]p
 
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" name:Vundle
-" author:gmarik
-" link:https://github.com/gmarik/Vundle.vim/
-" install:Launch vim and run :BundleInstall
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible                " be iMproved
-filetype off                    " required!
-
-"set rtp+=~/.vim/bundle/Vundle
-"call vundle#begin()
-
-"Bundle 'Valloric/ListToggle'
-
-" All of your Plugins must be added before the following line
-"call vundle#end()            " required
-filetype plugin indent on    " required 
-
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-
-
-"------------------------ platform setting---------------------------------
-
-if(has("win32") || has("win95") || has("win64") || has("win16"))
-    let g:vimrc_iswindows=1
-else
-    let g:vimrc_iswindows=0
-endif
-
-
-" no Compatible vi, use vim
-set nocompatible 
-
-
 "back color setting 
-"colorscheme desert
 "set background=dark
 "colorscheme solarized
 "colorscheme macvim-light 
@@ -66,18 +22,12 @@ color desert
 "color torte 
 "color ron
 
-" setting cursor line and cursor colum
-set cursorline
-set cursorcolumn
 
 
 "cursor line backcolor and frontcolor
-highlight cursorline   cterm=NONE ctermbg=lightgray ctermfg=NONE guibg=lightgray guifg=NONE
+"highlight cursorline   cterm=NONE ctermbg=lightgray ctermfg=NONE guibg=lightgray guifg=NONE
 "cursor Column backcolor and frontcolor
-highlight CursorColumn cterm=NONE ctermbg=lightgray ctermfg=NONE guibg=lightgray guifg=NONE
-
-"highlight RedundantSpaces ctermbg=red guibg=red
-"match RedundantSpaces /\s\+$\| \+\ze\t\|\t/
+"highlight CursorColumn cterm=NONE ctermbg=lightgray ctermfg=NONE guibg=lightgray guifg=NONE
 
 " highlight search
 set hlsearch
@@ -85,11 +35,8 @@ set hlsearch
 "runtime highlight word
 set incsearch
 
-
 "not auto wrap 
 set nowrap 
-
-
 
 set wildmenu
 set mousemodel=popup
@@ -102,7 +49,6 @@ set bufhidden=hide
 set nobackup 
 set backupcopy=yes 
 winpos 5 5         
-
 
 set history=1000
 "show line number and Column number
@@ -121,26 +67,16 @@ set shortmess=atI
 " auto cd curent dir
 set autochdir 
 
-set noerrorbells 
-set novisualbell 
 set t_vb= 
 set magic 
 set hidden 
 
-" hide tool menu
-"set guioptions-=T 
-" add level scroll
-"set guioptions+=b
-" hide menu
-"set guioptions-=m 
-
-
 "syntax fold 
-set foldmethod=syntax 
 "set foldmethod=manual
-set foldmethod=indent 
-set foldcolumn=0 
-setlocal foldlevel=9 
+"set foldmethod=indent 
+"set foldmethod=syntax 
+"set foldcolumn=0 
+"setlocal foldlevel=9 
 
 " blank contral fold
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
@@ -156,13 +92,6 @@ if has("multi_byte")
     if v:lang =~? '^\(zh\)\|\(ja\)\|\(ko\)'
         set ambiwidth=double
     endif
-
-    if has("win32")
-        source $VIMRUNTIME/delmenu.vim
-        source $VIMRUNTIME/menu.vim
-        language messages zh_CN.utf-8
-    endif
-
 else
     "echoerr "Sorry, this version of (g)vim was not compiled with +multi_byte"
 endif
@@ -183,23 +112,31 @@ endif
 
 
 "--------------------tab setting--------------------------------
+" 插入括号时，短暂的跳转到匹配的对应括号
+set showmatch
 
-set formatoptions=tcrqn
+" 短暂跳转到匹配括号的时间
+set matchtime=1
+
+
+
 set cindent
 set smartindent 
+" 设置自动缩进
+set autoindent
+
+
+set formatoptions=tcrqn
 set smarttab
-set showmatch
-set matchtime=1
 set softtabstop=4 
 
+" 设置tab宽度等于4个空格
+" tab=4, shotcut:ts
+set tabstop=4
+
 " blank instead tab
-"set noexpandtab
+""set noexpandtab
 set expandtab
-
-
-" Tab shortcuts
-"nnoremap <C-TAB> :tabnext<CR>
-"nnoremap <C-S-TAB> :tabprev<CR>
 
 map tn :tabnext<cr>
 map tp :tabprevious<cr>
@@ -208,86 +145,17 @@ map te :tabedit
 map tc :tabclose<cr>
 
 
-
-
-
 "---------------path setting-------------------
-
-" return OS type, eg: windows, or linux, mac, et.st..
-function! MySys()
-    if has("win16") || has("win32") || has("win64") || has("win95")
-        return "windows"
-    elseif has("unix")
-        return "linux"
-    endif
-endfunction
-
-if MySys() == "windows"
-    let $VIMFILES = $VIM.'/vimfiles'
-    let $VIMFILES = $HOME.'/.vim'
-elseif MySys() == "linux"
-    let $VIMFILES = $HOME.'/.vim'
-endif
-
-
+let $VIMFILES = $HOME.'/.vim'
 let helptags=$VIMFILES.'/doc'
 
 
-
-"------------- GUI setting --------------------------------------
-
-if has("win32")
-    if (has("gui_running"))
-        set guifont=Inconsolata:Monaco:h12:cANSI
-        set guifontwide=幼圆:h12:cGB2312
-    endif
-else
-    if (has("gui_running"))
-        set guifont=BPG\ Courier\ GPL&GNU\ 12
-    endif
-endif
-
-if(has("win32") || has("win95") || has("win64") || has("win16")) 
-    let g:iswindows=1
-else
-    let g:iswindows=0
-endif
-
-
-if(g:iswindows==1) 
-    if has('mouse')
-        set mouse=a
-    endif
-    au GUIEnter * simalt ~x
-endif
-
-
-if (has("gui_running"))    
-"gui seting
-    set nowrap
-    set guioptions+=b
-else 
-"text seting
-    set wrap
-endif
-
-" Buffers shortcuts
-"nnoremap <C-RETURN> :bnext<CR>
-"nnoremap <C-S-RETURN> :bprevious<CR>
-
-
-"一些不错的映射转换语法（如果在一个文件中混合了不同语言时有用）
-        
 "------------------------file setting----------------------
 "
-filetype on
-filetype indent on
-filetype plugin indent on 
+"filetype on
+"filetype indent on
+"filetype plugin indent on 
 
-" select, ctrl-c is copy
-vmap <C-c> "+y        
-        
-        
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""        
 "键盘命令        
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""        
@@ -301,11 +169,10 @@ map <C-C> y<Esc><Esc><Esc>
 "map <C-S> <Esc><Esc><Esc>:w<CR>        
         
 " 选中状态下 Ctrl+c 复制        
-"vmap <C-c> "+y        
+vmap <C-c> "+y        
         
 "粘贴        
 map <C-v> p        
-             
         
 " 设置当文件被改动时自动载入        
 set autoread        
@@ -319,15 +186,8 @@ set completeopt=longest,menu
 "共享剪贴板          
 set clipboard+=unnamed        
         
-"自动保存        
-set autowrite        
-        
-        
 " 不要使用vi的键盘模式，而是vim自己的        
 set nocompatible        
-        
-" 去掉输入错误的提示声音        
-"set noeb        
         
 " 在处理未保存或只读文件的时候，弹出确认        
 set confirm        
@@ -346,7 +206,7 @@ set iskeyword+=_,$,@,%,#,-
 set linespace=0        
         
 " 通过使用: commands命令，告诉我们文件的哪一行被改变过        
-set report=0        
+"set report=0        
         
 " 在被分割的窗口间显示空白，便于阅读        
 "set fillchars=vert:\ ,stl:\ ,stlnc:\        
@@ -363,13 +223,8 @@ set report=0
 map <f5> :call CompileRunGpp()<cr>
 func! CompileRunGpp()
 	exec "w"
-	exec "! echo ------ begin combile %<"
-	exec "! g++ % -o %<"
-	exec "! echo ------ begin run %<"
-	exec "! ./%<"
-	exec "! echo ------begin diff"
-	exec "! diff -w -B ans.txt out.txt"
-    exec "! echo ------ f5 end"
+	exec "! echo '------ begin ' && g++ % -o %< && ./%< && diff -w -B ans.txt out.txt"
+    exec "! echo '------ end'"
 endfunc
 
 
@@ -399,24 +254,20 @@ set mouse=
 "set selectmode=mouse,key
 set ttymouse=xterm2
 
-" 设置自动缩进
-set autoindent
 
 " 开启语法高亮
-syntax enable
+"syntax enable
 syntax on
 
 " 打开文件时自动显示行号
-"set nonumber
 set number
 
-" 关闭vi兼容模式
-set nocompatible
-
 " 突出显示当前行
-"set cursorline
+set cursorline
 
-" 打开状态栏标尺
+" setting cursor line and cursor colum
+set cursorcolumn
+
 " show the cursor position all the time
 set ruler
 
@@ -444,35 +295,16 @@ set incsearch
 " 搜索时高亮显示搜索到的文本
 set hlsearch
 
-" 关闭错误信箱响铃
-set noerrorbells
-
-" 关闭使用可视响铃代替虎蛟
-set novisualbell
-
-" 插入括号时，短暂的跳转到匹配的对应括号
-set showmatch
-
-" 短暂跳转到匹配括号的时间
-set matchtime=2
-
 " 允许在有未保存的修改时切换缓冲区，此时修改由vim复制保存
 set hidden
 
 
-" 设置tab宽度等于4个空格
-" tab=4, shotcut:ts
-set tabstop=4
 
 " 解决在vim下不能使用backspace键进行删除的选项
 set backspace=2
 
 " 不设定在插入状态无法用退格键和Delete键删除回车符
 set backspace=indent,eol,start     
-"set backspace=indent,eol,start
-"set backspace=indent,eol,start whichwrap+=<,>,[,] 
-" backspace process indent, eol, start
-"set whichwrap+=<,>,h,l  
 
 " 设定命令行的行数为1
 set cmdheight=1
@@ -482,8 +314,6 @@ set laststatus=2
 
 " 设置在状态行显示的信息
 set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %c:%l/%L%)\ 
-"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}\ %{EchoFuncGetStatusLine()}      "状态行显示的内容  
-"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}      "状态行显示的内容  
 
 " 开始折叠
 set foldenable
@@ -492,32 +322,23 @@ set foldenable
 set foldmethod=syntax
 
 " 设置折叠区域的宽度以清楚的显示什么地方有折叠以及折叠层次
-set foldcolumn=3
+"set foldcolumn=3
 
 " 设置初始折叠层数为0，即打开时就对函数进行折叠
 setlocal foldlevel=1
 
-" 设置为自动关闭折叠
-"set foldclose=all
-
 " 用空格键来开关折叠
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
-"map <space> zc<CR>
 
-" 
-set softtabstop=4
 
 " 设置终端以及文件编码方式
 "let &termencoding=&encoding
 "set termencoding=utf-8
 "set termencoding=prc
 "set fileformats=unix    " 默认文件格式
-" set encoding=prc        " 文件编码(该编码可能会导致gvim菜单乱码)
 
 " 如果无法显式中文帮助，可以设置帮助语言
 set helplang=cn
-" 帮助文件文本为utf-8编码，设置该选项使之能够在vim中直接查看
-"set encoding=utf-8
 
 " 设置是否加载当前目录下的.exrc配置文件
 set exrc
@@ -535,18 +356,11 @@ imap <F8> <ESC>:!ctags -R * --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q -
 
 
 " pathongen 启用pathongen插件管理器
-execute pathogen#infect() 
+"execute pathogen#infect() 
 
 let g:tagbar_ctags_bin='/usr/bin/ctags'            "ctags程序的路径
 let Tlist_Ctags_Cmd = '/usr/bin/ctags'
 let g:tagbar_width=30                              "窗口宽度的设置
-
-
-""""""""""""""""添加函数注释""""""""""""""""
-let g:doxygen_enhanced_color = 1
-let g:DoxygenToolkit_compactDoc = "yes"
-map <F11>  :Dox<CR>
-map! <F11> <ESC>:Dox <CR> 
 
 
 " taglist
@@ -570,30 +384,30 @@ let OmniCpp_NamespaceSearch = 2 " search namespaces in the current buffer and in
 let OmniCpp_ShowPrototypeInAbbr = 1 " 显示函数参数列表
 let OmniCpp_MayCompleteScope = 1 " 输入 :: 后自动补全
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]"]"
-let NERDTreeWinPos='left'   "左侧目录树显示
-let NERDTreeWinSize=15
-let NERDTreeDirArrows = 0
-let NERDTreeIgnore=['\.svn', '\.o','\.d']
-map <F2> :NERDTreeMirror<CR>
-map <F2> :NERDTreeToggle<CR>
+"let NERDTreeWinPos='left'   "左侧目录树显示
+"let NERDTreeWinSize=15
+"let NERDTreeDirArrows = 0
+"let NERDTreeIgnore=['\.svn', '\.o','\.d']
+"map <F2> :NERDTreeMirror<CR>
+"map <F2> :NERDTreeToggle<CR>
 
 " minibufexplorer
 "let g:miniBufExplMapWindowNavVim = 1                "Ctrl-<hjkl> to move to window   
-let g:miniBufExplTabWrap = 1                        "make tabs show complete (no broken on two lines)
+"let g:miniBufExplTabWrap = 1                        "make tabs show complete (no broken on two lines)
 "map <t> :w<CR>:bp<CR>
 "map! <t> <ESC>:w<CR>:bp<CR>
 "map <t> :w<CR>:bn<CR>
 "map! <t> <ESC>:w<CR>:bn<CR>
 
 " unknow setting
-autocmd BufEnter * lcd %:p:h
-autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
-autocmd InsertEnter * se cul    " 用浅色高亮当前行 
+"autocmd BufEnter * lcd %:p:h
+"autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
+"autocmd InsertEnter * se cul    " 用浅色高亮当前行 
 " 为C/C++源程序文件编辑设置对齐方式
-autocmd BufEnter,BufNew,WinEnter *.c,*.h,*.cpp,*.cc,*.C :set cindent | :set shiftwidth=4
+"autocmd BufEnter,BufNew,WinEnter *.c,*.h,*.cpp,*.cc,*.C :set cindent | :set shiftwidth=4
 
 " 设置C++程序的补齐方式
-autocmd BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
+"autocmd BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """""新文件标题
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -696,13 +510,13 @@ func SetTitle()
         let l:lineNum +=1
         call append(line(".")+l:lineNum,"int main(){")
         let l:lineNum +=1
-        call append(line(".")+l:lineNum,"    #ifndef ONLINE_JUDGE")
+        call append(line(".")+l:lineNum,"#ifndef ONLINE_JUDGE")
         let l:lineNum +=1
         call append(line(".")+l:lineNum,'    freopen("in.txt", "r", stdin);')
         let l:lineNum +=1
         call append(line(".")+l:lineNum,'    if(debug == 0)freopen("out.txt", "w", stdout);')
         let l:lineNum +=1
-        call append(line(".")+l:lineNum,"    #endif")
+        call append(line(".")+l:lineNum,"#endif")
         let l:lineNum +=1
         call append(line(".")+l:lineNum,"")
         let l:lineNum +=1
@@ -716,24 +530,24 @@ func SetTitle()
 endfunc 
 
 "当打开vim且没有文件时自动打开NERDTree
-autocmd vimenter * if !argc() | NERDTree | endif
+"autocmd vimenter * if !argc() | NERDTree | endif
 
 " 只剩 NERDTree时自动关闭
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&  b:NERDTreeType == "primary") | q | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&  b:NERDTreeType == "primary") | q | endif
 
 "-----------------------------------------------------------------
 " plugin - NeoComplCache.vim 自动补全插件
 "-----------------------------------------------------------------
-let g:AutoComplPop_NotEnableAtStartup = 1
-let g:NeoComplCache_EnableAtStartup = 1
-let g:NeoComplCache_SmartCase = 1
-let g:NeoComplCache_TagsAutoUpdate = 1
-let g:NeoComplCache_EnableInfo = 1
-let g:NeoComplCache_EnableCamelCaseCompletion = 1
-let g:NeoComplCache_MinSyntaxLength = 3
-let g:NeoComplCache_EnableSkipCompletion = 1
-let g:NeoComplCache_SkipInputTime = '0.5'
-let g:NeoComplCache_SnippetsDir = $VIMFILES.'/snippets'
+"let g:AutoComplPop_NotEnableAtStartup = 1
+"let g:NeoComplCache_EnableAtStartup = 1
+"let g:NeoComplCache_SmartCase = 1
+"let g:NeoComplCache_TagsAutoUpdate = 1
+"let g:NeoComplCache_EnableInfo = 1
+"let g:NeoComplCache_EnableCamelCaseCompletion = 1
+"let g:NeoComplCache_MinSyntaxLength = 3
+"let g:NeoComplCache_EnableSkipCompletion = 1
+"let g:NeoComplCache_SkipInputTime = '0.5'
+"let g:NeoComplCache_SnippetsDir = $VIMFILES.'/snippets'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " CTags的设定  
@@ -744,7 +558,7 @@ let Tlist_Compart_Format = 1    " 压缩方式
 let Tlist_Exist_OnlyWindow = 1  " 如果只有一个buffer，kill窗口也kill掉buffe 
 let Tlist_File_Fold_Auto_Close = 0  " 不要关闭其他文件的tags  
 let Tlist_Enable_Fold_Column = 0    " 不要显示折叠树  
-"let Tlist_Show_One_File=1
+let Tlist_Show_One_File=1
 "不同时显示多个文件的tag，只显示当前文件的
 "设置tags 
 
