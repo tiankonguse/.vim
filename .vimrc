@@ -356,7 +356,7 @@ imap <F8> <ESC>:!ctags -R * --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q -
 
 
 " pathongen 启用pathongen插件管理器
-"execute pathogen#infect() 
+execute pathogen#infect() 
 
 let g:tagbar_ctags_bin='/usr/bin/ctags'            "ctags程序的路径
 let Tlist_Ctags_Cmd = '/usr/bin/ctags'
@@ -452,57 +452,31 @@ func SetTitle()
 		call append(line(".")+8, "#endif")
 	endif
 	if expand("%:e") == 'cpp'
-        call append(line(".")+l:lineNum,"#include<cstdio>")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"#include<iostream>")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"#include<cstdlib>")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"#include<cstring>")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"#include<string>")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"#include<stack>")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"#include<map>")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"#include<set>")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"#include<queue>")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"#include<vector>")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"#include<cmath>")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"#include<algorithm>")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"#include<functional>")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"#include<time.h>")
+        call append(line(".")+l:lineNum,"#include<bits/stdc++.h>")
         let l:lineNum +=1
         call append(line(".")+l:lineNum,"using namespace std;")
         let l:lineNum +=1
-        call append(line(".")+l:lineNum,"")
+        call append(line(".")+l:lineNum,"template <class T>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"using min_queue = priority_queue<T, vector<T>, greater<T> >")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"template <class T>")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"using max_queue = priority_queue<T>")
         let l:lineNum +=1
         call append(line(".")+l:lineNum,"")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"#ifdef __int64")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"typedef __int64 LL;")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"#else")
         let l:lineNum +=1
         call append(line(".")+l:lineNum,"typedef long long LL;")
         let l:lineNum +=1
-        call append(line(".")+l:lineNum,"#endif")
+        call append(line(".")+l:lineNum,"const double PI = acos(-1.0), eps = 1e-7;")
         let l:lineNum +=1
-        call append(line(".")+l:lineNum,"")
+        call append(line(".")+l:lineNum,"const int INF = 0x3f3f3f3f, ninf = 0xc0c0c0c0, mod = 1000000007;")
+        let l:lineNum +=1
+        call append(line(".")+l:lineNum,"const int max3 = 4100, max4 = 11100, max5 = 200100, max6 = 2000100;")
         let l:lineNum +=1
         call append(line(".")+l:lineNum,"const int debug = 0;")
         let l:lineNum +=1
-        call append(line(".")+l:lineNum,"typedef unsigned uint;")
-        let l:lineNum +=1
-        call append(line(".")+l:lineNum,"typedef unsigned char uchar;")
+        call append(line(".")+l:lineNum,"const int inf = 0x3f3f3f3f;")
         let l:lineNum +=1
         call append(line(".")+l:lineNum,"#define  myprintf(fmt,args...) do{if(debug)printf(fmt, ##args);}while(0)")
         let l:lineNum +=1
