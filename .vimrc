@@ -107,6 +107,7 @@ set fileencodings=utf-8,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936,big5,euc-kr,lati
 let $LANG = 'zh_CN.UTF-8'
 set wildmode=longest,list " Ex命令自动补全采用bash方式"
 
+
 if version >= 603
     set helplang=cn
 endif
@@ -117,19 +118,21 @@ endif
 set showmatch
 
 " 短暂跳转到匹配括号的时间
-set matchtime=1
+set matchtime=1     
 
 
 
 set cindent
-set smartindent 
+set smartindent
 " 设置自动缩进
 set autoindent
 
 
 set formatoptions=tcrqn
 set smarttab
-set softtabstop=4 
+
+"设置为非零数值后使用 Tab 键和 Backspace 时光标移动的格数等于该数值
+set softtabstop=4
 
 " 设置tab宽度等于4个空格
 " tab=4, shotcut:ts
@@ -541,4 +544,14 @@ set tags=tags;/
 "set autochdir "
 
 set pastetoggle=<F9>
+
+" 高亮多余的空白字符及 Tab
+highlight RedundantSpaces ctermbg=red guibg=red
+match RedundantSpaces /\s\+$\| \+\ze\t\|\t/
+
+"显示换行或者TAB
+" $ 代表换行 ^I 代表 TAB     
+set list
+"TAB会被显示成 ">—" 而行尾多余的空白字符显示成 "-" 
+"set listchars=tab:>-,trail:-
 
