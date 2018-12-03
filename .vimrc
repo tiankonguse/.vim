@@ -36,7 +36,8 @@ set hlsearch
 set incsearch
 
 "not auto wrap 
-set nowrap 
+"set nowrap 
+set wrap
 
 set wildmenu
 set mousemodel=popup
