@@ -316,9 +316,6 @@ set cmdheight=1
 " 总是显示状态栏 (默认值为 1, 当窗口数位1时无法显示状态栏)
 set laststatus=2
 
-" 设置在状态行显示的信息
-set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %c:%l/%L%)\ 
-
 " 开始折叠
 set foldenable
 
@@ -388,12 +385,12 @@ let OmniCpp_NamespaceSearch = 2 " search namespaces in the current buffer and in
 let OmniCpp_ShowPrototypeInAbbr = 1 " 显示函数参数列表
 let OmniCpp_MayCompleteScope = 1 " 输入 :: 后自动补全
 let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]"]"
-"let NERDTreeWinPos='left'   "左侧目录树显示
-"let NERDTreeWinSize=15
-"let NERDTreeDirArrows = 0
-"let NERDTreeIgnore=['\.svn', '\.o','\.d']
-"map <F2> :NERDTreeMirror<CR>
-"map <F2> :NERDTreeToggle<CR>
+let NERDTreeWinPos='left'   "左侧目录树显示
+let NERDTreeWinSize=15
+let NERDTreeDirArrows = 0
+let NERDTreeIgnore=['\.svn', '\.o','\.d']
+map <F2> :NERDTreeMirror<CR>
+map <F2> :NERDTreeToggle<CR>
 
 " minibufexplorer
 "let g:miniBufExplMapWindowNavVim = 1                "Ctrl-<hjkl> to move to window   
@@ -554,4 +551,8 @@ match RedundantSpaces /\s\+$\| \+\ze\t\|\t/
 set list
 "TAB会被显示成 ">—" 而行尾多余的空白字符显示成 "-" 
 "set listchars=tab:>-,trail:-
+
+" 设置在状态行显示的信息
+"set statusline=\ %<%F[%1*%M%*%n%R%H]%=\ %y\ %0(%{&fileformat}\ %{&encoding}\ %c:%l/%L%)\ 
+"set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}
 
