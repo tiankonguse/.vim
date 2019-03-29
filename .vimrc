@@ -369,7 +369,7 @@ let Tlist_Show_One_File=1
 let Tlist_Exit_OnlyWindow=1
 let Tlist_Use_Right_Window=1
 let Tlist_Sort_Type="name"
-let Tlist_File_Fold_Auto_Close=1 " 自动折叠当前非编辑文件的方法列表
+let Tlist_File_Fold_Auto_Close=0 " 自动折叠当前非编辑文件的方法列表
 let Tlist_Auto_Open = 0
 let Tlist_Auto_Update = 1
 let Tlist_Hightlight_Tag_On_BufEnter = 1
@@ -389,7 +389,7 @@ let NERDTreeWinPos='left'   "左侧目录树显示
 let NERDTreeWinSize=15
 let NERDTreeDirArrows = 0
 let NERDTreeIgnore=['\.svn', '\.o','\.d']
-map <F2> :NERDTreeMirror<CR>
+"map <F2> :NERDTreeMirror<CR>
 map <F2> :NERDTreeToggle<CR>
 
 " minibufexplorer
